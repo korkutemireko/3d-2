@@ -13,10 +13,9 @@
     </style>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/vr/VREffect.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/vr/VRButton.js"></script>
-    <script>
+
+    <script type="module">
+        import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
       // Tarayıcıda WebVR desteği kontrolü
       if (WEBVR.isAvailable() === false) {
         document.body.appendChild(WEBVR.getMessage());
