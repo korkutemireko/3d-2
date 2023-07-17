@@ -72,7 +72,7 @@ app.get('/about',function(req,res,next) {
 
 app.get('/contact',function(req,res) {
    // res.send({"name":process.pid});
-      res.sendFile( __dirname + "/www/contact.html");
+      res.sendFile( __dirname + "/xr.html");
 });
 
 app.get('/home-tr',function(req,res) {
