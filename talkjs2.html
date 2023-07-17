@@ -776,6 +776,8 @@ renderer.xr.enabled = true;
 renderer.xr.setReferenceSpaceType( 'local' );
 document.body.appendChild(renderer.domElement);
 
+document.body.appendChild( VRButton.createButton( renderer ) );
+
 var labelRenderer = new CSS3DRenderer();
 //labelRenderer.setPixelRatio(0.5);
 labelRenderer.setSize(innerWidth, innerHeight);
