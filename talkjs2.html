@@ -1927,7 +1927,7 @@ camera.fov=60;
 function animate() {
 requestAnimationFrame(animate);
 update();
-
+renderer.setAnimationLoop( render );
 lon += 0.05;
 cNormal.copy(normal).applyMatrix3(box.normalMatrix);
 cPos.copy(pos).applyMatrix4(m4.multiplyMatrices(camera.matrixWorldInverse, box.matrixWorld));
@@ -1938,9 +1938,8 @@ div.style.visibility = d < 0 ? "hidden" : "visible";
 renderer.render(scene, camera);
 labelRenderer.render(scene, camera);
 
-
-
 }
+    
 
 function update() {
 
