@@ -1933,6 +1933,7 @@ function animate() {
 requestAnimationFrame(animate);
 update();
 renderer.setAnimationLoop( render );
+labelRenderer.setAnimationLoop( render2 );
 lon += 0.05;
 cNormal.copy(normal).applyMatrix3(box.normalMatrix);
 cPos.copy(pos).applyMatrix4(m4.multiplyMatrices(camera.matrixWorldInverse, box.matrixWorld));
@@ -1947,6 +1948,11 @@ labelRenderer.render(scene, camera);
 	function render() {
 
 				renderer.render( scene, camera );
+
+			}    
+		function render2() {
+
+				labelRenderer.render( scene, camera );
 
 			}    
 
