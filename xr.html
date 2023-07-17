@@ -16,10 +16,16 @@
 
     <script type="module">
         import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
+      import {
+VRButton
+} from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/webxr/VRButton.js";
+
+      import {
+VREffect
+} from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/webxr/VREffect.js";
+
       // Tarayıcıda WebVR desteği kontrolü
-      if (WEBVR.isAvailable() === false) {
-        document.body.appendChild(WEBVR.getMessage());
-      }
+   
 
       var container, scene, camera, renderer, effect, vrButton;
 
@@ -54,7 +60,7 @@
         container.appendChild(renderer.domElement);
 
         // VR etkisi oluştur
-        effect = new THREE.VREffect(renderer);
+        effect = new VREffect(renderer);
         effect.setSize(window.innerWidth, window.innerHeight);
 
         // VR düğmesi oluştur
