@@ -771,6 +771,9 @@ antialias: false
 //renderer.getContext('webgl2');
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(0.8);
+renderer.useLegacyLights = false;
+renderer.xr.enabled = true;
+renderer.xr.setReferenceSpaceType( 'local' );
 document.body.appendChild(renderer.domElement);
 
 var labelRenderer = new CSS3DRenderer();
