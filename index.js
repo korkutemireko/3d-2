@@ -61,12 +61,12 @@ app.use((req, res, next) => {
 
 
 app.get('/',function(req,res,next) {
-    res.sendFile( __dirname + "/www/index.html");
+    res.sendFile( __dirname + "/talkjs2.html");
    // res.download('eko.pdf');
 }); 
 
 app.get('/about',function(req,res,next) {
-  res.sendFile( __dirname + "/www/aboutme.html");
+  res.sendFile( __dirname + "/talkjs3.html");
  // res.download('eko.pdf');
 });
 
