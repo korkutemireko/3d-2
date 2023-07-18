@@ -1999,6 +1999,7 @@ window.addEventListener('deviceorientation', handleOrientation,false);
 function animate() {
 requestAnimationFrame(animate);
 update();
+renderer.setAnimationLoop( render );
 
 if(window.screen.availWidth>=996) {
   lon += 0.05;
