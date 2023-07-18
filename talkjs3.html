@@ -1978,8 +1978,8 @@ function handleOrientation(event) {
     compassHeading = null;
   }
 
-    if (event.gamma) {
-    compassHeading2 = Math.abs(360 + event.gamma);
+    if (event.beta) {
+    compassHeading2 = Math.abs(360 - event.beta);
   } else {
     compassHeading2 = null;
   }
