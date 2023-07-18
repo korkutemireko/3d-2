@@ -1972,7 +1972,7 @@ var compassHeading = null;
 // Cihazın dönüş olayını dinle
 function handleOrientation(event) {
     if (event.alpha) {
-    compassHeading = Math.abs(360 - event.alpha);
+    compassHeading = Math.abs(360 + event.alpha);
   } else {
     compassHeading = null;
   }
@@ -1992,7 +1992,9 @@ if(window.screen.availWidth>=996) {
 
 if (compassHeading !== null) {
     // Kameranın rotasyonunu güncelle
-    camera.rotation.y = ((compassHeading * Math.PI) / 180) - Math.PI ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+    camera.rotation.y = ((compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+    camera.rotation.x = ((compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+
   }
 
 renderer.render(scene, camera);
