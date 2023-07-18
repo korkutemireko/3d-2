@@ -793,6 +793,9 @@ antialias: false
 });
 //renderer.getContext('webgl2');
 //renderer.xr.enabled = true;
+renderer.useLegacyLights = false;
+renderer.xr.enabled = true;
+renderer.xr.setReferenceSpaceType( 'local' );
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(0.8);
 document.body.appendChild(renderer.domElement);
