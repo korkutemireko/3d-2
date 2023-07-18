@@ -1994,7 +1994,11 @@ function handleOrientation(event) {
 }
 
 window.addEventListener('deviceorientation', handleOrientation,false);
+function render() {
 
+				renderer.render( scene, camera );
+
+			} 
 
 function animate() {
 requestAnimationFrame(animate);
@@ -2019,6 +2023,8 @@ renderer.render(scene, camera);
 labelRenderer.render(scene, camera);
 
 }
+
+ 
 
 function update() {
 
