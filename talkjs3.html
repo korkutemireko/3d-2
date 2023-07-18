@@ -1975,8 +1975,8 @@ var compassHeading = null;
     var compassHeading2 = null;
 // Cihazın dönüş olayını dinle
 function handleOrientation(event) {
-    if (event.gamma) {
-    compassHeading = Math.abs(360 + event.gamma);
+    if (event.alpha) {
+    compassHeading = Math.abs(360 + event.alpha);
   } else {
     compassHeading = null;
   }
