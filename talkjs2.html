@@ -781,9 +781,9 @@ document.body.appendChild( VRButton.createButton( renderer ) );
 var labelRenderer = new CSS3DRenderer();
 //labelRenderer.setPixelRatio(0.5);
 labelRenderer.setSize(innerWidth, innerHeight);
-labelRenderer.useLegacyLights = false;
+/*labelRenderer.useLegacyLights = false;
 labelRenderer.xr.enabled = true;
-labelRenderer.xr.setReferenceSpaceType( 'local' );
+labelRenderer.xr.setReferenceSpaceType( 'local' );*/
 labelRenderer.domElement.style.position = 'absolute';
 labelRenderer.domElement.style.top = '0px';
 document.getElementsByClassName("out-box")[0].appendChild(labelRenderer.domElement);
@@ -1933,7 +1933,7 @@ function animate() {
 requestAnimationFrame(animate);
 update();
 renderer.setAnimationLoop( render );
-labelRenderer.setAnimationLoop( render2 );
+//labelRenderer.setAnimationLoop( render2 );
 lon += 0.05;
 cNormal.copy(normal).applyMatrix3(box.normalMatrix);
 cPos.copy(pos).applyMatrix4(m4.multiplyMatrices(camera.matrixWorldInverse, box.matrixWorld));
@@ -1950,11 +1950,11 @@ labelRenderer.render(scene, camera);
 				renderer.render( scene, camera );
 
 			}    
-		function render2() {
+		/*function render2() {
 
 				labelRenderer.render( scene, camera );
 
-			}    
+			}    */
 
 function update() {
 
