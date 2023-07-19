@@ -833,9 +833,7 @@ document.getElementsByClassName("out-box")[0].appendChild(labelRenderer.domEleme
 
 document.body.appendChild( VRButton.createButton( renderer ) );
 
-renderer.xr.addEventListener('sessionend', () => {
-	location.reload();
-});
+
 /*document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild( VRButton.createButton( renderer ) );
 
@@ -1996,6 +1994,17 @@ camera.fov=60;
 
 }
 }
+var rotate_check=false;
+
+document.getElementsByClassName("rotate")[0].onclick=function() {
+  if(rotate_check==false) {
+    rotate_check=true;
+  }
+  else {
+    rotate_check=false;
+  }
+}
+
 var alpha,beta,gamma;
 var compassHeading = null;
     var compassHeading2 = null;
@@ -2019,9 +2028,9 @@ function handleOrientation(event) {
    gamma = THREE.MathUtils.degToRad(event.gamma); // Y-axis rotation*/
 
 	  // Yön verilerini alın
-   alpha = event.alpha; // cihazın yatay olarak dönme açısı (0-360)
-   beta = event.beta; // cihazın ön-arka eğimi (-180-180)
-   gamma = event.gamma; // cihazın sol-sağ eğimi (-90-90)
+  // alpha = event.alpha; // cihazın yatay olarak dönme açısı (0-360)
+ //  beta = event.beta; // cihazın ön-arka eğimi (-180-180)
+  // gamma = event.gamma; // cihazın sol-sağ eğimi (-90-90)
 }
 
 window.addEventListener('deviceorientation', handleOrientation,false);
@@ -2040,18 +2049,26 @@ if(window.screen.availWidth>=996) {
   lon += 0.05;
 }
 
+else if(window.screen.availWidt<996) {
+  if(rotate_check==false) {
+    lon += 0.05;
+  }
+}
+
 	  // Kamerayı döndürme
 //  camera.rotation.x = beta * (Math.PI / 180); // x ekseni etrafında dönme
  // camera.rotation.z = gamma * (Math.PI / 180); // y ekseni etrafında dönme
   //camera.rotation.y = alpha * (Math.PI / 180); // z ekseni etrafında dönme
 
 if (compassHeading !== null) {
+  if(rotate_check==true) {
     // Kameranın rotasyonunu güncelle
    camera.rotation.y = ((-compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
   }
+}
 if (compassHeading2 !== null) {
     // Kameranın rotasyonunu güncelle
-  //  camera.rotation.x = ((compassHeading2 * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+   // camera.rotation.x = ((compassHeading2 * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
   }
      //camera.rotation.set(beta, alpha, -gamma);
     
