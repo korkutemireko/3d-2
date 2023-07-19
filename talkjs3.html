@@ -1988,9 +1988,14 @@ function handleOrientation(event) {
   }
 
       // Convert rotation values to radians
-   alpha = THREE.MathUtils.degToRad(event.alpha); // Z-axis rotation
+ /*  alpha = THREE.MathUtils.degToRad(event.alpha); // Z-axis rotation
  beta = THREE.MathUtils.degToRad(event.beta); // X-axis rotation
-   gamma = THREE.MathUtils.degToRad(event.gamma); // Y-axis rotation
+   gamma = THREE.MathUtils.degToRad(event.gamma); // Y-axis rotation*/
+
+	  // Yön verilerini alın
+   alpha = event.alpha; // cihazın yatay olarak dönme açısı (0-360)
+   beta = event.beta; // cihazın ön-arka eğimi (-180-180)
+   gamma = event.gamma; // cihazın sol-sağ eğimi (-90-90)
 }
 
 window.addEventListener('deviceorientation', handleOrientation,false);
@@ -2009,9 +2014,14 @@ if(window.screen.availWidth>=996) {
   lon += 0.05;
 }
 
+	  // Kamerayı döndürme
+  camera.rotation.x = beta * (Math.PI / 180); // x ekseni etrafında dönme
+  camera.rotation.y = gamma * (Math.PI / 180); // y ekseni etrafında dönme
+  camera.rotation.z = alpha * (Math.PI / 180); // z ekseni etrafında dönme
+
 if (compassHeading !== null) {
     // Kameranın rotasyonunu güncelle
-   camera.rotation.y = ((compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+  // camera.rotation.y = ((compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
   }
 if (compassHeading2 !== null) {
     // Kameranın rotasyonunu güncelle
