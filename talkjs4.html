@@ -1997,7 +1997,7 @@ camera.fov=60;
 
 }
 }
-var rotate_check=false;
+/*var rotate_check=false;
 
 document.getElementsByClassName("rotate")[0].onclick=function() {
   if(rotate_check==false) {
@@ -2006,7 +2006,7 @@ document.getElementsByClassName("rotate")[0].onclick=function() {
   else {
     rotate_check=false;
   }
-}
+}*/
 
 var alpha,beta,gamma;
 var compassHeading = null;
@@ -2052,11 +2052,11 @@ if(window.screen.availWidth>=996) {
   lon += 0.05;
 }
 
-else if(window.screen.availWidt<996) {
+/*else if(window.screen.availWidt<996) {
   if(rotate_check==false) {
     lon += 0.05;
   }
-}
+}*/
 
 	  // Kamerayı döndürme
 //  camera.rotation.x = beta * (Math.PI / 180); // x ekseni etrafında dönme
@@ -2064,10 +2064,10 @@ else if(window.screen.availWidt<996) {
   //camera.rotation.y = alpha * (Math.PI / 180); // z ekseni etrafında dönme
 
 if (compassHeading !== null) {
-  if(rotate_check==true) {
+ // if(rotate_check==true) {
     // Kameranın rotasyonunu güncelle
    camera.rotation.y = ((-compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
-  }
+ // }
 }
 if (compassHeading2 !== null) {
     // Kameranın rotasyonunu güncelle
