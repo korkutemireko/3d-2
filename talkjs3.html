@@ -793,9 +793,9 @@ antialias: false
 });
 //renderer.getContext('webgl2');
 //renderer.xr.enabled = true;
-/*renderer.useLegacyLights = false;
+renderer.useLegacyLights = false;
 renderer.xr.enabled = true;
-renderer.xr.setReferenceSpaceType( 'local' );*/
+renderer.xr.setReferenceSpaceType( 'local' );
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(0.8);
 document.body.appendChild(renderer.domElement);
@@ -807,7 +807,7 @@ labelRenderer.domElement.style.position = 'absolute';
 labelRenderer.domElement.style.top = '0px';
 document.getElementsByClassName("out-box")[0].appendChild(labelRenderer.domElement);
 
-//document.body.appendChild( VRButton.createButton( renderer ) );
+document.body.appendChild( VRButton.createButton( renderer ) );
 
 
 /*document.addEventListener('DOMContentLoaded', () => {
