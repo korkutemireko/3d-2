@@ -846,7 +846,11 @@ document.getElementById("button-vr").onclick=function() {
 	const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor', 'hand-tracking', 'layers' ] };
 					navigator.xr.requestSession( 'immersive-vr', sessionInit ).then(async function(session) {
 						await renderer.xr.setSession( session );
-						await labelRenderer.xr.setSession( session );
+						const someDivElement = document.createElement('div');
+                				someDivElement.textContent = "Bu bir div elementidir.";
+						someDivElement.fontSize="40px";
+						someDivElement.zIndex="10000";
+                 				document.body.appendChild(someDivElement);
 					});
 }
 	
