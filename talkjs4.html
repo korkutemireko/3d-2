@@ -2217,6 +2217,12 @@ $("#img1").click(function() {
 $("#p").click(function() {
   $("#menu-1").slideToggle("300");
 });
+	$("#button-vr").onclick(function() {
+		const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor', 'hand-tracking', 'layers' ] };
+					navigator.xr.requestSession( 'immersive-vr', sessionInit ).then( function() {
+						console.log("wdfef");
+					});
+	});
 });
    </script>
    <div class="out-box">
@@ -2278,7 +2284,7 @@ $("#p").click(function() {
          <div id="link" class="instagram link2"><i class="fa-brands fa-instagram"></i></div>
         </div>
         <p id="fps">fps</p>
-
+	<button id="button-vr"><VR/button>
         </div>
 </body>
 </html>
