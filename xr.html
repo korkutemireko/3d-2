@@ -36,6 +36,20 @@
 
 				document.body.appendChild( VRButton.createButton( renderer ) );
 
+				     // Düzlemi oluştur
+        const planeGeometry = new THREE.PlaneGeometry(5, 5); // Düzlemin boyutunu ayarlayın
+        const planeMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('background.jpg'), side: THREE.DoubleSide });
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        scene.add(plane);
+
+        // HTML içeriğini düzleme bağla
+        const overlayContent = document.getElementById('overlayContent');
+        const overlay = new THREE.CSS3DObject(overlayContent);
+        overlay.scale.set(0.005, 0.005, 0.005); // Düzlemin boyutuna göre ölçeklendirin
+        scene.add(overlay);
+
+        // Kamera ve sahne ayarları
+        camera.position.z = 5;
 				//
 
 				scene = new THREE.Scene();
@@ -134,5 +148,9 @@
 			}
 
 		</script>
+		    <div id="overlayContent" style="position: absolute; top: 50px; left: 50px; background-color: rgba(255, 255, 255, 0.8); padding: 20px;">
+        <h2>Merhaba, VR Dünyası!</h2>
+        <p>Bu bir örnek 2D içeriktir.</p>
+    </div>
 	</body>
 </html>
