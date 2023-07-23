@@ -213,7 +213,7 @@ body {
     min-width: 100% !important;
   }
   #div1 {
-    top: 14px !important;
+    top: 23px !important;
   }
   #div1 p {
     font-size:15px !important;
@@ -805,9 +805,9 @@ import {
 OrbitControls
 } from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js";
 import {
-CSS2DRenderer,
-CSS2DObject
-} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS2DRenderer.js';
+CSS3DRenderer,
+CSS3DObject
+} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS3DRenderer.js';
 
 window.onload=function() {
 
@@ -831,7 +831,7 @@ renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(0.8);
 document.body.appendChild(renderer.domElement);
 
-var labelRenderer = new CSS2DRenderer();
+var labelRenderer = new CSS3DRenderer();
 //labelRenderer.setPixelRatio(0.5);
 labelRenderer.setSize(innerWidth, innerHeight);
 labelRenderer.domElement.style.position = 'absolute';
@@ -842,7 +842,6 @@ document.getElementsByClassName("cardboard")[0].onclick=function() {
 	const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor', 'hand-tracking', 'layers' ] };
 					navigator.xr.requestSession( 'immersive-vr', sessionInit ).then(async function(session) {
 						await renderer.xr.setSession( session );
-						// await labelRenderer.xr.setSession( session );
 					});
 }
 
@@ -1069,7 +1068,7 @@ div.muted=true;
 div.onloadeddata=function() {
 div.play();
 }
-var label = new CSS2DObject(div);
+var label = new CSS3DObject(div);
 label.position.copy(pos);
 label.rotation.y = Math.PI * 0;
 label.scale.set(0.025, 0.025, 1);
@@ -1085,7 +1084,7 @@ div_web2.muted=true;
 div_web2.onloadeddata=function() {
 div_web2.play()
 }
-var label = new CSS2DObject(div_web2);
+var label = new CSS3DObject(div_web2);
 label.position.copy(pos_web);
 label.rotation.y = Math.PI * 0.5;
 label.scale.set(0.025, 0.025, 1);
@@ -1098,7 +1097,7 @@ div2.className="anno";
 var text1=document.createElement("p");
 text1.innerHTML="4";
 div2.appendChild(text1);
-var label2 = new CSS2DObject(div2);
+var label2 = new CSS3DObject(div2);
 label2.position.copy(pos2);
 label2.rotation.y = Math.PI * 0.5;
 label2.scale.set(0.025, 0.025, 1);
@@ -1109,7 +1108,7 @@ div_anno_a.className="btn btn-1 btn-white";
 var div_anno_i=document.createElement("i");
 div_anno_i.className="fa-solid fa-chevron-down fa-shake";
 div_anno_a.appendChild(div_anno_i);
-var label2_a = new CSS2DObject(div_anno_a);
+var label2_a = new CSS3DObject(div_anno_a);
 label2_a.position.copy(pos2);
 label2_a.rotation.y = Math.PI * 0;
 label2_a.scale.set(0.025, 0.025, 1);
@@ -1120,7 +1119,7 @@ var pos3 = new THREE.Vector3(-19.7, 5.7, -20);
 var div3=document.createElement("div");
 div3.className="gate";
 
-var label3 = new CSS2DObject(div3);
+var label3 = new CSS3DObject(div3);
 label3.position.copy(pos3);
 label3.rotation.y = Math.PI * 1.1;
 label3.scale.set(0.025, 0.025, 1);
@@ -1131,7 +1130,7 @@ var pos3_2 = new THREE.Vector3(15, 4.7, -23);
 var div3_2=document.createElement("div");
 div3_2.className="gate6";
 
-var label3 = new CSS2DObject(div3_2);
+var label3 = new CSS3DObject(div3_2);
 label3.position.copy(pos3_2);
 label3.rotation.y = Math.PI * 0.615;
 label3.scale.set(0.025, 0.025, 1);
@@ -1183,7 +1182,7 @@ var pos3_3 = new THREE.Vector3(3.8, 7.3, -55.1);
 var div3_3=document.createElement("div");
 div3_3.className="gate7";
 
-var label3 = new CSS2DObject(div3_3);
+var label3 = new CSS3DObject(div3_3);
 label3.position.copy(pos3_3);
 label3.rotation.y = Math.PI * 1;
 label3.scale.set(0.025, 0.025, 1);
@@ -1237,7 +1236,7 @@ div_anno_a_5.className="btn btn-5 btn-white";
 var div_anno_i_5=document.createElement("i");
 div_anno_i_5.className="fa-solid fa-chevron-down fa-shake";
 div_anno_a_5.appendChild(div_anno_i_5);
-var label2_a_5 = new CSS2DObject(div_anno_a_5);
+var label2_a_5 = new CSS3DObject(div_anno_a_5);
 label2_a_5.position.copy(pos_anno_6);
 label2_a_5.rotation.x = Math.PI * 0.5;
 label2_a_5.scale.set(0.025, 0.025, 1);
@@ -1248,7 +1247,7 @@ div_anno_6.className="anno7";
 var text_anno_6=document.createElement("p");
 text_anno_6.innerHTML="7";
 div_anno_6.appendChild(text_anno_6);
-var label2 = new CSS2DObject(div_anno_6);
+var label2 = new CSS3DObject(div_anno_6);
 label2.position.copy(pos_anno_6);
 label2.rotation.y = Math.PI * 0;
 label2.scale.set(0.025, 0.025, 1);
@@ -1268,7 +1267,7 @@ div_anno_a_6.className="btn btn-6 btn-white";
 var div_anno_i_6=document.createElement("i");
 div_anno_i_6.className="fa-solid fa-door-open fa-shake";
 div_anno_a_6.appendChild(div_anno_i_6);
-var label2_a_6 = new CSS2DObject(div_anno_a_6);
+var label2_a_6 = new CSS3DObject(div_anno_a_6);
 label2_a_6.position.copy(pos_anno);
 label2_a_6.rotation.y = Math.PI * 0;
 label2_a_6.scale.set(0.025, 0.025, 1);
@@ -1279,7 +1278,7 @@ div_anno_1.className="anno2";
 var text_anno_1=document.createElement("p");
 text_anno_1.innerHTML="3";
 div_anno_1.appendChild(text_anno_1);
-var label2 = new CSS2DObject(div_anno_1);
+var label2 = new CSS3DObject(div_anno_1);
 label2.position.copy(pos_anno);
 label2.rotation.y = Math.PI * 0;
 label2.scale.set(0.025, 0.025, 1);
@@ -1300,7 +1299,7 @@ div_anno_a_1.className="btn btn-1-1 btn-white";
 var div_anno_i_1=document.createElement("i");
 div_anno_i_1.className="fa-solid fa-chevron-down fa-shake";
 div_anno_a_1.appendChild(div_anno_i_1);
-var label2_a_1 = new CSS2DObject(div_anno_a_1);
+var label2_a_1 = new CSS3DObject(div_anno_a_1);
 label2_a_1.position.copy(pos_anno_2);
 label2_a_1.rotation.y = Math.PI * 1;
 label2_a_1.scale.set(0.025, 0.025, 1);
@@ -1311,7 +1310,7 @@ div_anno_2.className="anno3";
 var text_anno_2=document.createElement("p");
 text_anno_2.innerHTML="1";
 div_anno_2.appendChild(text_anno_2);
-var label2 = new CSS2DObject(div_anno_2);
+var label2 = new CSS3DObject(div_anno_2);
 label2.position.copy(pos_anno_2);
 label2.rotation.y = Math.PI * 0.5;
 label2.scale.set(0.025, 0.025, 1);
@@ -1331,7 +1330,7 @@ div_anno_a_2.className="btn-2 btn-white";
 var div_anno_i_2=document.createElement("i");
 div_anno_i_2.className="fa-solid fa-chevron-down fa-shake";
 div_anno_a_2.appendChild(div_anno_i_2);
-var label2_a_2 = new CSS2DObject(div_anno_a_2);
+var label2_a_2 = new CSS3DObject(div_anno_a_2);
 label2_a_2.position.copy(pos_anno_3);
 label2_a_2.rotation.y = Math.PI * 0.5;
 label2_a_2.scale.set(0.025, 0.025, 1);
@@ -1342,7 +1341,7 @@ div_anno_3.className="anno4";
 var text_anno_3=document.createElement("p");
 text_anno_3.innerHTML="2";
 div_anno_3.appendChild(text_anno_3);
-var label2 = new CSS2DObject(div_anno_3);
+var label2 = new CSS3DObject(div_anno_3);
 label2.position.copy(pos_anno_3);
 label2.rotation.y = Math.PI * 0.9;
 label2.scale.set(0.025, 0.025, 1);
@@ -1362,7 +1361,7 @@ div_anno_a_3.className="btn btn-3 btn-white";
 var div_anno_i_3=document.createElement("i");
 div_anno_i_3.className="fa-solid fa-chevron-down fa-shake";
 div_anno_a_3.appendChild(div_anno_i_3);
-var label2_a_3 = new CSS2DObject(div_anno_a_3);
+var label2_a_3 = new CSS3DObject(div_anno_a_3);
 label2_a_3.position.copy(pos_anno_4);
 label2_a_3.rotation.y = Math.PI * 1.5;
 label2_a_3.scale.set(0.025, 0.025, 1);
@@ -1373,7 +1372,7 @@ div_anno_4.className="anno5";
 var text_anno_4=document.createElement("p");
 text_anno_4.innerHTML="5";
 div_anno_4.appendChild(text_anno_4);
-var label2 = new CSS2DObject(div_anno_4);
+var label2 = new CSS3DObject(div_anno_4);
 label2.position.copy(pos_anno_4);
 label2.rotation.y = Math.PI * 1.5;
 label2.scale.set(0.025, 0.025, 1);
@@ -1393,7 +1392,7 @@ div_anno_a_4.className="btn btn-4 btn-white";
 var div_anno_i_4=document.createElement("i");
 div_anno_i_4.className="fa-solid fa-chevron-down fa-shake";
 div_anno_a_4.appendChild(div_anno_i_4);
-var label2_a_4 = new CSS2DObject(div_anno_a_4);
+var label2_a_4 = new CSS3DObject(div_anno_a_4);
 label2_a_4.position.copy(pos_anno_5);
 label2_a_4.rotation.x = Math.PI * 0.5;
 label2_a_4.scale.set(0.025, 0.025, 1);
@@ -1404,7 +1403,7 @@ div_anno_5.className="anno6";
 var text_anno_5=document.createElement("p");
 text_anno_5.innerHTML="6";
 div_anno_5.appendChild(text_anno_5);
-var label2 = new CSS2DObject(div_anno_5);
+var label2 = new CSS3DObject(div_anno_5);
 label2.position.copy(pos_anno_5);
 label2.rotation.y = Math.PI * 0;
 label2.scale.set(0.025, 0.025, 1);
@@ -1466,7 +1465,7 @@ var pos3_1 = new THREE.Vector3(9.1, 5.0, 21);
 var div5=document.createElement("div");
 div5.className="gate3";
 
-var label5 = new CSS2DObject(div5);
+var label5 = new CSS3DObject(div5);
 label5.position.copy(pos3_1);
 label5.rotation.y = Math.PI * 0.01;
 label5.scale.set(0.025, 0.025, 1);
@@ -1642,7 +1641,7 @@ var pos4 = new THREE.Vector3(0, 35, -40);
 var div4=document.createElement("div");
 div4.className="gate2";
 
-var label4 = new CSS2DObject(div4);
+var label4 = new CSS3DObject(div4);
 label4.position.copy(pos4);
 label4.rotation.y = Math.PI * 1;
 label4.scale.set(0.025, 0.025, 1);
@@ -1663,7 +1662,7 @@ var pos_outdoor = new THREE.Vector3(3.8, 7.3, -15.1);
 var div_outdoor=document.createElement("div");
 div_outdoor.className="outdoor";
 
-var label_outdoor = new CSS2DObject(div_outdoor);
+var label_outdoor = new CSS3DObject(div_outdoor);
 label_outdoor.position.copy(pos_outdoor );
 label_outdoor.rotation.y = Math.PI * 1;
 label_outdoor.scale.set(0.025, 0.025, 1);
@@ -1719,7 +1718,7 @@ var pos_outdoor_2 = new THREE.Vector3(53.0, 6.8, 8.9);
 var div_outdoor_2=document.createElement("div");
 div_outdoor_2.className="outdoor_2";
 
-var label_outdoor_2 = new CSS2DObject(div_outdoor_2);
+var label_outdoor_2 = new CSS3DObject(div_outdoor_2);
 label_outdoor_2.position.copy(pos_outdoor_2 );
 label_outdoor_2.rotation.y = Math.PI * 0.5;
 label_outdoor_2.scale.set(0.025, 0.025, 1);
@@ -1774,7 +1773,7 @@ var pos_outdoor_3 = new THREE.Vector3(43, 12.7, 24.2);
 var div_outdoor_3=document.createElement("div");
 div_outdoor_3.className="outdoor_3";
 
-var label_outdoor_3 = new CSS2DObject(div_outdoor_3);
+var label_outdoor_3 = new CSS3DObject(div_outdoor_3);
 label_outdoor_3.position.copy(pos_outdoor_3 );
 label_outdoor_3.rotation.y = Math.PI * 0.5;
 label_outdoor_3.scale.set(0.025, 0.025, 1);
