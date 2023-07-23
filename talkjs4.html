@@ -2218,6 +2218,7 @@ $("#p").click(function() {
   $("#menu-1").slideToggle("300");
 });
 	$("#button-vr").click(function() {
+		alert("daad");
 		const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor', 'hand-tracking', 'layers' ] };
 					navigator.xr.requestSession( 'immersive-vr', sessionInit ).then( function() {
 						console.log("wdfef");
