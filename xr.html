@@ -1,162 +1,2274 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>three.js vr - panorama</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<link type="text/css" rel="stylesheet" href="main.css">
-	</head>
-	<body>
-		<!-- Import maps polyfill -->
-		<!-- Remove this when import maps will be widely supported -->
-		<script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+
+html, body, h1, h2, h3, h4, h5, h6, p, ul, li, button {
+  padding: 0;
+  margin: 0;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+canvas {
+    z-index: -1;
+}
+
+h3 {
+    margin-left: calc(100% - 87%) !important;
+    color: whitesmoke;
+}
+html, body, .flexbox {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  color: #2f2f2f;
+  background: #2f2f2f;
+  font-family: Raleway, sans-serif;
+  font-size: 16px;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+
+.out-box {
+    position: fixed;
+    left:0;
+    top:0;
+    height: 100%;
+    width: 100%;
+}
 
 
-		<script type="module">
+.chat-box {
+  background-color: #1b80f3;
+  margin: 0;
+  width: 100%;
+  height: 75%;
+  right: 10px;
+  bottom:10px;
+  position: absolute;
+  max-height: calc(100% - 40px);
+  max-width: calc(100% -40px);
+  display: none;
+  flex-direction: column;
+  border-radius: 13px;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+   .chat-box-header {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    padding: 20px 15px;
+    background: -webkit-linear-gradient(90deg,#06c 0,#2182df 100%);
+    /*border-bottom: solid 1px #cfcfcf;*/
+    box-sizing: border-box;
+  }
+  .chat-box-body {
+    height: 100%;
+    display: flex;
+    overflow: auto;
+    border:1px solid #cfcfcf;
+    border-radius: 10px 10px 0 0;
+    background: url('icons8-chat-bubble-100.png');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:40%;
+    display: flex;
+    flex-direction: column;
+  }
+    #chat_messages {
+      width: 100%;
+      padding: 20px 15px;
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      z-index: 100;
+    }
+      .message {
+        width: 80%;
+        padding: 20px 15px;
+        margin: 2px 0;
+        overflow: hidden;
+        border-radius: 13px;
+        transition: height 0.3s ease-in-out;
+      
+      }
+      .my-message {
+        color: #fff;
+        background-color: #006ae3;
+        align-self: flex-end;
+      }
+      .other-message {
+        background-color: #e2e2e2;
+      }
+      .profile {
+        margin: 2px 0;
+        overflow: hidden;
+        transition: height 0.3s ease-in-out;
+      }
 
-			import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
-			import {
-				CSS3DRenderer,
-				CSS3DObject
-				} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS3DRenderer.js';
+    
+      
+      .my-profile {
+        color: #afafaf;
+        align-self: flex-end;
+      }
+      .other-profile {
+        color: #afafaf;
+      }
+    
 
-			import { VRButton } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/webxr/VRButton.js';
+  #typing {
+    color: #afafaf;
+    width: 100%;
+    height: 0;
+    padding: 0 15px;
+    overflow: hidden;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: 0.3s height ease-in-out, 0.3s opacity ease-in-out;
+  }
+  #typing span:not(.n) {
+      background-color: #afafaf;
+      width: 10px;
+      height: 10px;
+      margin-top: 20px;
+      display: inline-block;
+      border-radius: 50%;
+      &:nth-child(1) {
+        animation: typing 1.2s infinite;
+      }
+      &:nth-child(2) {
+        animation: typing 1.2s infinite 0.1s;
+      }
+      &:nth-child(3) {
+        animation: typing 1.2s infinite 0.2s;
+      }
+    }
+  
+   .chat-box-footer {
+    width: 100%;
+    padding: 20px 15px;
+    border-top: solid 1px #cfcfcf;
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    box-sizing: border-box;
+    display: flex;
+    z-index: 1000;
+   }
+     #chat_input {
+      color: #2f2f2f;
+      font-family: Raleway, sans-serif;
+      font-size: 16px;
+      background-color: #d2d2d2;
+      width: 100%;
+      height: 40px;
+      max-height: 120px;
+      border: none;
+      padding: 10px 15px;
+      resize: none;
+      box-sizing: border-box;
+      border-radius: 13px;
+      transition: 0.3s background-color;
+     z-index: 100;
+     outline: none;
+    }
+     #send {
+      background: none;
+      border: none;
+      margin-left: 10px;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+ 
 
-			let camera;
-			let renderer;
-			let scene;
+@media (min-width: 480px) {
+  .chat-box {
+    width: 480px;
+  }
+  #img1 {
+    min-width: 100% !important;
+  }
+  #div1 p {
+    font-size:22px !important;
+  }
+}
+@media (max-width: 480px) {
+  .chat-box {
+   right: 0;
+   bottom: 0;
+  }
+  #img1 {
+    min-width: 100% !important;
+  }
+  #div1 {
+    top: 14px !important;
+  }
+  #div1 p {
+    font-size:15px !important;
+  }
+}
 
-			init();
-			animate();
+@keyframes typing {
+  0% { transform: translateY(0px); }
+  33.3333% { transform: translateY(-5px); }
+  66.6667% { transform: translateY(5px); }
+  100% { transform: translateY(0px); }
+}
 
-			function init() {
+button::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
 
-				renderer = new THREE.WebGLRenderer();
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.useLegacyLights = false;
-				renderer.xr.enabled = true;
-				renderer.xr.setReferenceSpaceType( 'local' );
-				document.body.appendChild( renderer.domElement );
+button {
+  outline: none;
+}
 
-				document.body.appendChild( VRButton.createButton( renderer ) );
+h3 > small {
+  color: #afafaf;
+  font-weight: normal;
+}
+i {
+    position: absolute;
+    margin:10px;
+    left:10px;
+    top:5px;
+    font-size: 30px;
+    color: whitesmoke;
+}
 
-				     // Düzlemi oluştur
-        const planeGeometry = new THREE.PlaneGeometry(5, 5); // Düzlemin boyutunu ayarlayın
-        const planeMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('resim2.png'), side: THREE.DoubleSide });
-        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+#limk {
+  display: none;
+  background: #b56e00;
+  margin: 0 40px;
+  padding: 0.625rem 5rem;
+  position: relative;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  cursor: pointer;
+  border:none;
+  z-index: 1000;
+}
+#limk:after,
+#limk:before {
+  content: '';
+  height: 20px;
+  width: 20px;
+  background: #b56e00;
+  position: absolute;
+  top: 0;
+  right: -20px;
+  z-index: 1;
+  border:none;
+}
+#limk:before {
+  right: auto;
+  left: -20px;
+}
+#limk span:after,
+#limk span:before {
+  content: '';
+  height: 40px;
+  width: 40px;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  right: -40px;
+  z-index: 2;
+  border-radius: 50%;
+  border:none !important;
+}
+#limk span:before {
+  right: auto;
+  left: -40px;
+}
+ #div1 {
+  position: absolute;
+  left: 50%;
+  top: 23px;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+ }
 
-        // HTML içeriğini düzleme bağla
-        const overlayContent = document.getElementById('overlayContent');
-        const overlay = new CSS3DObject(overlayContent);
-        overlay.scale.set(0.005, 0.005, 0.005); // Düzlemin boyutuna göre ölçeklendirin
+ #div1 img {
+  width: 350px;
+  z-index: 10;
+  margin:0;
+  top:0 !important;
+ }
+ #div1 p {
+  z-index: 10000;
+  font-size: 20px;
+  position: absolute;
+  text-align: center;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  color: whitesmoke;
+  font-family: 'Times New Roman', Times, serif;
+ }
+ #div1 #menu-down {
+  z-index: 0;
+  font-size: 30px;
+  position: absolute;
+  text-align:right;
+  right:40px !important;
+  top:0px !important;
+  color: black;
+  
+ }
+ #message-delek {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  height: 60px;
+  width: 60px;
+  background: -webkit-linear-gradient(90deg,#06c 0,#2182df 100%);
+  border-radius: 50%;
+  z-index: 1000;
+ }
+ #comments {
+  left:-1px;
+ }
+ #div2 {
+  position:absolute;
+  right: 15px;
+  top:-54px;
+  background: transparent;
+  height: 30px;
+  width: 30px;
+ }
+ #div2 i {
+  position: relative;
+  left:-4px;
+  top:-4px;
+  color: #006ae3;
+  font-size: 40px;
+  z-index: 10000;
+ }
+ #menu-1 {
+  position: absolute;
+  height: 200px;
+  width: 53%;
+  left: 60px;
+  top:93%;
+  background: transparent;
+  border:none;
+  display: none;
+ }
+ #menu-1 span {
+  display: block;
+  padding: 14px;
+  color:white;
+  background: #b56e00;
+  opacity:0.5;
+  text-align: center;
+ }
+ #menu-1 span:hover {
+  color:#b56e00;
+  background: whitesmoke;
+ }
 
-        // Kamera ve sahne ayarları
-        camera.position.z = 5;
-				//
 
-				scene = new THREE.Scene();
+  #delek {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    height: 250px;
+    max-width: calc(100%-90%);
+    max-height: calc(100%-10%);
+    background-color: transparent;
+    z-index:100;
+  }
+  #delek #link {
+    left: 40%;
+    border-radius: 50%;
+    position: relative;
+    display: block;
+    margin: 10px;
+    height: 42px;
+    width: 42px;
+    background:rgba(255, 253, 253, 0.3);
 
-				        scene.add(plane);
-        scene.add(overlay);
+  }
+  #delek .link2:hover { 
+    background:rgba(255, 253, 253, 1) !important;
+  }
+  #delek #link i {
+    position: relative;
+    font-size: 20px;
+    left:0;
+    top:0;
+    transform: translate(-50% -50%);
+    color: black;
+    opacity: 0.7;
+  }
+  .cardboard i{
+    left:-2px !important;
+  }
+  .expand i{
+    left: 2px !important;
+  }
+  .facebook i{
+    left: 3px !important;
+  }
+  .instagram i{
+    left: 2px !important;
+  }
+  .bars i{
+    left: 2px !important;
+    top:1px !important;
+    color:whitesmoke !important;
+    font-size: 25px !important;
+  }
+  .bars {
+    height: 45px !important;
+    width: 45px !important;
+    border:2px solid whitesmoke;
+  }
+  .rotate img {
+    position: relative;
+    left:6px !important;
+    top:3px !important;
+  }
+ 
+#last-span {
+    border-radius: 0 0 10px 10px;
+}
 
-				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-				camera.layers.enable( 1 );
+/*###############################*/
 
-				const geometry = new THREE.BoxGeometry( 100, 100, 100 );
-				geometry.scale( 1, 1, - 1 );
+.btn, .btn-1, .btn-1-1, .btn-3, .btn-4, .btn-5, .btn-6  {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 30px 30px;
+    border-radius: 50%;
+    display: inline-block;
+    border-radius: 50%;
+    transition: all .2s;
+    position: absolute;
+    border:7px solid white;
+    background: transparent;
+}
+.btn-2 {
+  text-transform: uppercase;
+    text-decoration: none;
+    padding: 50px 50px;
+    border-radius: 50%;
+    display: inline-block;
+    border-radius: 50%;
+    transition: all .2s;
+    position: absolute;
+    border:10px solid white;
+    background: transparent;
+}
+.btn-2 i {
+  margin:5px !important;
+}
+.btn-1, .btn-3,.btn-5,.btn-6 {
+  visibility: hidden;
+}
+.btn-6 {
+  padding: 40px 40px !important;
+  border:10px solid white !important;
+}
+.btn-6 i {
+  font-size: 50px !important;
+  margin:5px !important;
+}
 
-				const textures = getTexturesFromAtlasFile( '360-2/minsk.jpg', 12 );
+.btn-3 {
+  padding: 50px 50px !important;
+  border:10px solid white !important;
+}
+.btn-3 i {
+  font-size: 70px !important;
+  margin:5px !important;
+}
+.btn-4 {
+  padding: 70px 70px !important;
+  border:20px solid white !important;
+  visibility: hidden;
+}
 
-				const materials = [];
+.btn-4 i{
+ display: none !important;
+}
 
-				for ( let i = 0; i < 6; i ++ ) {
+.btn-5 {
+  padding: 70px 70px !important;
+  border:20px solid white !important;
+}
+.btn-5 i{
+ display: none !important;
+}
+.btn-1-1 {
+  padding: 40px 40px !important;
+  border:7px solid white !important;
+}
+.btn-1-1 i {
+ font-size: 50px !important;
+  margin:5px !important;
+}
+.btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+    animation: moveInBottom 2s ease-out infinite;
+}
+.btn-2::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+    animation: moveInBottom 2s ease-out infinite;
+}
 
-					materials.push( new THREE.MeshBasicMaterial( { map: textures[ i ] } ) );
+.btn-white {
+   /* background-color: #fff;*/
+    color: #777;
+}
 
-				}
+.btn-white::after {
+    background-color: #fff;
+}
 
-				const skyBox = new THREE.Mesh( geometry, materials );
-				skyBox.layers.set( 1 );
-				scene.add( skyBox );
+.btn i {
+ font-size: 45px;
+ margin: 0;
+ padding: 0;
+ color:#fff;
+}
+.btn-2 i {
+ font-size: 68px;
+ margin: 0;
+ padding: 0;
+ color:#fff;
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 1;
+       /* transform: translateY(30px);*/
+    }
+
+    100% {
+        opacity: 0;
+       /* transform: translateY(0px);*/
+        transform: scaleX(2.0) scaleY(2.1);
+    }
+}
+
+.label {
+  text-align: center;
+  width: 460px;
+  height: 260px;
+ /* border: 1px solid white;*/
+ border: none;
+  border-radius: 5px;
+ /* background: rgba( 0, 0, 0, .6 );*/
+}
+.label2 {
+  text-align: center;
+  width: 430px;
+  height: 0px;
+ border: none;
+  border-radius: 5px;
+}
+.anno {
+  width: 40px;
+  height: 40px;
+  background: rgba( 0, 0, 0, .6 );
+  border-radius: 50%;
+  border:3px solid white;
+  visibility: hidden;
+  display: none;
+}
+.anno p {
+  font-size: 30px;
+  color:white;
+  text-align: center;
+  padding-top:0px;
+  position: relative;
+  left:0;
+  top:0;
+  transform: translate(0%,-75%);
+}
+
+.anno2 {
+  width: 50px;
+  height: 50px;
+  background: rgba( 0, 0, 0, .6 );
+  border-radius: 50%;
+  border:3px solid white;
+  visibility: hidden;
+  display: none;
+}
+.anno2 p {
+  font-size: 35px;
+  color:white;
+  text-align: center;
+  padding-top:0px;
+  position: relative;
+  left:0;
+  top:0;
+  transform: translate(0%,-75%);
+}
+
+.anno3 {
+  width: 50px;
+  height: 50px;
+  background: rgba( 0, 0, 0, .6 );
+  border-radius: 50%;
+  border:3px solid white;
+  visibility: visible;
+  display: none;
+
+}
+.anno3 p {
+  font-size: 35px;
+  color:white;
+  text-align: center;
+  padding-top:0px;
+  position: relative;
+  left:0;
+  top:0;
+  transform: translate(0%,-75%);
+}
+
+.anno4 {
+  width: 70px;
+  height: 70px;
+  background: rgba( 0, 0, 0, .6 );
+  border-radius: 50%;
+  border:3px solid white;
+  visibility: visible;
+  display: none;
+
+}
+.anno4 p {
+  font-size: 45px;
+  color:white;
+  text-align: center;
+  padding-top:0px;
+  position: relative;
+  left:0;
+  top:0;
+  transform: translate(0%,-75%);
+}
+
+.anno5 {
+  width: 50px;
+  height: 50px;
+  background: rgba( 0, 0, 0, .6 );
+  border-radius: 50%;
+  border:3px solid white;
+  visibility: hidden;
+  display: none;
+
+}
+.anno5 p {
+  font-size: 35px;
+  color:white;
+  text-align: center;
+  padding-top:0px;
+  position: relative;
+  left:0;
+  top:0;
+  transform: translate(0%,-75%);
+}
+.anno6 {
+  width: 50px;
+  height: 50px;
+  background: rgba( 0, 0, 0, .6 );
+  border-radius: 50%;
+  border:3px solid white;
+  visibility:hidden;
+  display: none;
+
+}
+.anno6 p {
+  font-size: 35px;
+  color:white;
+  text-align: center;
+  padding-top:0px;
+  position: relative;
+  left:0;
+  top:0;
+  transform: translate(0%,-75%);
+}
+.anno7 {
+  width: 50px;
+  height: 50px;
+  background: rgba( 0, 0, 0, .6 );
+  border-radius: 50%;
+  border:3px solid white;
+  visibility:hidden;
+  display: none;
+
+}
+.anno7 p {
+  font-size: 35px;
+  color:white;
+  text-align: center;
+  padding-top:0px;
+  position: relative;
+  left:0;
+  top:0;
+  transform: translate(0%,-75%);
+}
+.gate {
+  height: 780px;
+  width: 280px;
+  background: transparent; 
+  visibility: hidden;
+}
+.gate6 {
+  height: 840px;
+  width: 300px;
+  background:transparent; 
+  visibility: hidden;
+}
+.gate7 {
+  height: 1160px;
+  width: 520px;
+  background:transparent; 
+  visibility: hidden;
+}
+.gate2 {
+  height: 160px;
+  width: 400px;
+  background: transparent;
+  visibility: hidden;
+}
+.gate3 {
+  height: 1000px;
+  width: 400px;
+  background: transparent; 
+  visibility: hidden;
+}
+.outdoor {
+  height: 1160px;
+  width: 520px;
+  background: transparent; 
+}
+.outdoor_2 {
+  height: 1130px;
+  width: 420px;
+  background: transparent; 
+}
+.outdoor_3 {
+  height: 1280px;
+  width: 470px;
+  background: transparent;
+  visibility: hidden;
+}
+#fps {
+  position: absolute;
+  left:10px;
+  top:10px;
+}
+
+    </style>
+</head>
+<body>
+  <script src="extras/jquery.min.1.7.js"></script>            
+
+  <script type="module">
+    import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
+import {
+OrbitControls
+} from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js";
+import {
+CSS2DRenderer,
+CSS2DObject
+} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS2DRenderer.js';
+
+window.onload=function() {
+
+//var gl=document.getElementsByTagName("canvas")[0];
+
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 1, 1000);
+camera.position.set(10, 10, 10);
+camera.target = new THREE.Vector3( 0, 0, 0 );
+var renderer = new THREE.WebGLRenderer({
+antialias: false
+// context: gl.getContext('webgl2')
+//canvas:gl
+});
+//renderer.getContext('webgl2');
+//renderer.xr.enabled = true;
+renderer.useLegacyLights = false;
+renderer.xr.enabled = true;
+renderer.xr.setReferenceSpaceType( 'local' );
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(0.8);
+document.body.appendChild(renderer.domElement);
+
+var labelRenderer = new CSS2DRenderer();
+//labelRenderer.setPixelRatio(0.5);
+labelRenderer.setSize(innerWidth, innerHeight);
+labelRenderer.domElement.style.position = 'absolute';
+labelRenderer.domElement.style.top = '0px';
+document.getElementsByClassName("out-box")[0].appendChild(labelRenderer.domElement);
+
+document.getElementsByClassName("cardboard")[0].onclick=function() {
+	const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor', 'hand-tracking', 'layers' ] };
+					navigator.xr.requestSession( 'immersive-vr', sessionInit ).then(async function(session) {
+						await renderer.xr.setSession( session );
+						// await labelRenderer.xr.setSession( session );
+					});
+}
+
+renderer.xr.addEventListener('sessionend', () => {
+  window.location.reload();
+});
+
+/*document.addEventListener('DOMContentLoaded', () => {
+  document.body.appendChild( VRButton.createButton( renderer ) );
+
+// Handle VR session events
+renderer.xr.addEventListener('sessionstart', () => {
+  // VR session başladığında yapılacak işlemler
+});
+
+renderer.xr.addEventListener('sessionend', () => {
+  // VR session bittiğinde yapılacak işlemler
+});
+});*/
+
+var isUserInteracting = false,
+onMouseDownMouseX = 0, onMouseDownMouseY = 0,
+lon = 0, onMouseDownLon = 0,
+lat = 0, onMouseDownLat = 0,
+phi = 0, theta = 0;
+
+var onPointerDownPointerX,onPointerDownPointerY,onPointerDownLon,onPointerDownLat;
+var image2='360/vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081472.jpg';
+var image1="360/vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474.jpg";
+var image3="360/vecteezy_spherical-360-seamless-panorama-projection-of-an-interior-modern-design-room-in-3d-illustration_2075997.jpg";
+var image4="360/lavabo.jpg";
 
 
-				const materialsR = [];
+var sayac1=0;
+var mesh1,mesh2,mesh3,mesh4;
+var target1,target2;
+var fov1=0;
+var check_fov=false;
+var image_array=["360/minsk.jpg","360/last (1).jpg","360/new (1).jpg"];
 
-				for ( let i = 6; i < 12; i ++ ) {
+if(screen.availWidth >=992) {
 
-					materialsR.push( new THREE.MeshBasicMaterial( { map: textures[ i ] } ) );
+document.addEventListener( 'pointerdown', onDocumentMouseDown, false );
+document.addEventListener( 'pointermove', onDocumentMouseMove, false );
+document.addEventListener( 'pointerup', onDocumentMouseUp, false );
+document.addEventListener( 'wheel', onDocumentMouseWheel, false );
 
-				}
+}
+else {
 
-				const skyBoxR = new THREE.Mesh( geometry, materialsR );
-				skyBoxR.layers.set( 2 );
-				scene.add( skyBoxR );
+document.addEventListener( 'touchstart', onDocumentMouseDown2, false );
+document.addEventListener( 'touchmove', onDocumentMouseMove2, false );
+document.addEventListener( 'touchend', onDocumentMouseUp2, false );
+document.addEventListener( 'wheel', onDocumentMouseWheel2, false );
+}
+//var controls = new OrbitControls(camera, labelRenderer.domElement);
 
-				window.addEventListener( 'resize', onWindowResize );
+var light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(20, 20, 30);
+scene.add(light);
 
-			}
+var light2 = new THREE.DirectionalLight(0xffffff, 1);
+light2.position.set(-7.5, 3.9, -27);
+scene.add(light2);
+scene.add(new THREE.AmbientLight(0xffffff, 1));
 
-			function getTexturesFromAtlasFile( atlasImgUrl, tilesNum ) {
+//scene.add(new THREE.GridHelper(10, 10));
 
-				const textures = [];
+var box = new THREE.Mesh(new THREE.BoxBufferGeometry(0, 0, 0), new THREE.MeshLambertMaterial({
+color: 0x0088ff,
+wireframe: false
+}));
+scene.add(box);
 
-				for ( let i = 0; i < tilesNum; i ++ ) {
 
-					textures[ i ] = new THREE.Texture();
+/*  var geometry = new THREE.SphereGeometry( 500, 60, 40 );
+geometry.scale( - 1, 1, 1 );
 
-				}
+var material = new THREE.MeshBasicMaterial( {
+    map: new THREE.TextureLoader().load( '360-2.jpeg' )
+} );
 
-				const loader = new THREE.ImageLoader();
-				loader.load( atlasImgUrl, function ( imageObj ) {
+var mesh = new THREE.Mesh( geometry, material );
 
-					let canvas, context;
-					const tileWidth = imageObj.height;
+scene.add( mesh );*/
+var sayac=0;
 
-					for ( let i = 0; i < textures.length; i ++ ) {
 
-						canvas = document.createElement( 'canvas' );
-						context = canvas.getContext( '2d' );
-						canvas.height = tileWidth;
-						canvas.width = tileWidth;
-						context.drawImage( imageObj, tileWidth * i, 0, tileWidth, tileWidth, 0, 0, tileWidth, tileWidth );
-						textures[ i ].colorSpace = THREE.SRGBColorSpace;
-						textures[ i ].image = canvas;
-						textures[ i ].needsUpdate = true;
+// load(image);
 
-					}
+/*var k = 'value';
 
-				} );
+for(var i=1;i<=image_array.length;i++) {
+ load(image_array[i-1]);
+sayac1++;
+eval('var ' + k + i + '= ' + i + ';');
 
-				return textures;
+}*/
+load4(image3);
+//load1(image1);
+//load2(image2);
+//load3(image4);
+//load4(image3);
 
-			}
+function load1(image1) {
+  
+  var geometry = new THREE.SphereGeometry( 500, 60, 40 );
+geometry.scale( - 1, 1, 1 );
 
-			function onWindowResize() {
+var material = new THREE.MeshBasicMaterial( {
+    map: new THREE.TextureLoader().load( image1 )
+} );
 
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
+mesh1= new THREE.Mesh( geometry, material );
+mesh1.material.transparent = true;
+// scene.add(mesh1);
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
 
-			}
+}
 
-			function animate() {
+/*document.onkeydown=function(event) {
+    if(event.key=="j") {
+        mesh3.material.map=new THREE.TextureLoader().load( image2 )
+    }
+}*/
 
-				renderer.setAnimationLoop( render );
 
-			}
+function load2(image2) {
+  
+  var geometry = new THREE.SphereGeometry( 500, 60, 40 );
+geometry.scale( - 1, 1, 1 );
 
-			function render() {
+var material = new THREE.MeshBasicMaterial( {
+    map: new THREE.TextureLoader().load( image2 )
+} );
+
+mesh2= new THREE.Mesh( geometry, material );
+mesh2.material.transparent = true;
+
+// scene.add(mesh2);
+}
+
+function load3(image4) {
+  
+  var geometry = new THREE.SphereGeometry( 500, 60, 40 );
+geometry.scale( - 1, 1, 1 );
+
+var material = new THREE.MeshBasicMaterial( {
+    map: new THREE.TextureLoader().load( image4 )
+} );
+
+mesh4= new THREE.Mesh( geometry, material );
+mesh4.material.transparent = true;
+
+//  scene.add(mesh4);
+}
+
+function load4(image3) {
+  
+  var geometry = new THREE.SphereGeometry( 500, 60, 40 );
+geometry.scale( - 1, 1, 1 );
+
+var material = new THREE.MeshBasicMaterial( {
+    map: new THREE.TextureLoader().load( image3 )
+} );
+
+mesh3= new THREE.Mesh( geometry, material );
+// enable transparency
+mesh3.material.transparent = true;
+target1=mesh3;
+
+// set opacity to 50%
+//mesh3.material.opacity = 0.5; 
+scene.add(mesh3);
+
+}
+
+async function came_fov() {
+ await new Promise(function(resolve) {
+   target1.material.opacity=1;
+   //target2.material.opacity=1;
+ /* var fov_anim=window.setInterval(function() {
+  fov1-=2;
+  camera.fov-=2;
+
+  camera.updateProjectionMatrix();
+  console.log(camera.fov)
+  target1.material.opacity-=0.1;
+ // target2.material.opacity+=0.1;
+  if(fov1<=-56) {
+    clearInterval(fov_anim);
+    fov1=0;
+    check_fov=true;
+    resolve();
+  }
+},30);*/
+
+var fov_anim_2=window.setInterval(function() {
+  target1.material.opacity-=0.1;
+  //target2.material.opacity+=0.1;
+ if(target1.material.opacity<=0) {
+    clearInterval(fov_anim_2);
+    check_fov=true;
+    resolve();
+  }
+},30);
+
+ }); 
+}
+
+var pos = new THREE.Vector3(-6.3, 9.3, -6.3);
+var normal = new THREE.Vector3(1, 0, 0);
+
+var cNormal = new THREE.Vector3();
+var cPos = new THREE.Vector3();
+var m4 = new THREE.Matrix4();
+
+var div = document.createElement('video');
+div.className = 'label';
+//div.textContent = '1';
+div.src="360/karasu.mp4";
+div.setAttribute("loop",true);
+div.muted=true;
+div.onloadeddata=function() {
+div.play();
+}
+var label = new CSS2DObject(div);
+label.position.copy(pos);
+label.rotation.y = Math.PI * 0;
+label.scale.set(0.025, 0.025, 1);
+box.add(label);
+
+var pos_web = new THREE.Vector3(23.2, 12.0, 3);
+var div_web2 = document.createElement('video');
+div_web2.className = 'label2';
+//div_web.src="https://mbunalyapi.com";
+div_web2.src="360/karasu.mp4";
+div_web2.setAttribute("loop",true);
+div_web2.muted=true;
+div_web2.onloadeddata=function() {
+div_web2.play()
+}
+var label = new CSS2DObject(div_web2);
+label.position.copy(pos_web);
+label.rotation.y = Math.PI * 0.5;
+label.scale.set(0.025, 0.025, 1);
+box.add(label);
+
+var pos2 = new THREE.Vector3(9.1, 11.0, 20.5);
+
+var div2=document.createElement("div");
+div2.className="anno";
+var text1=document.createElement("p");
+text1.innerHTML="4";
+div2.appendChild(text1);
+var label2 = new CSS2DObject(div2);
+label2.position.copy(pos2);
+label2.rotation.y = Math.PI * 0.5;
+label2.scale.set(0.025, 0.025, 1);
+box.add(label2);
+
+var div_anno_a=document.createElement("a");
+div_anno_a.className="btn btn-1 btn-white";
+var div_anno_i=document.createElement("i");
+div_anno_i.className="fa-solid fa-chevron-down fa-shake";
+div_anno_a.appendChild(div_anno_i);
+var label2_a = new CSS2DObject(div_anno_a);
+label2_a.position.copy(pos2);
+label2_a.rotation.y = Math.PI * 0;
+label2_a.scale.set(0.025, 0.025, 1);
+box.add(label2_a);
+
+var pos3 = new THREE.Vector3(-19.7, 5.7, -20);
+
+var div3=document.createElement("div");
+div3.className="gate";
+
+var label3 = new CSS2DObject(div3);
+label3.position.copy(pos3);
+label3.rotation.y = Math.PI * 1.1;
+label3.scale.set(0.025, 0.025, 1);
+box.add(label3);
+
+var pos3_2 = new THREE.Vector3(15, 4.7, -23);
+
+var div3_2=document.createElement("div");
+div3_2.className="gate6";
+
+var label3 = new CSS2DObject(div3_2);
+label3.position.copy(pos3_2);
+label3.rotation.y = Math.PI * 0.615;
+label3.scale.set(0.025, 0.025, 1);
+box.add(label3);
+
+div3_2.onpointerenter=function() {
+this.style.background="rgba( 255, 255, 255, .4 )";
+this.style.border="1px solid white";
+}
+
+div3_2.onpointerleave=function() {
+this.style.background="transparent";
+this.style.border="none";
+}
+
+/*div_anno_a_3.onpointerdown=async function() {
+target1=mesh2;
+target2=mesh4;
+await came_fov();
+//gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
+
+scene.remove(mesh2);
+scene.remove(mesh1);
+scene.remove(mesh3);
+scene.add(mesh4);
+document.getElementsByClassName("label")[0].style.height="0px";
+document.getElementsByClassName("label2")[0].style.height="260px";
+document.getElementsByClassName("anno")[0].style.visibility="hidden";
+document.getElementsByClassName("anno2")[0].style.visibility="hidden";
+document.getElementsByClassName("anno6")[0].style.visibility="hidden";
+document.getElementsByClassName("anno3")[0].style.visibility="hidden";
+document.getElementsByClassName("anno7")[0].style.visibility="visible";
+document.getElementsByClassName("anno4")[0].style.visibility="hidden";
+document.getElementsByClassName("anno5")[0].style.visibility="hidden";
+document.getElementsByClassName("gate")[0].style.visibility="hidden";
+document.getElementsByClassName("gate6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate7")[0].style.visibility="visible";
+document.getElementsByClassName("gate3")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_2")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_3")[0].style.visibility="hidden";
+camera.fov=60;
+camera.updateProjectionMatrix();
+
+}*/
+
+var pos3_3 = new THREE.Vector3(3.8, 7.3, -55.1);
+
+var div3_3=document.createElement("div");
+div3_3.className="gate7";
+
+var label3 = new CSS2DObject(div3_3);
+label3.position.copy(pos3_3);
+label3.rotation.y = Math.PI * 1;
+label3.scale.set(0.025, 0.025, 1);
+box.add(label3);
+
+div3_3.onpointerenter=function() {
+this.style.background="rgba( 255, 255, 255, .4 )";
+this.style.border="3px solid white";
+}
+
+div3_3.onpointerleave=function() {
+this.style.background="transparent";
+this.style.border="none";
+}
+
+/*div_anno_a_4.onpointerdown=async function() {
+target1=mesh4;
+target2=mesh2;
+await came_fov();
+//gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
+
+scene.remove(mesh4);
+scene.remove(mesh1);
+scene.remove(mesh3);
+scene.add(mesh2);
+document.getElementsByClassName("label")[0].style.height="280px";
+document.getElementsByClassName("label2")[0].style.height="0px";
+document.getElementsByClassName("anno")[0].style.visibility="visible";
+document.getElementsByClassName("anno2")[0].style.visibility="visible";
+document.getElementsByClassName("anno6")[0].style.visibility="visible";
+document.getElementsByClassName("anno3")[0].style.visibility="hidden";
+document.getElementsByClassName("anno7")[0].style.visibility="hidden";
+document.getElementsByClassName("anno4")[0].style.visibility="hidden";
+document.getElementsByClassName("anno5")[0].style.visibility="hidden";
+document.getElementsByClassName("gate")[0].style.visibility="visible";
+document.getElementsByClassName("gate6")[0].style.visibility="visible";
+document.getElementsByClassName("gate7")[0].style.visibility="hidden";
+document.getElementsByClassName("gate3")[0].style.visibility="visible";
+document.getElementsByClassName("outdoor")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_2")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_3")[0].style.visibility="hidden";
+camera.fov=60;
+camera.updateProjectionMatrix();
+
+}*/
+
+var pos_anno_6 = new THREE.Vector3(-5, 2.3, -5.0);
+
+var div_anno_a_5=document.createElement("a");
+div_anno_a_5.className="btn btn-5 btn-white";
+var div_anno_i_5=document.createElement("i");
+div_anno_i_5.className="fa-solid fa-chevron-down fa-shake";
+div_anno_a_5.appendChild(div_anno_i_5);
+var label2_a_5 = new CSS2DObject(div_anno_a_5);
+label2_a_5.position.copy(pos_anno_6);
+label2_a_5.rotation.x = Math.PI * 0.5;
+label2_a_5.scale.set(0.025, 0.025, 1);
+box.add(label2_a_5);
+
+var div_anno_6=document.createElement("div");
+div_anno_6.className="anno7";
+var text_anno_6=document.createElement("p");
+text_anno_6.innerHTML="7";
+div_anno_6.appendChild(text_anno_6);
+var label2 = new CSS2DObject(div_anno_6);
+label2.position.copy(pos_anno_6);
+label2.rotation.y = Math.PI * 0;
+label2.scale.set(0.025, 0.025, 1);
+box.add(label2);
+
+div_anno_6.onpointerenter=function() {
+this.style.border="3px solid red";
+}
+div_anno_6.onpointerleave=function() {
+this.style.border="3px solid white";
+}
+
+var pos_anno = new THREE.Vector3(-15.7, 9.7, -15);
+
+var div_anno_a_6=document.createElement("a");
+div_anno_a_6.className="btn btn-6 btn-white";
+var div_anno_i_6=document.createElement("i");
+div_anno_i_6.className="fa-solid fa-door-open fa-shake";
+div_anno_a_6.appendChild(div_anno_i_6);
+var label2_a_6 = new CSS2DObject(div_anno_a_6);
+label2_a_6.position.copy(pos_anno);
+label2_a_6.rotation.y = Math.PI * 0;
+label2_a_6.scale.set(0.025, 0.025, 1);
+box.add(label2_a_6);
+
+var div_anno_1=document.createElement("div");
+div_anno_1.className="anno2";
+var text_anno_1=document.createElement("p");
+text_anno_1.innerHTML="3";
+div_anno_1.appendChild(text_anno_1);
+var label2 = new CSS2DObject(div_anno_1);
+label2.position.copy(pos_anno);
+label2.rotation.y = Math.PI * 0;
+label2.scale.set(0.025, 0.025, 1);
+box.add(label2);
+
+div_anno_1.onpointerenter=function() {
+this.style.border="3px solid red";
+}
+div_anno_1.onpointerleave=function() {
+this.style.border="3px solid white";
+}
+
+var pos_anno_2 = new THREE.Vector3(3.8, 15.3, -13.1);
+
+
+var div_anno_a_1=document.createElement("a");
+div_anno_a_1.className="btn btn-1-1 btn-white";
+var div_anno_i_1=document.createElement("i");
+div_anno_i_1.className="fa-solid fa-chevron-down fa-shake";
+div_anno_a_1.appendChild(div_anno_i_1);
+var label2_a_1 = new CSS2DObject(div_anno_a_1);
+label2_a_1.position.copy(pos_anno_2);
+label2_a_1.rotation.y = Math.PI * 1;
+label2_a_1.scale.set(0.025, 0.025, 1);
+box.add(label2_a_1);
+
+var div_anno_2=document.createElement("div");
+div_anno_2.className="anno3";
+var text_anno_2=document.createElement("p");
+text_anno_2.innerHTML="1";
+div_anno_2.appendChild(text_anno_2);
+var label2 = new CSS2DObject(div_anno_2);
+label2.position.copy(pos_anno_2);
+label2.rotation.y = Math.PI * 0.5;
+label2.scale.set(0.025, 0.025, 1);
+box.add(label2);
+
+div_anno_2.onpointerenter=function() {
+this.style.border="3px solid red";
+}
+div_anno_2.onpointerleave=function() {
+this.style.border="3px solid white";
+}
+
+var pos_anno_3 = new THREE.Vector3(48.0, 9.8, 8.9);
+
+var div_anno_a_2=document.createElement("a");
+div_anno_a_2.className="btn-2 btn-white";
+var div_anno_i_2=document.createElement("i");
+div_anno_i_2.className="fa-solid fa-chevron-down fa-shake";
+div_anno_a_2.appendChild(div_anno_i_2);
+var label2_a_2 = new CSS2DObject(div_anno_a_2);
+label2_a_2.position.copy(pos_anno_3);
+label2_a_2.rotation.y = Math.PI * 0.5;
+label2_a_2.scale.set(0.025, 0.025, 1);
+box.add(label2_a_2);
+
+var div_anno_3=document.createElement("div");
+div_anno_3.className="anno4";
+var text_anno_3=document.createElement("p");
+text_anno_3.innerHTML="2";
+div_anno_3.appendChild(text_anno_3);
+var label2 = new CSS2DObject(div_anno_3);
+label2.position.copy(pos_anno_3);
+label2.rotation.y = Math.PI * 0.9;
+label2.scale.set(0.025, 0.025, 1);
+box.add(label2);
+
+div_anno_3.onpointerenter=function() {
+this.style.border="3px solid red";
+}
+div_anno_3.onpointerleave=function() {
+this.style.border="3px solid white";
+}
+
+var pos_anno_4 = new THREE.Vector3(39, 19.7, 22.2);
+
+var div_anno_a_3=document.createElement("a");
+div_anno_a_3.className="btn btn-3 btn-white";
+var div_anno_i_3=document.createElement("i");
+div_anno_i_3.className="fa-solid fa-chevron-down fa-shake";
+div_anno_a_3.appendChild(div_anno_i_3);
+var label2_a_3 = new CSS2DObject(div_anno_a_3);
+label2_a_3.position.copy(pos_anno_4);
+label2_a_3.rotation.y = Math.PI * 1.5;
+label2_a_3.scale.set(0.025, 0.025, 1);
+box.add(label2_a_3);
+
+var div_anno_4=document.createElement("div");
+div_anno_4.className="anno5";
+var text_anno_4=document.createElement("p");
+text_anno_4.innerHTML="5";
+div_anno_4.appendChild(text_anno_4);
+var label2 = new CSS2DObject(div_anno_4);
+label2.position.copy(pos_anno_4);
+label2.rotation.y = Math.PI * 1.5;
+label2.scale.set(0.025, 0.025, 1);
+box.add(label2);
+
+div_anno_4.onpointerenter=function() {
+this.style.border="3px solid red";
+}
+div_anno_4.onpointerleave=function() {
+this.style.border="3px solid white";
+}
+
+var pos_anno_5 = new THREE.Vector3(-14, 3.7, 21.2);
+
+var div_anno_a_4=document.createElement("a");
+div_anno_a_4.className="btn btn-4 btn-white";
+var div_anno_i_4=document.createElement("i");
+div_anno_i_4.className="fa-solid fa-chevron-down fa-shake";
+div_anno_a_4.appendChild(div_anno_i_4);
+var label2_a_4 = new CSS2DObject(div_anno_a_4);
+label2_a_4.position.copy(pos_anno_5);
+label2_a_4.rotation.x = Math.PI * 0.5;
+label2_a_4.scale.set(0.025, 0.025, 1);
+box.add(label2_a_4);
+
+var div_anno_5=document.createElement("div");
+div_anno_5.className="anno6";
+var text_anno_5=document.createElement("p");
+text_anno_5.innerHTML="6";
+div_anno_5.appendChild(text_anno_5);
+var label2 = new CSS2DObject(div_anno_5);
+label2.position.copy(pos_anno_5);
+label2.rotation.y = Math.PI * 0;
+label2.scale.set(0.025, 0.025, 1);
+box.add(label2);
+
+div_anno_5.onpointerenter=function() {
+this.style.border="3px solid red";
+}
+div_anno_5.onpointerleave=function() {
+this.style.border="3px solid white";
+}
+
+div3.onpointerenter=function() {
+this.style.background="rgba( 255, 255, 255, .4 )";
+this.style.border="1px solid white";
+}
+
+div3.onpointerleave=function() {
+this.style.background="transparent";
+this.style.border="none";
+}
+
+div_anno_a_6.onpointerdown=async function() {
+
+document.getElementsByClassName("label")[0].style.height="0px";
+document.getElementsByClassName("btn-1")[0].style.visibility="visible";
+document.getElementsByClassName("btn-3")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-4")[0].style.visibility="visible";
+document.getElementsByClassName("btn-5")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-1-1")[0].style.visibility="visible";
+document.getElementsByClassName("btn-2")[0].style.visibility="visible";
+document.getElementsByClassName("btn-6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate")[0].style.visibility="hidden";
+document.getElementsByClassName("gate6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate7")[0].style.visibility="hidden";
+document.getElementsByClassName("gate3")[0].style.visibility="visible";
+document.getElementsByClassName("outdoor")[0].style.visibility="visible";
+document.getElementsByClassName("outdoor_2")[0].style.visibility="visible";
+document.getElementsByClassName("outdoor_3")[0].style.visibility="hidden";
+target1=mesh3;
+//target2=mesh3;
+await came_fov();
+target1.material.opacity=1.0;
+mesh3.material.map=new THREE.TextureLoader().load( image3 );
+//gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
+/*scene.add(mesh3);
+
+scene.remove(mesh1);
+scene.remove(mesh2);
+scene.remove(mesh4);*/
+
+camera.fov=60;
+camera.updateProjectionMatrix();
+
+}
+
+var pos3_1 = new THREE.Vector3(9.1, 5.0, 21);
+
+var div5=document.createElement("div");
+div5.className="gate3";
+
+var label5 = new CSS2DObject(div5);
+label5.position.copy(pos3_1);
+label5.rotation.y = Math.PI * 0.01;
+label5.scale.set(0.025, 0.025, 1);
+box.add(label5);
+
+div5.onpointerenter=function() {
+this.style.background="rgba( 255, 255, 255, .4 )";
+this.style.border="3px solid white";
+
+}
+
+div5.onpointerleave=function() {
+this.style.background="transparent";
+this.style.border="none";
+}
+
+div_anno_a.onpointerdown=async function() {
+
+document.getElementsByClassName("label")[0].style.height="260px";
+document.getElementsByClassName("btn-1")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-1-1")[0].style.visibility="visible";
+document.getElementsByClassName("btn-4")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-5")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-3")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-2")[0].style.visibility="visible";
+document.getElementsByClassName("btn-6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate")[0].style.visibility="hidden";
+document.getElementsByClassName("gate3")[0].style.visibility="hidden";
+document.getElementsByClassName("gate6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate7")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor")[0].style.visibility="visible";
+document.getElementsByClassName("outdoor_2")[0].style.visibility="visible";
+document.getElementsByClassName("outdoor_3")[0].style.visibility="hidden";
+target1=mesh3;
+//target2=mesh1;
+await came_fov();
+target1.material.opacity=1.0;
+mesh3.material.map=new THREE.TextureLoader().load( image3 );
+//gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
+/*scene.add(mesh1);
+
+scene.remove(mesh3);
+scene.remove(mesh2);
+scene.remove(mesh4);*/
+camera.fov=60;
+camera.updateProjectionMatrix();
+}
+
+var check=false;
+
+var div_animation=window.setInterval(function() {
+if(check==false) {
+div2.style.height="30px";
+div2.style.width="30px";
+text1.style.fontSize="20px";
+check=true;
+}
+else if(check==true) {
+div2.style.height="40px";
+div2.style.width="40px";
+text1.style.fontSize="30px";
+check=false;
+}
+
+},1000);
+
+var div_animation_2=window.setInterval(function() {
+if(check==false) {
+div_anno_1.style.height="40px";
+div_anno_1.style.width="40px";
+text_anno_1.style.fontSize="30px";
+check=true;
+}
+else if(check==true) {
+div_anno_1.style.height="50px";
+div_anno_1.style.width="50px";
+text_anno_1.style.fontSize="35px";
+check=false;
+}
+
+},1000);
+
+var div_animation_3=window.setInterval(function() {
+if(check==false) {
+div_anno_2.style.height="40px";
+div_anno_2.style.width="40px";
+text_anno_2.style.fontSize="30px";
+check=true;
+}
+else if(check==true) {
+div_anno_2.style.height="50px";
+div_anno_2.style.width="50px";
+text_anno_2.style.fontSize="35px";
+check=false;
+}
+
+},1000);
+
+
+var div_animation_4=window.setInterval(function() {
+if(check==false) {
+div_anno_3.style.height="60px";
+div_anno_3.style.width="60px";
+text_anno_3.style.fontSize="40px";
+check=true;
+}
+else if(check==true) {
+div_anno_3.style.height="70px";
+div_anno_3.style.width="70px";
+text_anno_3.style.fontSize="45px";
+check=false;
+}
+
+},1000);
+
+var div_animation_5=window.setInterval(function() {
+if(check==false) {
+div_anno_4.style.height="40px";
+div_anno_4.style.width="40px";
+text_anno_4.style.fontSize="30px";
+check=true;
+}
+else if(check==true) {
+div_anno_4.style.height="50px";
+div_anno_4.style.width="50px";
+text_anno_4.style.fontSize="35px";
+check=false;
+}
+
+},1000);
+
+var div_animation_6=window.setInterval(function() {
+if(check==false) {
+div_anno_5.style.height="40px";
+div_anno_5.style.width="40px";
+text_anno_5.style.fontSize="30px";
+check=true;
+}
+else if(check==true) {
+div_anno_5.style.height="50px";
+div_anno_5.style.width="50px";
+text_anno_5.style.fontSize="35px";
+check=false;
+}
+
+},1000);
+
+var div_animation_7=window.setInterval(function() {
+if(check==false) {
+div_anno_6.style.height="40px";
+div_anno_6.style.width="40px";
+text_anno_6.style.fontSize="30px";
+check=true;
+}
+else if(check==true) {
+div_anno_6.style.height="50px";
+div_anno_6.style.width="50px";
+text_anno_6.style.fontSize="35px";
+check=false;
+}
+
+},1000);
+
+div2.onpointerenter=function() {
+this.style.border="3px solid red";
+}
+div2.onpointerleave=function() {
+this.style.border="3px solid white";
+}
+
+var pos4 = new THREE.Vector3(0, 35, -40);
+
+var div4=document.createElement("div");
+div4.className="gate2";
+
+var label4 = new CSS2DObject(div4);
+label4.position.copy(pos4);
+label4.rotation.y = Math.PI * 1;
+label4.scale.set(0.025, 0.025, 1);
+box.add(label4);
+
+div4.onpointerenter=function() {
+this.style.background="rgba( 255, 255, 255, .4 )";
+this.style.border="1px solid white";
+}
+
+div4.onpointerleave=function() {
+this.style.background="transparent";
+this.style.border="none";
+}
+
+var pos_outdoor = new THREE.Vector3(3.8, 7.3, -15.1);
+
+var div_outdoor=document.createElement("div");
+div_outdoor.className="outdoor";
+
+var label_outdoor = new CSS2DObject(div_outdoor);
+label_outdoor.position.copy(pos_outdoor );
+label_outdoor.rotation.y = Math.PI * 1;
+label_outdoor.scale.set(0.025, 0.025, 1);
+box.add(label_outdoor );
+
+div_outdoor.onpointerenter=function() {
+this.style.background="rgba( 255, 255, 255, .4 )";
+this.style.border="3px solid white";
+}
+
+div_outdoor.onpointerleave=function() {
+this.style.background="transparent";
+this.style.border="none";
+}
+div_anno_a_1.onpointerdown=async function() { //div_outdoor
+
+document.getElementsByClassName("label")[0].style.height="0px";
+document.getElementsByClassName("label2")[0].style.height="260px";
+document.getElementsByClassName("btn-1")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-2")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-4")[0].style.visibility="visible";
+document.getElementsByClassName("btn-5")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-1-1")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-3")[0].style.visibility="visible";
+document.getElementsByClassName("btn-6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate")[0].style.visibility="hidden";
+document.getElementsByClassName("gate3")[0].style.visibility="hidden";
+document.getElementsByClassName("gate6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate7")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_2")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_3")[0].style.visibility="visible";
+target1=mesh3;
+//target2=mesh2;
+await came_fov();
+target1.material.opacity=1.0;
+mesh3.material.map=new THREE.TextureLoader().load( image1 );
+
+
+// gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
+/*scene.add(mesh2);
+
+scene.remove(mesh4);
+scene.remove(mesh1);
+scene.remove(mesh3);*/
+camera.fov=60;
+camera.updateProjectionMatrix();
+
+}
+
+var pos_outdoor_2 = new THREE.Vector3(53.0, 6.8, 8.9);
+
+var div_outdoor_2=document.createElement("div");
+div_outdoor_2.className="outdoor_2";
+
+var label_outdoor_2 = new CSS2DObject(div_outdoor_2);
+label_outdoor_2.position.copy(pos_outdoor_2 );
+label_outdoor_2.rotation.y = Math.PI * 0.5;
+label_outdoor_2.scale.set(0.025, 0.025, 1);
+box.add(label_outdoor_2 );
+
+div_outdoor_2.onpointerenter=function() {
+this.style.background="rgba( 255, 255, 255, .4 )";
+this.style.border="3px solid white";
+}
+
+div_outdoor_2.onpointerleave=function() {
+this.style.background="transparent";
+this.style.border="none";
+}
+
+div_anno_a_2.onpointerdown=async function() { //div_outdoor_2
+
+document.getElementsByClassName("label")[0].style.height="0px";
+document.getElementsByClassName("label2")[0].style.height="0px";
+document.getElementsByClassName("btn-1")[0].style.visibility="visible";
+document.getElementsByClassName("btn-2")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-4")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-5")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-1-1")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-3")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate")[0].style.visibility="hidden";
+document.getElementsByClassName("gate3")[0].style.visibility="visible";
+document.getElementsByClassName("gate6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate7")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_2")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_3")[0].style.visibility="hidden";
+target1=mesh3;
+//target2=mesh1;
+await came_fov();
+target1.material.opacity=1.0;
+mesh3.material.map=new THREE.TextureLoader().load( image4 );
+//gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
+/* scene.add(mesh1);
+
+scene.remove(mesh3);
+scene.remove(mesh2);
+scene.remove(mesh4);*/
+camera.fov=60;
+camera.updateProjectionMatrix();
+
+}
+
+var pos_outdoor_3 = new THREE.Vector3(43, 12.7, 24.2);
+
+var div_outdoor_3=document.createElement("div");
+div_outdoor_3.className="outdoor_3";
+
+var label_outdoor_3 = new CSS2DObject(div_outdoor_3);
+label_outdoor_3.position.copy(pos_outdoor_3 );
+label_outdoor_3.rotation.y = Math.PI * 0.5;
+label_outdoor_3.scale.set(0.025, 0.025, 1);
+box.add(label_outdoor_3 );
+
+div_outdoor_3.onpointerenter=function() {
+this.style.background="rgba( 255, 255, 255, .4 )";
+this.style.border="3px solid white";
+}
+
+div_outdoor_3.onpointerleave=function() {
+this.style.background="transparent";
+this.style.border="none";
+}
+
+div_anno_a_3.onpointerdown=async function() {
+
+document.getElementsByClassName("label")[0].style.height="260px";
+document.getElementsByClassName("label2")[0].style.height="0px";
+document.getElementsByClassName("btn-1")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-2")[0].style.visibility="visible";
+document.getElementsByClassName("btn-4")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-3")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-1-1")[0].style.visibility="visible";
+document.getElementsByClassName("btn-5")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate")[0].style.visibility="hidden";
+document.getElementsByClassName("gate3")[0].style.visibility="hidden";
+document.getElementsByClassName("gate6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate7")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor")[0].style.visibility="visible";
+document.getElementsByClassName("outdoor_2")[0].style.visibility="visible";
+document.getElementsByClassName("outdoor_3")[0].style.visibility="hidden";
+target1=mesh3;
+//target2=mesh2;
+await came_fov();
+target1.material.opacity=1.0;
+mesh3.material.map=new THREE.TextureLoader().load( image3 );
+
+// gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
+/* scene.add(mesh2);
+scene.remove(mesh3);
+scene.remove(mesh1);
+scene.remove(mesh4);*/
+camera.fov=60;
+camera.updateProjectionMatrix();
+
+}
+
+div_anno_a_4.onpointerdown=async function() {
+
+document.getElementsByClassName("label")[0].style.height="0px";
+document.getElementsByClassName("label2")[0].style.height="0px";
+document.getElementsByClassName("btn-1")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-2")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-4")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-3")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-1-1")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-5")[0].style.visibility="visible";
+document.getElementsByClassName("btn-6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate")[0].style.visibility="hidden";
+document.getElementsByClassName("gate6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate7")[0].style.visibility="hidden";
+document.getElementsByClassName("gate3")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_2")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_3")[0].style.visibility="hidden";
+target1=mesh3;
+//target2=mesh4;
+await came_fov();
+target1.material.opacity=1.0;
+mesh3.material.map=new THREE.TextureLoader().load( image2 );
+//gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
+/*scene.add(mesh4);
+
+scene.remove(mesh2);
+scene.remove(mesh1);
+scene.remove(mesh3);*/
+camera.fov=60;
+camera.updateProjectionMatrix();
+
+}
+
+div_anno_a_5.onpointerdown=async function() {
+
+document.getElementsByClassName("label")[0].style.height="0px";
+document.getElementsByClassName("label2")[0].style.height="280px";
+document.getElementsByClassName("btn-1")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-2")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-5")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-3")[0].style.visibility="visible";
+document.getElementsByClassName("btn-1-1")[0].style.visibility="hidden";
+document.getElementsByClassName("btn-4")[0].style.visibility="visible";
+document.getElementsByClassName("btn-6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate")[0].style.visibility="hidden";
+document.getElementsByClassName("gate6")[0].style.visibility="hidden";
+document.getElementsByClassName("gate7")[0].style.visibility="hidden";
+document.getElementsByClassName("gate3")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_2")[0].style.visibility="hidden";
+document.getElementsByClassName("outdoor_3")[0].style.visibility="visible";
+target1=mesh3;
+//target2=mesh2;
+await came_fov();
+target1.material.opacity=1.0;
+mesh3.material.map=new THREE.TextureLoader().load( image1 );
+//gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
+/*scene.add(mesh2);
+
+scene.remove(mesh4);
+scene.remove(mesh1);
+scene.remove(mesh3);
+camera.fov=60;*/
+camera.updateProjectionMatrix();
+
+}
+window.addEventListener('resize', onWindowResize, false);
+
+/*div.onpointerover=function() {
+this.style.background="red";
+}
+div.onpointerleave=function() {
+this.style.background="rgba( 0, 0, 0, .6 )";
+}*/
+animate();
+
+/*function camera_event() {
+gsap.to(camera.position, { duration: 2, z: 10, ease: "power1.inOut"});
+}*/
+
+
+function onWindowResize() {
+
+camera.aspect = window.innerWidth / window.innerHeight;
+
+camera.updateProjectionMatrix();
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+labelRenderer.setSize(window.innerWidth, window.innerHeight);
+
+}
+
+
+function onDocumentMouseDown( event ) {
+
+event.preventDefault();
+
+isUserInteracting = true;
+
+onPointerDownPointerX = event.clientX;
+onPointerDownPointerY = event.clientY;
+
+onPointerDownLon = lon;
+onPointerDownLat = lat;
+
+}
+
+function onDocumentMouseMove( event ) {
+
+if ( isUserInteracting === true ) {
+
+lon = ( onPointerDownPointerX - event.clientX ) * 0.1 + onPointerDownLon;
+lat = ( event.clientY - onPointerDownPointerY ) * 0.1 + onPointerDownLat;
+
+}
+
+}
+
+function onDocumentMouseUp( event ) {
+isUserInteracting=false;
+
+//delete update();
+
+}
+
+function onDocumentMouseWheel( event ) {
+
+if(camera.fov<=60 && camera.fov>=16.25) {
+camera.fov += event.deltaY * 0.02;
+camera.updateProjectionMatrix();
+//console.log(event.deltaY);
+//console.log(camera.fov);
+}
+else {
+camera.fov=60;
+
+}
+}
+
+/*########################################*/
+
+function onDocumentMouseDown2( event ) {
+
+//event.preventDefault();
+
+isUserInteracting = true;
+
+onPointerDownPointerX = event.touches[0].clientX;
+onPointerDownPointerY = event.touches[0].clientY;
+
+onPointerDownLon = lon;
+onPointerDownLat = lat;
+
+}
+
+function onDocumentMouseMove2( event ) {
+
+if ( isUserInteracting === true ) {
+
+lon = ( onPointerDownPointerX - event.touches[0].clientX ) * 0.1 + onPointerDownLon;
+lat = ( event.touches[0].clientY - onPointerDownPointerY ) * 0.1 + onPointerDownLat;
+
+}
+
+}
+
+function onDocumentMouseUp2( event ) {
+
+isUserInteracting = false;
+}
+
+function onDocumentMouseWheel2( event ) {
+
+if(camera.fov<=60 && camera.fov>=16.25) {
+camera.fov += event.deltaY * 0.02;
+camera.updateProjectionMatrix();
+//console.log(event.deltaY);
+//console.log(camera.fov);
+}
+else {
+camera.fov=60;
+
+}
+}
+var rotate_check=false;
+
+document.getElementsByClassName("rotate")[0].onclick=function() {
+  if(rotate_check==false) {
+    document.getElementById("img-rotate").setAttribute("src","tap.png");
+    rotate_check=true;
+  }
+  else {
+    document.getElementById("img-rotate").setAttribute("src","rotation.png");
+    rotate_check=false;
+  }
+}
+
+var alpha,beta,gamma;
+var compassHeading = null;
+    var compassHeading2 = null;
+// Cihazın dönüş olayını dinle
+function handleOrientation(event) {
+    if (event.alpha) {
+    compassHeading = Math.abs(360 - event.alpha);
+  } else {
+    compassHeading = null;
+  }
+
+    if (event.beta) {
+    compassHeading2 = Math.abs(360 - event.beta);
+  } else {
+    compassHeading2 = null;
+  }
+
+      // Convert rotation values to radians
+ /*  alpha = THREE.MathUtils.degToRad(event.alpha); // Z-axis rotation
+ beta = THREE.MathUtils.degToRad(event.beta); // X-axis rotation
+   gamma = THREE.MathUtils.degToRad(event.gamma); // Y-axis rotation*/
+
+	  // Yön verilerini alın
+  // alpha = event.alpha; // cihazın yatay olarak dönme açısı (0-360)
+ //  beta = event.beta; // cihazın ön-arka eğimi (-180-180)
+  // gamma = event.gamma; // cihazın sol-sağ eğimi (-90-90)
+}
+
+window.addEventListener('deviceorientation', handleOrientation,false);
+function render() {
 
 				renderer.render( scene, camera );
 
-			}
+			} 
 
-		</script>
-		    <div id="overlayContent" style="position: absolute; top: 50px; left: 50px; background-color: rgba(255, 255, 255, 0.8); padding: 20px;">
-        <h2>Merhaba, VR Dünyası!</h2>
-        <p>Bu bir örnek 2D içeriktir.</p>
-    </div>
-	</body>
+function animate() {
+requestAnimationFrame(animate);
+//update();
+renderer.setAnimationLoop( render );
+
+if(window.screen.availWidth>=996) {
+  lon += 0.05;
+}
+
+ else if(window.screen.availWidt<996) {
+  if(rotate_check==false) {
+    lon += 0.05;
+  }
+  
+}
+
+
+
+if (compassHeading !== null) {
+  //if(rotate_check==true) {
+    // Kameranın rotasyonunu güncelle
+   camera.rotation.y = ((-compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+  //}
+}
+if (compassHeading2 !== null) {
+    // Kameranın rotasyonunu güncelle
+   // camera.rotation.x = ((compassHeading2 * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+  }
+     //camera.rotation.set(beta, alpha, -gamma);
+    
+     lat = Math.max( - 85, Math.min( 85, lat ) );
+phi = THREE.Math.degToRad( 90 - lat );
+theta = THREE.Math.degToRad( lon );
+
+camera.target.x = 500 * Math.sin( phi ) * Math.cos( theta );
+camera.target.y = 500 * Math.cos( phi );
+camera.target.z = 500 * Math.sin( phi ) * Math.sin( theta );
+
+camera.lookAt( camera.target );
+
+renderer.render(scene, camera);
+labelRenderer.render(scene, camera);
+
+}
+
+ 
+
+
+}
+    </script>
+
+   <script>
+    $( document ).ready(function() {
+      $(".link2").slideToggle("300");
+var bars_true=true;
+$('.bars').click(function(){
+
+  if(bars_true) {
+    document.getElementById("bars").setAttribute("class","fa-solid fa-xmark");
+    bars_true=false;
+  }
+ else {
+    document.getElementById("bars").setAttribute("class","fa-solid fa-bars");
+    bars_true=true;
+  }
+  $(".link2").slideToggle("300");
+})
+document.getElementById("send").onclick=function() {
+  var val=document.getElementById("chat_input").value;
+  var div=document.createElement("div");
+  div.setAttribute("class","message my-message");
+  div.innerHTML=val;
+  document.getElementById("chat_messages").appendChild(div);
+  var element = document.getElementById("chat_box_body");
+  element.scrollTo(0,element.scrollHeight);
+  document.getElementById("chat_input").value="";
+}
+
+document.getElementById("chat_input").onkeydown=function(event) {
+  if(event.keyCode==13){
+    window.setTimeout(function() {
+      document.getElementById("send").click();
+    },10);
+   /* var val=document.getElementById("chat_input").value;
+  var div=document.createElement("div");
+  div.setAttribute("class","message my-message");
+  div.innerHTML=val;
+  document.getElementById("chat_messages").appendChild(div);
+  var element = document.getElementById("chat_box_body");
+  element.scrollTo(0,element.scrollHeight);
+  document.getElementById("chat_input").value="";*/
+  }
+}
+
+document.getElementsByTagName("textarea")[0].onclick=function() {
+  this.focus();
+}
+var menu_check=false;
+document.getElementById("message-delek").onclick=function() {
+  $("#message-delek").slideToggle("300");
+ // document.getElementsByClassName("chat-box")[0].style.display="flex";
+ $(".chat-box").slideToggle("300").end(document.getElementsByClassName("chat-box")[0].style.display="flex");
+}
+$("#exit").click(function() {
+  $(".chat-box").slideToggle("300").end(
+    $("#message-delek").slideToggle("300")
+  );
+})
+$("#img1").click(function() {
+  $("#menu-1").slideToggle("300");
+});
+$("#p").click(function() {
+  if(menu_check==false) {
+      document.getElementById("menu-down").setAttribute("class","fa-solid fa-circle-chevron-down");
+      menu_check=true;
+    }
+    else {
+      document.getElementById("menu-down").setAttribute("class","fa-solid fa-circle-chevron-left");
+      menu_check=false;
+    }
+  $("#menu-1").slideToggle("300");
+});
+$("#menu-down").click(function() {
+    if(menu_check==false) {
+      document.getElementById("menu-down").setAttribute("class","fa-solid fa-circle-chevron-down");
+      menu_check=true;
+    }
+    else {
+      document.getElementById("menu-down").setAttribute("class","fa-solid fa-circle-chevron-left");
+      menu_check=false;
+    }
+  //document.getElementById("menu-down").setAttribute("class","fa-solid fa-circle-chevron-down");
+  $("#menu-1").slideToggle("300");
+});
+
+
+var expand_check=false;
+$(".expand").click(function() {
+  if(expand_check==false) {
+    document.documentElement.webkitRequestFullscreen();
+    document.getElementById("expand").setAttribute("class","fa-solid fa-compress")
+    expand_check=true;
+  }
+  else {
+    document.exitFullscreen();
+    document.getElementById("expand").setAttribute("class","fa-solid fa-expand")
+    expand_check=false;
+  }
+});
+});
+   </script>
+   <div class="out-box">
+   <div id="div1">
+    <img id="img1" src="resim2.png">
+    <p id="p">kültür mah.</p>
+    <i id="menu-down" class="fa-solid fa-circle-chevron-left"></i>
+     <li id="limk"><span>kültür street</span></li>
+     <div id="menu-1">
+      <span>konyaaltı</span>
+      <span>arapsuyu</span>
+      <span id="last-span">döşemealtı</span>
+     </div>
+     </div>
+        <div class="chat-box">
+          <div class="chat-box-header">
+            <i class="fa-solid fa-city"></i>
+            <h3>Chat whit us now<br /><small></small></h3>
+            <div id="div2"><i id="exit" class="fa-solid fa-circle-chevron-down"></i></div>
+          </div>
+          <div id="chat_box_body" class="chat-box-body">
+            <div id="chat_messages">
+              <div class="profile other-profile">
+               
+              </div>
+              <div class="message other-message">
+                Hello!
+              </div>
+              <div class="profile my-profile">
+            </div>
+        
+              <div class="message my-message">
+                How are you!
+              </div>
+            </div>
+          </div>
+          <div id="typing">
+            <div><span></span> <span></span> <span></span> <span class="n">Someone</span> is typing...</div>
+          </div>
+          <div class="chat-box-footer">
+            <textarea id="chat_input" placeholder="Enter your message here..."></textarea>
+            <button id="send">
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#006ae3" d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div id="message-delek">
+          <i id="comments" class="fa-solid fa-comments"></i>
+        </div>
+    
+        <div id="delek">
+         <div id="link" class="bars"><i id="bars" class="fa-solid fa-bars"></i></div>
+         <div id="link" class="cardboard link2" ><i class="fa-solid fa-vr-cardboard"></i></div>
+         <div id="link" class="rotate link2" ><img id="img-rotate" src="rotation.png"></div>
+         <div id="link" class="expand link2"><i id="expand" class="fa-solid fa-expand"></i></div> <!-- compress -->
+         <div id="link" class="twitter link2" ><i class="fa-brands fa-twitter"></i></div>
+         <div id="link" class="facebook link2"><i class="fa-brands fa-facebook-f"></i></div>
+         <div id="link" class="instagram link2"><i class="fa-brands fa-instagram"></i></div>
+        </div>
+
+        </div>
+</body>
 </html>
