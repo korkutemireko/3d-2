@@ -840,17 +840,26 @@ labelRenderer.domElement.style.position = 'absolute';
 labelRenderer.domElement.style.top = '0px';
 document.getElementsByClassName("out-box")[0].appendChild(labelRenderer.domElement);
 
+	        // Düzlemi oluştur
+        const planeGeometry = new THREE.PlaneGeometry(5, 5); // Düzlemin boyutunu ayarlayın
+        const planeMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('background.jpg'), side: THREE.DoubleSide });
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        scene.add(plane);
+
+        // HTML içeriğini düzleme bağla
+        const overlayContent = document.getElementById('overlayContent');
+        const overlay = new THREE.CSS3DObject(overlayContent);
+        overlay.scale.set(0.005, 0.005, 0.005); // Düzlemin boyutuna göre ölçeklendirin
+        scene.add(overlay);
+
 document.body.appendChild( VRButton.createButton( renderer ) );
 
 document.getElementById("button-vr").onclick=function() {
 	const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor', 'hand-tracking', 'layers' ] };
 					navigator.xr.requestSession( 'immersive-vr', sessionInit ).then(async function(session) {
 						await renderer.xr.setSession( session );
-						const someDivElement = document.createElement('div');
-                				someDivElement.textContent = "Bu bir div elementidir.";
-						someDivElement.fontSize="40px";
-						someDivElement.zIndex="10000";
-                 				document.body.appendChild(someDivElement);
+						
+                				
 					});
 }
 	
