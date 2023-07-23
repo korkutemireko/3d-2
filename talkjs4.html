@@ -842,7 +842,13 @@ document.getElementsByClassName("out-box")[0].appendChild(labelRenderer.domEleme
 
 document.body.appendChild( VRButton.createButton( renderer ) );
 
-
+document.getElementById("button-vr").onclick=function() {
+	const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor', 'hand-tracking', 'layers' ] };
+					navigator.xr.requestSession( 'immersive-vr', sessionInit ).then(async function(session) {
+						await renderer.xr.setSession( session );
+					});
+}
+	
 /*document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild( VRButton.createButton( renderer ) );
 
@@ -2223,13 +2229,6 @@ $("#img1").click(function() {
 $("#p").click(function() {
   $("#menu-1").slideToggle("300");
 });
-	$("#button-vr").click(function() {
-		alert("daad");
-		const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor', 'hand-tracking', 'layers' ] };
-					navigator.xr.requestSession( 'immersive-vr', sessionInit ).then( function() {
-						console.log("wdfef");
-					});
-	});
 });
    </script>
    <div class="out-box">
