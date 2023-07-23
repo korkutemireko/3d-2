@@ -846,6 +846,7 @@ document.getElementById("button-vr").onclick=function() {
 	const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor', 'hand-tracking', 'layers' ] };
 					navigator.xr.requestSession( 'immersive-vr', sessionInit ).then(async function(session) {
 						await renderer.xr.setSession( session );
+						await labelRenderer.xr.setSession( session );
 					});
 }
 	
