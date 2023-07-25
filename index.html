@@ -2238,6 +2238,17 @@ requestAnimationFrame(animate);
 //update();
 renderer.setAnimationLoop( render );
 
+	if (compassHeading !== null) {
+  if(rotate_check==true) {
+    // Kameranın rotasyonunu güncelle
+   camera.rotation.y = ((-compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+  }
+}
+if (compassHeading2 !== null) {
+    // Kameranın rotasyonunu güncelle
+   // camera.rotation.x = ((compassHeading2 * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+  }
+	
 if(window.screen.availWidth>=996) {
   lon += 0.05;
 }
@@ -2250,17 +2261,6 @@ if(window.screen.availWidth>=996) {
 }
 
 
-
-if (compassHeading !== null) {
-  //if(rotate_check==true) {
-    // Kameranın rotasyonunu güncelle
-   camera.rotation.y = ((-compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
-  //}
-}
-if (compassHeading2 !== null) {
-    // Kameranın rotasyonunu güncelle
-   // camera.rotation.x = ((compassHeading2 * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
-  }
      //camera.rotation.set(beta, alpha, -gamma);
     
      lat = Math.max( - 85, Math.min( 85, lat ) );
