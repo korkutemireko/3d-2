@@ -1107,63 +1107,7 @@ eval('var ' + k + i + '= ' + i + ';');
 
 }*/
 load4(image3);
-//load1(image1);
-//load2(image2);
-//load3(image4);
-//load4(image3);
 
-function load1(image1) {
-  
-  var geometry = new THREE.SphereGeometry( 500, 60, 40 );
-geometry.scale( - 1, 1, 1 );
-
-var material = new THREE.MeshBasicMaterial( {
-    map: new THREE.TextureLoader().load( image1 )
-} );
-
-mesh1= new THREE.Mesh( geometry, material );
-mesh1.material.transparent = true;
-// scene.add(mesh1);
-
-
-}
-
-/*document.onkeydown=function(event) {
-    if(event.key=="j") {
-        mesh3.material.map=new THREE.TextureLoader().load( image2 )
-    }
-}*/
-
-
-function load2(image2) {
-  
-  var geometry = new THREE.SphereGeometry( 500, 60, 40 );
-geometry.scale( - 1, 1, 1 );
-
-var material = new THREE.MeshBasicMaterial( {
-    map: new THREE.TextureLoader().load( image2 )
-} );
-
-mesh2= new THREE.Mesh( geometry, material );
-mesh2.material.transparent = true;
-
-// scene.add(mesh2);
-}
-
-function load3(image4) {
-  
-  var geometry = new THREE.SphereGeometry( 500, 60, 40 );
-geometry.scale( - 1, 1, 1 );
-
-var material = new THREE.MeshBasicMaterial( {
-    map: new THREE.TextureLoader().load( image4 )
-} );
-
-mesh4= new THREE.Mesh( geometry, material );
-mesh4.material.transparent = true;
-
-//  scene.add(mesh4);
-}
 
 function load4(image3) {
   
@@ -1183,6 +1127,14 @@ target1=mesh3;
 //mesh3.material.opacity = 0.5; 
 scene.add(mesh3);
 
+	function loader_image(image_n) {
+  mesh3.material.map=new THREE.TextureLoader().load( image_n );
+}
+
+loader_image(image1);
+loader_image(image2);
+loader_image(image4);
+loader_image(image3);
 }
 
 async function came_fov() {
