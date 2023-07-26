@@ -898,7 +898,7 @@ color:transparent !important;
 #map-exit i {
   color:black;
   text-align: center;
-  left:28%;
+  left:27%;
   top:30%;
   transform: translate(-50%,-50%);
 }
@@ -2457,16 +2457,19 @@ camera.lookAt( camera.target );*/
 		  </script>
    <script>
     $( document ).ready(function() {
+	          document.getElementById("bars").style.left="2px";
       $(".link2").slideToggle("300");
 var bars_true=true;
 $('.bars').click(function(){
 
   if(bars_true) {
     document.getElementById("bars").setAttribute("class","fa-solid fa-xmark");
+	      document.getElementById("bars").style.left="3px";
     bars_true=false;
   }
  else {
     document.getElementById("bars").setAttribute("class","fa-solid fa-bars");
+	     document.getElementById("bars").style.left="2px";
     bars_true=true;
   }
   $(".link2").slideToggle("300");
