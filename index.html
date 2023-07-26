@@ -997,6 +997,7 @@ labelRenderer.domElement.style.top = '0px';
 document.getElementsByClassName("out-box")[0].appendChild(labelRenderer.domElement);
 
 document.getElementsByClassName("cardboard")[0].onclick=function() {
+	  document.exitFullscreen();
 	const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor', 'hand-tracking', 'layers' ] };
 					navigator.xr.requestSession( 'immersive-vr', sessionInit ).then(async function(session) {
 						await renderer.xr.setSession( session );
