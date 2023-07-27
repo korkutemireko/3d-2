@@ -66,7 +66,7 @@ app.get('/',function(req,res,next) {
 }); 
 
 app.get('/about',function(req,res,next) {
-  res.sendFile( __dirname + "/talkjs4.html");
+  res.sendFile( __dirname + "/indexed.html");
  // res.download('eko.pdf');
 });
 
