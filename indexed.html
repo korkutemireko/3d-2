@@ -2711,6 +2711,79 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMcohZr9rLMh_VnqQkSV8l4R
     top:-15px;
   }
 }
+		@media screen and (min-device-width: 481px) and (max-device-width: 768px) { 
+  #copy-page {
+            position: absolute;
+            z-index: 1000;
+            left:50%;
+            bottom:-30%;
+            transform: translate(-50%, 3%);
+            height: 200px;
+            width: 80%;
+            background: black;
+            opacity: 0.8;
+            border-radius: 10px;
+            display: none;
+          }
+          #copy-page  img {
+            position: absolute;
+            left:10px;
+            top:10px;
+            height: 180px;
+            width: 180px;
+          }
+          #copy-page #input-1 {
+            position: absolute;
+            left:60%;
+            top:15px;
+            transform: translateX(-50%);
+            width: 280px;
+            height: 30px;
+            outline: none;
+            border-radius: 5px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size:20px;
+          }
+          #copy-page #copy-i {
+            position: absolute;
+            top:10px;
+            left:83%;
+          }
+          #copy-detail {
+            position: absolute;
+            top:60px;
+            background: transparent;
+            left:35%;
+            height: 130px;
+            width: 50%;
+            display: inline-block;
+          }
+          #copy-i1 {
+            display: inline-block;
+            margin:10px;
+            position: relative;
+          }
+          #copy-exit {
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  z-index: 1000;
+  height: 40px;
+  width: 40px;
+  background: whitesmoke;
+  opacity: 0.8;
+  border-radius: 50%;
+  border:2px solid white;
+  text-align: center;
+}
+#copy-exit i {
+  color:black;
+  text-align: center;
+  left:27%;
+  top:30%;
+  transform: translate(-50%,-50%);
+}
+}
         </style>
        <div id="copy-page">
         <div id="copy-exit" class="map-exit" ><i class="fa-solid fa-xmark"></i></div>
