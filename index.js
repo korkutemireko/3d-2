@@ -61,12 +61,12 @@ app.use((req, res, next) => {
 
 
 app.get('/',function(req,res,next) {
-    res.sendFile( __dirname + "/index.html");
+    res.sendFile( __dirname + "/ev1.html");
    // res.download('eko.pdf');
 }); 
 
-app.get('/about',function(req,res,next) {
-  res.sendFile( __dirname + "/indexed.html");
+app.get('/house-2',function(req,res,next) {
+  res.sendFile( __dirname + "/ev2.html");
  // res.download('eko.pdf');
 });
 
