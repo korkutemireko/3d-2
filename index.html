@@ -2247,6 +2247,17 @@ if(window.screen.availWidth>=996) {
   
 }
 
+			if (compassHeading !== null) {
+  if(rotate_check==true) {
+    // Kameranın rotasyonunu güncelle
+   camera.rotation.y = ((-compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+  }
+}
+if (compassHeading2 !== null) {
+    // Kameranın rotasyonunu güncelle
+   // camera.rotation.x = ((compassHeading2 * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
+  }
+
 
      //camera.rotation.set(beta, alpha, -gamma);
     
@@ -2260,16 +2271,6 @@ camera.target.z = 500 * Math.sin( phi ) * Math.sin( theta );
 
 camera.lookAt( camera.target );
 
-		if (compassHeading !== null) {
-  if(rotate_check==true) {
-    // Kameranın rotasyonunu güncelle
-   camera.rotation.y = ((-compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
-  }
-}
-if (compassHeading2 !== null) {
-    // Kameranın rotasyonunu güncelle
-   // camera.rotation.x = ((compassHeading2 * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
-  }
 
 renderer.render(scene, camera);
 labelRenderer.render(scene, camera);
