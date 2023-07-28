@@ -2262,6 +2262,12 @@ camera.lookAt( camera.target );
 
 				if (compassHeading !== null) {
   if(rotate_check==true) {
+	  
+camera.target.x = 0
+camera.target.y = 0
+camera.target.z = 0
+
+camera.lookAt( camera.target );
     // Kameranın rotasyonunu güncelle
    camera.rotation.y = ((-compassHeading * Math.PI) / 180) - Math.PI / 2 ; // Yönü ayarla (-Math.PI / 2'yi ekleyerek düzeltme yapılıyor)
   }
