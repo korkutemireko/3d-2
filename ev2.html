@@ -47,8 +47,12 @@ body {
     height: 100%;
     width: 100%;
     background: none;
+   cursor: grab;
 }
 
+.out-box:active {
+  cursor: grabbing;
+}
 
 .chat-box {
   background-color: #1b80f3;
@@ -216,6 +220,7 @@ body {
   background: transparent;
   border:none;
   display: none;
+cursor:pointer;
  }
  #menu-1 span {
   display: block;
@@ -239,6 +244,7 @@ body {
   border-radius: 0 10px 10px 0;
   z-index: 10000;
   transition: width 1000;
+ cursor:pointer;
 }
 }
 @media (max-width: 480px) {
@@ -263,6 +269,7 @@ body {
   background: transparent;
   height: 30px;
   width: 30px;
+ cursor:pointer;
  }
 
    #menu-1 {
@@ -274,6 +281,7 @@ body {
   background: transparent;
   border:none;
   display: none;
+cursor:pointer;
  }
  #menu-1 span {
   display: block;
@@ -297,6 +305,8 @@ body {
   border-radius: 10px 10px 10px 10px;
   z-index: 10000;
   transition: all 0.4s ease;
+cursor:pointer;
+
 }
 }
 
@@ -380,6 +390,7 @@ i {
   top: 23px;
   transform: translate(-50%, -50%);
   z-index: 1000;
+cursor:pointer;
  }
 
  #div1 img {
@@ -429,6 +440,8 @@ i {
   background: transparent;
   height: 30px;
   width: 30px;
+ cursor:pointer;
+
  }
  #div2 i {
   position: relative;
