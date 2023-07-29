@@ -973,8 +973,12 @@ camera.position.set(10, 10, 10);
 camera.target = new THREE.Vector3( 0, 0, 0 );
 var renderer = new THREE.WebGLRenderer({
 antialias: false,
-preserveDrawingBuffer: true
-//canvas:document.getElementById("canvas1")
+precision: "lowp",
+alpha:false,
+stencil:false,
+powerPreference:"low-power",
+depth:false,
+preserveDrawingBuffer: true  
 });
 
 renderer.useLegacyLights = false;
