@@ -72,7 +72,7 @@ app.get('/house-2',function(req,res,next) {
 
 app.get('/contact',function(req,res) {
    // res.send({"name":process.pid});
-      res.sendFile( __dirname + "/xr.html");
+      res.sendFile( __dirname + "/index-1.html");
 });
 
 app.get('/home-tr',function(req,res) {
