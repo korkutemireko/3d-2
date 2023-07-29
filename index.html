@@ -1004,8 +1004,12 @@ camera.position.set(10, 10, 10);
 camera.target = new THREE.Vector3( 0, 0, 0 );
 var renderer = new THREE.WebGLRenderer({
 antialias: false,
-preserveDrawingBuffer: true
-
+precision: "lowp",
+alpha:false,
+stencil:false,
+powerPreference:"low-power",
+depth:false,
+preserveDrawingBuffer: true  
 
 });
 
