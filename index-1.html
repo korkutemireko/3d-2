@@ -2030,9 +2030,27 @@ if ( isUserInteracting === true ) {
 
     // Yapmak istediğiniz büyütme/küçültme işlemlerini burada gerçekleştirin.
     if (scaleRatio > lastScaleRatio) {
-      alert('Büyüyor');
+    if(camera.fov<=60 && camera.fov>=16.25) {
+camera.fov += -166 * 0.02;
+camera.updateProjectionMatrix();
+//console.log(event.deltaY);
+//console.log(camera.fov);
+}
+else {
+camera.fov=60;
+
+}
     } else if (scaleRatio < lastScaleRatio) {
-      alert('Küçülüyor');
+	    if(camera.fov<=60 && camera.fov>=16.25) {
+camera.fov += 166 * 0.02;
+camera.updateProjectionMatrix();
+//console.log(event.deltaY);
+//console.log(camera.fov);
+}
+else {
+camera.fov=60;
+
+}
     }
 
     lastScaleRatio = scaleRatio;
