@@ -2218,15 +2218,15 @@ lon2 = 0, onMouseDownLon2 = 0,
 lat2 = 0, onMouseDownLat2 = 0,
 phi2 = 0, theta2 = 0;*/
 	  
-		const scene2 = new THREE.Scene();
+		const scene = new THREE.Scene();
 		const ambientLight2 = new THREE.AmbientLight(0xffffff, 0.75);
 	  
-		scene2.add(ambientLight2);
+		scene.add(ambientLight2);
 	  
 		const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.25);
 	  
 		directionalLight2.position.set(0, 10, 50);
-		scene2.add(directionalLight2);
+		scene.add(directionalLight2);
 	  
 	//	const controls = new THREE.OrbitControls( camera, renderer.domElement );
 	  
@@ -2294,15 +2294,15 @@ camera.fov=60;
 }*/
 	  
 		// Load the model.
-		const loader2 = new GLTFLoader();
-		const url2 =
+		const loader = new GLTFLoader();
+		const url =
 		  "https://raw.githubusercontent.com/googlemaps/js-samples/main/assets/pin.gltf";
 
 	  
-		loader2.load(url2, (gltf) => {
+		loader.load(url, (gltf) => {
 		  gltf.scene.scale.set(7, 7, 7);
 		  gltf.scene.rotation.x = Math.PI / 1;
-		  scene2.add(gltf.scene);
+		  scene.add(gltf.scene);
 	  
 		  let { tilt, heading, zoom } = mapOptions;
 	  
@@ -2346,7 +2346,7 @@ camera.lookAt( camera.target );*/
 		});
 		new ThreeJSOverlayView({
 		  map,
-		  scene2,
+		  scene,
 		  anchor: {   lat: 36.90001723802048, lng: 30.646029710769653, altitude: 50 },
 		  THREE,
 		});
