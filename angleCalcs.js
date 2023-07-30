@@ -1,7 +1,6 @@
 // I believe this file can be ignored for the purposes of this question
 
-import { MathUtils } from "three";
-
+import { MathUtils } from "https://cdn.skypack.dev/three@0.136.0";
 // calculate signed distance between two angles (a,b) while accounting for angle wrap
 const angleDelta = (a, b, minAngle, maxAngle) => {
   const range = maxAngle - minAngle;
