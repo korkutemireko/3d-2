@@ -2270,7 +2270,9 @@ function render() {
 function animate() {
 requestAnimationFrame(animate);
 //update();
-	controls.update();
+	 if(rotate_check==true) {
+		 	controls.update();
+	 }
 renderer.setAnimationLoop( render );
 
 	
