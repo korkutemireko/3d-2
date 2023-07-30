@@ -994,7 +994,8 @@ import {
 CSS3DRenderer,
 CSS3DObject
 } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS3DRenderer.js';
-import { calcBetaOffset, calcGammaOffset } from "./angleCalcs.js";
+import {DeviceOrientationControls} from './DeviceOrientationControls.js'; 
+
 window.onload=function() {
 
 
@@ -2117,28 +2118,8 @@ document.getElementsByClassName("voice")[0].onclick=function() {
   }
 }
 
-let initialOrientation;
-function onDeviceOrientation (e) {
-  // use initial angle as our "origin"
-  if (!initialOrientation) {
-    initialOrientation = {
-      alpha: e.alpha,
-      beta: e.beta,
-      gamma: e.gamma
-    }
-  }
-  
-  // move camera X and Y positions between -2 and 2 depending on
-  // angles of beta and gamma, keeping Z position fixed
-  camera.position.set(
-    THREE.MathUtils.lerp(0, 5, calcGammaOffset(e.gamma, initialOrientation.gamma)),
-    THREE.MathUtils.lerp(0, 5, calcBetaOffset(e.beta, initialOrientation.beta)),
-    5
-  )
-  camera.lookAt(0, 0, 0);
-}
 	  
-var alpha,beta,gamma;
+/*var alpha,beta,gamma;
 var compassHeading = null;
     var compassHeading2 = null;
 // Cihazın dönüş olayını dinle
@@ -2158,7 +2139,10 @@ function handleOrientation(event) {
 
 }
 
-window.addEventListener('deviceorientation', onDeviceOrientation ,false);
+window.addEventListener('deviceorientation', onDeviceOrientation ,false);*/
+
+	const controls = new DeviceOrientationControls(camera);
+
 function render() {
 
 				renderer.render( scene, camera );
@@ -2168,8 +2152,8 @@ function render() {
 function animate() {
 requestAnimationFrame(animate);
 //update();
+	controls.update();
 renderer.setAnimationLoop( render );
-
 
 	
 if(window.screen.availWidth>=996) {
