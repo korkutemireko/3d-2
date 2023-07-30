@@ -2016,6 +2016,11 @@ function onDocumentMouseDown2( event ) {
 
    if(google_map_check==false) {
 
+	       if (event.touches.length === 2) {
+    const touch1 = event.touches[0];
+    const touch2 = event.touches[1];
+    initialDistance = calculateDistance(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
+  }
 //event.preventDefault();
 
 isUserInteracting = true;
@@ -2032,11 +2037,51 @@ function onDocumentMouseMove2( event ) {
 
 if ( isUserInteracting === true ) {
 
+	  if (event.touches.length === 2) {
+    const touch1 = event.touches[0];
+    const touch2 = event.touches[1];
+    currentDistance = calculateDistance(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
+    const scaleRatio = currentDistance / initialDistance;
+
+    // Yapmak istediğiniz büyütme/küçültme işlemlerini burada gerçekleştirin.
+    if (scaleRatio > lastScaleRatio) {
+    if(camera.fov<=60 && camera.fov>=16.25) {
+camera.fov += -166 * 0.02;
+camera.updateProjectionMatrix();
+//console.log(event.deltaY);
+//console.log(camera.fov);
+}
+else {
+camera.fov=60;
+
+}
+    } else if (scaleRatio < lastScaleRatio) {
+	    if(camera.fov<=60 && camera.fov>=16.25) {
+camera.fov += 166 * 0.02;
+camera.updateProjectionMatrix();
+//console.log(event.deltaY);
+//console.log(camera.fov);
+}
+else {
+camera.fov=60;
+
+}
+    }
+
+    lastScaleRatio = scaleRatio;
+  }
+
 lon = ( onclickPointerX - event.touches[0].clientX ) * 0.1 + onclickLon;
 lat = ( event.touches[0].clientY - onclickPointerY ) * 0.1 + onclickLat;
 
 }
 
+}
+
+	function calculateDistance(x1, y1, x2, y2) {
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  return Math.sqrt(dx * dx + dy * dy);
 }
 
 function onDocumentMouseUp2( event ) {
