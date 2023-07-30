@@ -2117,6 +2117,27 @@ document.getElementsByClassName("voice")[0].onclick=function() {
   }
 }
 
+let initialOrientation;
+function onDeviceOrientation (e) {
+  // use initial angle as our "origin"
+  if (!initialOrientation) {
+    initialOrientation = {
+      alpha: e.alpha,
+      beta: e.beta,
+      gamma: e.gamma
+    }
+  }
+  
+  // move camera X and Y positions between -2 and 2 depending on
+  // angles of beta and gamma, keeping Z position fixed
+  camera.position.set(
+    THREE.MathUtils.lerp(0, 5, calcGammaOffset(e.gamma, initialOrientation.gamma)),
+    THREE.MathUtils.lerp(0, 5, calcBetaOffset(e.beta, initialOrientation.beta)),
+    5
+  )
+  camera.lookAt(0, 0, 0);
+}
+	  
 var alpha,beta,gamma;
 var compassHeading = null;
     var compassHeading2 = null;
@@ -2137,7 +2158,7 @@ function handleOrientation(event) {
 
 }
 
-window.addEventListener('deviceorientation', handleOrientation,false);
+window.addEventListener('deviceorientation', onDeviceOrientation ,false);
 function render() {
 
 				renderer.render( scene, camera );
@@ -2175,7 +2196,7 @@ camera.target.z = 500 * Math.sin( phi ) * Math.sin( theta );
 
 camera.lookAt( camera.target );
 
-				if (compassHeading !== null) {
+				/*if (compassHeading !== null) {
   if(rotate_check==true) {
 
    camera.rotation.y = ((-compassHeading * Math.PI) / 180) - Math.PI / 2 ; 
@@ -2183,7 +2204,7 @@ camera.lookAt( camera.target );
 }
 if (compassHeading2 !== null) {
 
-  }
+  }*/
 
 renderer.render(scene, camera);
 labelRenderer.render(scene, camera);
