@@ -1131,9 +1131,8 @@ var material = new THREE.MeshBasicMaterial( {
     map: new THREE.TextureLoader().load( image3, function (texture) {
     // Yükleme tamamlandığında çalışacak işlev
     console.log('Texture loaded successfully:'+ texture);
-    if(image_n==image3) {
       document.getElementsByClassName("container")[0].style.display="none";
-    }
+    
   },
   function (xhr) {
     // Yükleme sırasında ilerleme raporları için çalışacak işlev
@@ -1143,7 +1142,7 @@ var material = new THREE.MeshBasicMaterial( {
   function (error) {
     // Yükleme sırasında bir hata oluşursa çalışacak işlev
     console.error('Error loading texture:'+ error);
-  } );
+  } )
 } );
 
 mesh3= new THREE.Mesh( geometry, material );
