@@ -1123,7 +1123,7 @@ load4(image3);
 
 
 function load4(image3) {
-  
+        document.getElementsByClassName("container")[0].style.display="flex";
   var geometry = new THREE.SphereGeometry( 500, 60, 40 );
 geometry.scale( - 1, 1, 1 );
 
@@ -1141,9 +1141,23 @@ target1=mesh3;
 scene.add(mesh3);
 
 	function loader_image(image_n) {
-  mesh3.material.map=new THREE.TextureLoader().load( image_n );
+  mesh3.material.map=new THREE.TextureLoader().load( image_n,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+    if(image_n==image3) {
+      document.getElementsByClassName("container")[0].style.display="none";
+    }
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  }  );
 }
-loader_image(image3);
 loader_image(image1);
 loader_image(image2);
 loader_image(image4);
