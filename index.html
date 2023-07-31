@@ -1132,7 +1132,9 @@ var material = new THREE.MeshBasicMaterial( {
     // Yükleme tamamlandığında çalışacak işlev
     console.log('Texture loaded successfully:'+ texture);
       document.getElementsByClassName("container")[0].style.display="none";
-    
+    new THREE.TextureLoader().load( image1);
+new THREE.TextureLoader().load( image2);
+new THREE.TextureLoader().load( image4);
   },
   function (xhr) {
     // Yükleme sırasında ilerleme raporları için çalışacak işlev
@@ -1154,9 +1156,7 @@ target1=mesh3;
 //mesh3.material.opacity = 0.5; 
 scene.add(mesh3);
 
-new THREE.TextureLoader().load( image1);
-new THREE.TextureLoader().load( image2);
-new THREE.TextureLoader().load( image4);
+
 
 	/*function loader_image(image_n) {
   mesh3.material.map=new THREE.TextureLoader().load( image_n,function (texture) {
