@@ -1128,21 +1128,7 @@ function load4(image3) {
 geometry.scale( - 1, 1, 1 );
 
 var material = new THREE.MeshBasicMaterial( {
-    map: new THREE.TextureLoader().load( image3,function (texture) {
-    // Yükleme tamamlandığında çalışacak işlev
-    console.log('Texture loaded successfully:'+ texture);
-      document.getElementsByClassName("container")[0].style.display="none";
-    
-  },
-  function (xhr) {
-    // Yükleme sırasında ilerleme raporları için çalışacak işlev
-    var percentComplete = (xhr.loaded / xhr.total) * 100;
-    console.log('Texture loading progress:'+ percentComplete + '%');
-  },
-  function (error) {
-    // Yükleme sırasında bir hata oluşursa çalışacak işlev
-    console.error('Error loading texture:'+ error);
-  } )
+    /*map: new THREE.TextureLoader().load( image3 )*/
 } );
 
 mesh3= new THREE.Mesh( geometry, material );
@@ -1154,7 +1140,7 @@ target1=mesh3;
 //mesh3.material.opacity = 0.5; 
 scene.add(mesh3);
 
-	/*function loader_image(image_n) {
+	function loader_image(image_n) {
   mesh3.material.map=new THREE.TextureLoader().load( image_n,function (texture) {
     // Yükleme tamamlandığında çalışacak işlev
     console.log('Texture loaded successfully:'+ texture);
@@ -1171,11 +1157,11 @@ scene.add(mesh3);
     // Yükleme sırasında bir hata oluşursa çalışacak işlev
     console.error('Error loading texture:'+ error);
   }  );
-}*/
-/*loader_image(image1);
+}
+loader_image(image1);
 loader_image(image2);
 loader_image(image4);
-loader_image(image3);*/
+loader_image(image3);
 }
 
 var audio_1=new Audio();
