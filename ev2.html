@@ -1117,30 +1117,6 @@ scene.add(mesh3);
 
 	
 
-
-/*function loader_image(image_n) {
-  mesh3.material.map=new THREE.TextureLoader().load( image_n, function (texture) {
-    // Yükleme tamamlandığında çalışacak işlev
-    console.log('Texture loaded successfully:'+ texture);
-    if(image_n==image3) {
-      document.getElementsByClassName("container")[0].style.display="none";
-    }
-  },
-  function (xhr) {
-    // Yükleme sırasında ilerleme raporları için çalışacak işlev
-    var percentComplete = (xhr.loaded / xhr.total) * 100;
-    console.log('Texture loading progress:'+ percentComplete + '%');
-  },
-  function (error) {
-    // Yükleme sırasında bir hata oluşursa çalışacak işlev
-    console.error('Error loading texture:'+ error);
-  }  );
-}
-loader_image(image1);
-loader_image(image2);
-loader_image(image4);
-loader_image(image3);*/
-
 }
 
 var audio_1=new Audio();
@@ -1491,6 +1467,7 @@ this.style.border="none";
 }
 
 div_anno_i_6.onpointerdown=async function() {
+      document.getElementsByClassName("container")[0].style.display="flex";
 
 document.getElementsByClassName("label")[0].style.height="0px";
 document.getElementsByClassName("btn-1")[0].style.visibility="hidden";
@@ -1511,7 +1488,21 @@ target1=mesh3;
 //target2=mesh3;
 await came_fov();
 target1.material.opacity=1.0;
-mesh3.material.map=new THREE.TextureLoader().load( image3 );
+mesh3.material.map=new THREE.TextureLoader().load( image3,  function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+      document.getElementsByClassName("container")[0].style.display="none";
+
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  }  );
 //gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
 /*scene.add(mesh3);
 
@@ -1547,6 +1538,7 @@ this.style.border="none";
 }
 
 div_anno_i.onpointerdown=async function() {
+      document.getElementsByClassName("container")[0].style.display="flex";
 
 document.getElementsByClassName("label")[0].style.height="0px";
 document.getElementsByClassName("btn-1")[0].style.visibility="hidden";
@@ -1567,7 +1559,21 @@ target1=mesh3;
 //target2=mesh1;
 await came_fov();
 target1.material.opacity=1.0;
-mesh3.material.map=new THREE.TextureLoader().load( image1 );
+mesh3.material.map=new THREE.TextureLoader().load( image1,  function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+      document.getElementsByClassName("container")[0].style.display="none";
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  }  );
 //gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
 /*scene.add(mesh1);
 
@@ -1742,6 +1748,7 @@ this.style.background="transparent";
 this.style.border="none";
 }
 div_anno_i_1.onpointerdown=async function() { //div_outdoor
+      document.getElementsByClassName("container")[0].style.display="flex";
 
 document.getElementsByClassName("label")[0].style.height="260px";
 document.getElementsByClassName("btn-1")[0].style.visibility="visible";
@@ -1762,7 +1769,21 @@ target1=mesh3;
 //target2=mesh2;
 await came_fov();
 target1.material.opacity=1.0;
-mesh3.material.map=new THREE.TextureLoader().load( image2 );
+mesh3.material.map=new THREE.TextureLoader().load( image2,  function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+      document.getElementsByClassName("container")[0].style.display="none";
+ 
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  }  );
 
 
 // gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
@@ -1797,6 +1818,7 @@ this.style.background="transparent";
 this.style.border="none";
 }
 div_anno_i_2.onpointerdown=async function() { //div_outdoor_2
+      document.getElementsByClassName("container")[0].style.display="flex";
 
 document.getElementsByClassName("label")[0].style.height="0px";
 document.getElementsByClassName("btn-1")[0].style.visibility="hidden";
@@ -1817,7 +1839,21 @@ target1=mesh3;
 //target2=mesh1;
 await came_fov();
 target1.material.opacity=1.0;
-mesh3.material.map=new THREE.TextureLoader().load( image1 );
+mesh3.material.map=new THREE.TextureLoader().load( image1,  function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+      document.getElementsByClassName("container")[0].style.display="none";
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  }  );
 //gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
 /* scene.add(mesh1);
 
@@ -1851,6 +1887,7 @@ this.style.border="none";
 }
 
 div_anno_i_3.onpointerdown=async function() {
+      document.getElementsByClassName("container")[0].style.display="flex";
 
 document.getElementsByClassName("label")[0].style.height="260px";
 document.getElementsByClassName("btn-1")[0].style.visibility="visible";
@@ -1871,7 +1908,21 @@ target1=mesh3;
 //target2=mesh2;
 await came_fov();
 target1.material.opacity=1.0;
-mesh3.material.map=new THREE.TextureLoader().load( image2 );
+mesh3.material.map=new THREE.TextureLoader().load( image2,  function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+      document.getElementsByClassName("container")[0].style.display="none";
+  
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  }  );
 
 // gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
 /* scene.add(mesh2);
@@ -1885,6 +1936,7 @@ camera.updateProjectionMatrix();
 
 
 div_anno_i_4.onpointerdown=async function() {
+      document.getElementsByClassName("container")[0].style.display="flex";
 
 document.getElementsByClassName("label")[0].style.height="0px";
 document.getElementsByClassName("label2")[0].style.height="260px";
@@ -1906,7 +1958,21 @@ target1=mesh3;
 //target2=mesh4;
 await came_fov();
 target1.material.opacity=1.0;
-mesh3.material.map=new THREE.TextureLoader().load( image4 );
+mesh3.material.map=new THREE.TextureLoader().load( image4,  function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+      document.getElementsByClassName("container")[0].style.display="none";
+  
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  }  );
 //gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
 /*scene.add(mesh4);
 
@@ -1920,6 +1986,7 @@ camera.updateProjectionMatrix();
 
 
 div_anno_i_5.onpointerdown=async function() {
+      document.getElementsByClassName("container")[0].style.display="flex";
 
 document.getElementsByClassName("label")[0].style.height="280px";
 document.getElementsByClassName("label2")[0].style.height="0px";
@@ -1941,7 +2008,21 @@ target1=mesh3;
 //target2=mesh2;
 await came_fov();
 target1.material.opacity=1.0;
-mesh3.material.map=new THREE.TextureLoader().load( image2 );
+mesh3.material.map=new THREE.TextureLoader().load( image2,  function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+      document.getElementsByClassName("container")[0].style.display="none";
+
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  }  );
 //gsap.to(camera.position, { duration: 2, z: -228, ease: "power1.inOut", onComplete: camera_event});
 /*scene.add(mesh2);
 
