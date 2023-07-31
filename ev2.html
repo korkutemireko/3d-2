@@ -1133,7 +1133,6 @@ audio_1.onended=function() {
 async function came_fov() {
  await new Promise(function(resolve) {
    target1.material.opacity=1;
-  document.getElementsByClassName("container")[0].style.display="flex";
 
 
 var fov_anim_2=window.setInterval(function() {
@@ -1141,9 +1140,6 @@ var fov_anim_2=window.setInterval(function() {
  if(target1.material.opacity<=0) {
     clearInterval(fov_anim_2);
     check_fov=true;
-	 window.setTimeout(function() {
-      document.getElementsByClassName("container")[0].style.display="none";
-    },1500);
     resolve();
   }
 },30);
