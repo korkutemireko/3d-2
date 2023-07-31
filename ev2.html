@@ -902,7 +902,7 @@ border:10px solid black !important;
 #map {
     width: 100%;
   height: 100%;
-  display: block;
+  display: none;
 }
 #map a {
   display: none !important;
@@ -2549,7 +2549,7 @@ camera.lookAt( camera.target );*/
       $(".link2").slideToggle("300");
 var bars_true=true;
 $('.bars').click(function(){
-
+document.getElementById("map").style.display="block";
   if(bars_true) {
     document.getElementById("bars").setAttribute("class","fa-solid fa-xmark");
     document.getElementById("bars").style.left="3px";
@@ -2749,7 +2749,7 @@ $("#copy-exit").click(function() {
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMcohZr9rLMh_VnqQkSV8l4RKI2I0YAs&callback=initMap&v=beta"
       defer
       ></script>
-      <iframe id="map-2" style="display: none;" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=36.90005584658721,30.64594924449921+(EMIRKORKUT.com)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" loading="lazy"></iframe>
+      <iframe id="map-2" style="display: block;" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=36.90005584658721,30.64594924449921+(EMIRKORKUT.com)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" loading="lazy"></iframe>
      </div>
         <div class="chat-box" id="chat-box">
           <div class="chat-box-header">
