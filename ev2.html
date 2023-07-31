@@ -1090,7 +1090,21 @@ function load4(image3) {
 geometry.scale( - 1, 1, 1 );
 
   var material = new THREE.MeshBasicMaterial( {
-    map: new THREE.TextureLoader().load( image3 )
+    map: new THREE.TextureLoader().load( image3, function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+      document.getElementsByClassName("container")[0].style.display="none";
+    
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } )
 });
 
 mesh3= new THREE.Mesh( geometry, material );
@@ -1099,7 +1113,7 @@ target1=mesh3;
 
 scene.add(mesh3);
 
-function loader_image(image_n) {
+/*function loader_image(image_n) {
   mesh3.material.map=new THREE.TextureLoader().load( image_n, function (texture) {
     // Yükleme tamamlandığında çalışacak işlev
     console.log('Texture loaded successfully:'+ texture);
@@ -1120,7 +1134,7 @@ function loader_image(image_n) {
 loader_image(image1);
 loader_image(image2);
 loader_image(image4);
-loader_image(image3);
+loader_image(image3);*/
 
 }
 
