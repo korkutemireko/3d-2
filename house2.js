@@ -1234,7 +1234,9 @@ requestAnimationFrame(animate);
 renderer.setAnimationLoop( render );
 
 if(window.screen.availWidth>=996) {
-  lon += 0.05;
+   if(rotate_check==false) {
+    lon += 0.05;
+  }
 }
 
  else if(window.screen.availWidth<996) {
