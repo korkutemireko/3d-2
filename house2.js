@@ -61,10 +61,10 @@ lat = 0, onMouseDownLat = 0,
 phi = 0, theta = 0;
 
 var onclickPointerX,onclickPointerY,onclickLon,onclickLat;
-var image2='360/jpeg-optimizer_minsk.jpg';
-var image1="360/jpeg-optimizer_garaj3.jpg";
-var image3="360/jpeg-optimizer_new.jpg";
-var image4="360/jpeg-optimizer_360-2.jpeg";
+var image2='360-2/jpeg-optimizer_minsk.jpg';
+var image1="360-2/jpeg-optimizer_garaj3.jpg";
+var image3="360-2/jpeg-optimizer_new.jpg";
+var image4="360-2/jpeg-optimizer_360-2.jpeg";
 
 
 var sayac1=0;
