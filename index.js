@@ -66,13 +66,13 @@ app.get('/',function(req,res,next) {
 }); 
 
 app.get('/house-2',function(req,res,next) {
-  res.sendFile( __dirname + "/ev2.html");
+  res.sendFile( __dirname + "/index-house2.html");
  // res.download('eko.pdf');
 });
 
 app.get('/contact',function(req,res) {
    // res.send({"name":process.pid});
-      res.sendFile( __dirname + "/index-house2.html");
+      res.sendFile( __dirname + "/index-1.html");
 });
 
 app.get('/home-tr',function(req,res) {
