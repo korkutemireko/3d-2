@@ -61,7 +61,7 @@ app.use((req, res, next) => {
 
 
 app.get('/',function(req,res,next) {
-    res.sendFile( __dirname + "/index.html");
+    res.sendFile( __dirname + "/index-house1.html");
    // res.download('eko.pdf');
 }); 
 
