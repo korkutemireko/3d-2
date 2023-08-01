@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <title>360 view || House-1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="house1.min.css">
+</head>
+<body>
+  
+<script type="importmap">
+  {
+    "imports": {
+    "three": "https://unpkg.com/three/build/three.module.js",
+    "@googlemaps/three": "https://unpkg.com/@googlemaps/three/dist/index.esm.js",
+    "GLTFLoader":"https://unpkg.com/three/examples/jsm/loaders/GLTFLoader.js",
+    "OrbitControls":"https://unpkg.com/three/examples/jsm/controls/OrbitControls.js"
+    
+    }
+  }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+  <script type="module" src="house1-1.min.js"></script>
+
+  <script type="module" src="house1-map.min.js"></script>
+          <script src="house1-jquery.min.js"></script>
+   <div class="out-box">
+   <div id="div1">
+    <img id="img1" src="resim2.png">
+    <p id="p">Alanya 4+1</p>
+    <i id="menu-down" class="fa-solid fa-circle-chevron-left"></i>
+     <li id="limk"><span>kültür street</span></li>
+     <div id="menu-1">
+      <a href="/house-2" style="text-decoration:none;"><span>Konyaaltı 3+1</span></a>
+      <span>Manavgat 3+1</span>
+      <span id="last-span">Kaş 4+1</span>
+     </div>
+     </div>
+     <div id="google-map">
+      <button id="map-change">normal map</button>
+      <div id="map-exit" class="map-exit" ><i class="fa-solid fa-xmark"></i></div>
+      <div id="map" class="map"></div>
+
+      <script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMcohZr9rLMh_VnqQkSV8l4RKI2I0YAs&callback=initMap&v=beta"
+      defer
+      ></script>
+      <iframe id="map-2" style="display: block;" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=36.90005584658721,30.64594924449921+(EMIRKORKUT.com)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" loading="lazy"></iframe>
+     </div>
+        <div class="chat-box" id="chat-box">
+          <div class="chat-box-header">
+            <img id="chat-img" src="apartments.png">
+            <!--<i class="fa-solid fa-city"></i>-->
+            <h3>Chat whit us now<br /><small></small></h3>
+            <div id="div2"><i id="exit" class="fa-solid fa-circle-chevron-down"></i></div>
+          </div>
+          <div id="chat_box_body" class="chat-box-body">
+            <div id="chat_messages">
+              <div class="profile other-profile">
+               
+              </div>
+              <div class="message other-message">
+                Hello!
+              </div>
+              <div class="profile my-profile">
+            </div>
+        
+              <div class="message my-message">
+                How are you!
+              </div>
+            </div>
+          </div>
+          <div id="typing">
+            <div><span></span> <span></span> <span></span> <span class="n">Someone</span> is typing...</div>
+          </div>
+          <div class="chat-box-footer">
+            <textarea id="chat_input" placeholder="Enter your message here..."></textarea>
+            <button id="send">
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#006ae3" d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div id="message-delek">
+          <i id="comments" class="fa-solid fa-comments"></i>
+        </div>
+    
+        <div id="delek">
+            <div id="link" class="bars"><i id="bars" class="fa-solid fa-bars"></i></div>
+            <div id="link" class="cardboard link2" ><i class="fa-solid fa-vr-cardboard"></i></div>
+            <div id="link" class="rotate link2" ><img id="img-rotate" src="rotation.png"></div>
+            <div id="link" class="expand link2"><i id="expand" class="fa-solid fa-expand"></i></div> <!-- compress -->
+            <div id="link" class="location link2" ><i class="fa-solid fa-map"></i></div>
+            <div id="link" class="voice link2" ><img id="img-rotate-2" src="musical-note.png"></div>
+            <div id="link" class="share link2" ><i class="fa-solid fa-share-nodes"></i></div>
+            <div id="link" class="camera link2"><i class="fa-solid fa-camera"></i></div>
+           </div>
+        
+         <div id="copy-page">
+          <div id="copy-exit" class="map-exit" ><i class="fa-solid fa-xmark"></i></div>
+  <img src="qr.png">
+  <input id="input-1" type="text" value="https://3d.emirkorkut.com" required readonly/><i id="copy-i" class="fa-solid fa-copy"></i>
+  <div id="copy-detail">
+    <i id="copy-i1" class="fa-brands fa-facebook"></i>
+    <i id="copy-i1" class="fa-brands fa-twitter"></i>
+    <i id="copy-i1" class="fa-brands fa-instagram"></i>
+    <i id="copy-i1" class="fa-brands fa-linkedin"></i>
+    <i id="copy-i1" class="fa-brands fa-youtube"></i>
+    <i id="copy-i1" class="fa-brands fa-pinterest"></i>
+    <i id="copy-i1" class="fa-brands fa-whatsapp"></i>
+    <i id="copy-i1" class="fa-brands fa-tiktok"></i>
+    <i id="copy-i1" class="fa-solid fa-envelope"></i>
+    <i id="copy-i1" class="fa-solid fa-phone"></i>
+  </div>
+         </div>
+        <div class="container">
+          <div class="cube">
+            <div class="sides">
+              <div class="top"></div>
+              <div class="right"></div>
+              <div class="bottom"></div>
+              <div class="left"></div>
+              <div class="front"></div>
+              <div class="back"></div>
+            </div>
+          </div>
+        </div>
+        </div>
+</body>
+</html>
