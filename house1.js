@@ -1,8 +1,5 @@
 import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
 import {
-OrbitControls
-} from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js";
-import {
 CSS3DRenderer,
 CSS3DObject
 } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS3DRenderer.js';
@@ -71,7 +68,7 @@ phi = 0, theta = 0;
 var onclickPointerX,onclickPointerY,onclickLon,onclickLat;
 var image2='360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081472.jpg';
 var image1="360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474.jpg";
-var image3="https://lh3.googleusercontent.com/u/0/drive-viewer/AITFw-wKFaQThOnwyk3pfOKIwpjlXMP8hTAo8cQ6wuQxVKh-5xezpG6RIKwwv2ypLa7Ad41BThLkqp_ri-S8Jkfs7k85DFOBGg=w1920-h812";
+var image3="360-2/jpeg-optimizer_vecteezy_spherical-360-seamless-panorama-projection-of-an-interior-modern-design-room-in.jpg";
 var image4="360-2/jpeg-optimizer_lavabo.jpg";
 
 
@@ -1234,7 +1231,9 @@ renderer.setAnimationLoop( render );
 
 	
 if(window.screen.availWidth>=996) {
-  lon += 0.05;
+ if(rotate_check==false) {
+    lon += 0.05;
+  }
 }
 
  else if(window.screen.availWidth<996) {
