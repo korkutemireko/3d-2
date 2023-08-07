@@ -8,6 +8,34 @@
   <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.1.0/dist/aframe-extras.min.js"></script>
 </head>
 <body>
+    <script>
+        window.onload=function() {
+            let scene = document.querySelector('a-entity').sceneEl.object3D;
+//console.log(scene);
+
+var sphereMaterial = new THREE.MeshLambertMaterial( {  } );
+var sphere = new THREE.Mesh( new THREE.SphereGeometry( 15, 10, 10 ), sphereMaterial );
+    sphere.position.set(150, 20, -170);
+   // scene.add( sphere );
+
+   const textureLoader = new THREE.TextureLoader();
+      const texture = textureLoader.load('chevron.png');
+
+
+var material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 1 });
+
+var radius = 3;
+var segments = 32; // Dairenin kenar sayısı
+var geometry = new THREE.CircleGeometry(radius, segments);
+
+var mesh77 = new THREE.Mesh(geometry, material);
+mesh77.position.set(150, 20, -170);
+mesh77.rotation.y=0.5;
+mesh77.scale.set(10,10,10);
+scene.add(mesh77);
+console.log(mesh77.scale.x);
+        }
+    </script>
   <!-- A-Frame ile oluşturulmuş VR sahnesini burada oluşturun -->
   <a-scene vr-mode-ui="enabled: true">
     <!-- VR içeriğini burada oluşturun -->
