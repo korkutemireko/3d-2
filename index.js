@@ -75,9 +75,9 @@ app.get('/contact',function(req,res) {
       res.sendFile( __dirname + "/index-1.1.html");
 });
 
-app.get('/home-tr',function(req,res) {
+app.get('/aframe',function(req,res) {
   // res.send({"name":process.pid});
-     res.sendFile( __dirname + "/www/index-tr.html");
+     res.sendFile( __dirname + "/aframe-vr.html");
 });
 
 app.get('/about-tr',function(req,res) {
