@@ -30,9 +30,10 @@ CSS3DObject
         window.onload=function() {
             let scene = document.querySelector('a-entity').sceneEl.object3D;
      
-            var texture2 = THREE.ImageUtils.loadTexture('chevron.png');
+          //  var texture2 = THREE.ImageUtils.loadTexture('chevron.png');
 //texture2.minFilter = THREE.LinearFilter; // Ekle, resmin daha iyi görünmesini sağlar.
-
+   const textureLoader = new THREE.TextureLoader();
+      const texture2 = textureLoader.load('chevron.png');
 var material2 = new THREE.MeshBasicMaterial({ map: texture2 });
 
 /*var mesh78 = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1, 1), material2);
@@ -40,8 +41,10 @@ mesh78.position.set(10, 10, 9);
 mesh78.rotation.y=0.5;
 scene.add(mesh78);*/
 
-var texture = THREE.ImageUtils.loadTexture('chevron.png');
-texture.minFilter = THREE.LinearFilter;
+//var texture = THREE.ImageUtils.loadTexture('chevron.png');
+             const textureLoader = new THREE.TextureLoader();
+      const texture = textureLoader.load('chevron.png');
+//texture.minFilter = THREE.LinearFilter;
 
 var material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 1 });
 
