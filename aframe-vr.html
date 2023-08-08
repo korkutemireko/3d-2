@@ -6,21 +6,42 @@
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <!-- vr-mode-ui bileşenini ekleyin -->
   <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.1.0/dist/aframe-extras.min.js"></script>
+  <style>
+     .label {
+    text-align: center;
+    width: 460px;
+    height: 260px;
+   /* border: 1px solid white;*/
+   border: none;
+    border-radius: 5px;
+   /* background: rgba( 0, 0, 0, .6 );*/
+  }
+  </style>
 </head>
 <body>
-    <script>
+    <script type="module">
+
+//import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
+import {
+CSS3DRenderer,
+CSS3DObject
+} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS3DRenderer.js';
+
         window.onload=function() {
             let scene = document.querySelector('a-entity').sceneEl.object3D;
-//console.log(scene);
+     
+            var texture2 = THREE.ImageUtils.loadTexture('chevron.png');
+//texture2.minFilter = THREE.LinearFilter; // Ekle, resmin daha iyi görünmesini sağlar.
 
-var sphereMaterial = new THREE.MeshLambertMaterial( {  } );
-var sphere = new THREE.Mesh( new THREE.SphereGeometry( 15, 10, 10 ), sphereMaterial );
-    sphere.position.set(150, 20, -170);
-   // scene.add( sphere );
+var material2 = new THREE.MeshBasicMaterial({ map: texture2 });
 
-   const textureLoader = new THREE.TextureLoader();
-      const texture = textureLoader.load('chevron.png');
+/*var mesh78 = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1, 1), material2);
+mesh78.position.set(10, 10, 9);
+mesh78.rotation.y=0.5;
+scene.add(mesh78);*/
 
+var texture = THREE.ImageUtils.loadTexture('chevron.png');
+texture.minFilter = THREE.LinearFilter;
 
 var material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 1 });
 
@@ -29,18 +50,154 @@ var segments = 32; // Dairenin kenar sayısı
 var geometry = new THREE.CircleGeometry(radius, segments);
 
 var mesh77 = new THREE.Mesh(geometry, material);
-mesh77.position.set(150, 20, -170);
-mesh77.rotation.y=0.5;
-mesh77.scale.set(10,10,10);
+mesh77.position.set(-4, 5, -20.0);
+mesh77.rotation.y=-0.5;
+mesh77.scale.set(0.5,0.5,0.5);
 scene.add(mesh77);
 console.log(mesh77.scale.x);
+
+var mesh78 = new THREE.Mesh(geometry, material);
+mesh78.position.set(25, 4, 0);
+mesh78.rotation.y=-1;
+mesh78.scale.set(0.5,0.5,0.5);
+scene.add(mesh78);
+
+var initialScale = 0.5; // Başlangıç boyutu
+var targetScale = 0.7; // Hedef boyutu
+var scaleSpeed = 0.005; // Boyut değiştirme hızı
+
+var growing = true; // Mesh büyüyor mu?
+
+window.setInterval(function() {
+  // Büyütme ve küçültme animasyonu
+  if (growing) {
+    mesh77.scale.x += scaleSpeed;
+    mesh77.scale.y += scaleSpeed;
+    mesh78.scale.x += scaleSpeed;
+    mesh78.scale.y += scaleSpeed;
+    if (mesh77.scale.x >= targetScale) {
+      growing = false;
+    }
+  } else {
+    mesh77.scale.x -= scaleSpeed;
+    mesh77.scale.y -= scaleSpeed;
+    mesh78.scale.x -= scaleSpeed;
+    mesh78.scale.y -= scaleSpeed;
+    if (mesh77.scale.x <= initialScale) {
+      growing = true;
+    }
+  }
+},100);
+
+var image2='360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081472.jpg';
+var image1="360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474.jpg";
+var image3="360-2/jpeg-optimizer_vecteezy_spherical-360-seamless-panorama-projection-of-an-interior-modern-design-room-in.jpg";
+var image4="360-2/jpeg-optimizer_lavabo.jpg";
+var mesh1,mesh2,mesh3,mesh4;
+
+// Video elementini oluşturalım ve video dosyasını yükleyelim
+var video = document.createElement('video');
+video.src = '360/karasu.mp4'; // Video dosyanızın yolu buraya gelecek
+video.loop = true;
+video.muted = true; // Dikkat: otomatik ses çıkışı engellemek için video sesini kapatıyoruz
+video.play();
+
+// Video texture oluşturalım ve materyale ekleyelim
+var texture3 = new THREE.VideoTexture(video);
+//texture3.minFilter = THREE.LinearFilter;
+
+var material3 = new THREE.MeshBasicMaterial({ map: texture3, transparent: true, opacity: 1 });
+
+// Dairenin özelliklerini belirleyelim
+var radius = 3;
+var segments = 32; // Dairenin kenar sayısı
+var geometry3 = new THREE.PlaneGeometry(14.3, 8);
+
+// Mesh'i oluşturup sahneye ekleyelim
+var mesh79 = new THREE.Mesh(geometry3, material3);
+mesh79.position.set(-20, 1, -20.0);
+mesh79.rotation.y = -0.01;
+//mesh79.scale.set(0.5,0.5,0.5);
+scene.add(mesh79);
+//console.log(mesh79.rotation.y);
+
+load4(image3);
+
+
+function load4(image3) {
+  var geometry = new THREE.SphereGeometry( 500, 40, 30 );
+geometry.scale( - 1, 1, 1 );
+
+
+
+var material = new THREE.MeshBasicMaterial({
+  map: new THREE.TextureLoader().load( image3, function (texture) {
+  // Yükleme tamamlandığında çalışacak işlev
+  console.log('Texture loaded successfully:'+ texture);
+  new THREE.TextureLoader().load( image1);
+new THREE.TextureLoader().load( image2);
+new THREE.TextureLoader().load( image4);
+},
+function (xhr) {
+  // Yükleme sırasında ilerleme raporları için çalışacak işlev
+  var percentComplete = (xhr.loaded / xhr.total) * 100;
+  console.log('Texture loading progress:'+ percentComplete + '%');
+},
+function (error) {
+  // Yükleme sırasında bir hata oluşursa çalışacak işlev
+  console.error('Error loading texture:'+ error);
+} )
+});
+
+mesh3=new THREE.Mesh( geometry, material );
+mesh3.material.transparent = true;
+
+
+
+scene.add(mesh3);
+
+
+
+}
+
+
+function onMouseClick(event) {
+  // Fare tıklamasının koordinatlarını alalım
+  var mouse = new THREE.Vector2();
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  // Fare tıklamasını sahnede gerçek bir 3B noktaya dönüştürelim
+  var raycaster = new THREE.Raycaster();
+  raycaster.setFromCamera(mouse, camera);
+
+  // Fare tıklamasının sahnede vurduğu nesneleri kontrol edelim
+  var intersects = raycaster.intersectObjects(scene.children);
+
+  // Eğer tıklama sonucunda nesneler varsa, mesh77 nesnesine tıklandı mı kontrol edelim
+  if (intersects.length > 0) {
+    for (var i = 0; i < intersects.length; i++) {
+      if (intersects[i].object === mesh77) {
+        // Burada mesh77'ye tıklandı. İstediğiniz eylemi burada gerçekleştirebilirsiniz.
+        alert("Mesh77'e tıklandı!");
+        break; // Eğer birden fazla aynı mesh varsa, sadece bir tanesini tıklanmış olarak kabul edelim.
+      }
+      else if(intersects[i].object===mesh78) {
+        alert("mesh78'e tıklandı");
+        break;
+      }
+    }
+  }
+}
+window.addEventListener('click', onMouseClick, false);
+
+
         }
     </script>
   <!-- A-Frame ile oluşturulmuş VR sahnesini burada oluşturun -->
   <a-scene vr-mode-ui="enabled: true">
     <!-- VR içeriğini burada oluşturun -->
-    <a-box color="red" position="0 1.6 -5"></a-box>
-    <a-sky color="blue"></a-sky>
+
   </a-scene>
 </body>
 </html>
