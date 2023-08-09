@@ -34,7 +34,7 @@ CSS3DObject
             }*/
             let scene = document.querySelector('a-entity').sceneEl.object3D;
             var cameraEl = document.querySelector('#camera');
-            var texture2 = THREE.ImageUtils.loadTexture('chevron.png');
+            var texture2 = THREE.ImageUtils.loadTexture('arrow2.png');
 //texture2.minFilter = THREE.LinearFilter; // Ekle, resmin daha iyi görünmesini sağlar.
 
 var material2 = new THREE.MeshBasicMaterial({ map: texture2 });
@@ -44,7 +44,7 @@ mesh78.position.set(10, 10, 9);
 mesh78.rotation.y=0.5;
 scene.add(mesh78);*/
 
-var texture = THREE.ImageUtils.loadTexture('chevron.png');
+var texture = THREE.ImageUtils.loadTexture('arrow2.png');
 texture.minFilter = THREE.LinearFilter;
 
 var material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 1 });
