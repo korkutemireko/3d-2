@@ -289,6 +289,7 @@ window.addEventListener('click', onMouseClick, false);
     </script>
   <!-- A-Frame ile oluşturulmuş VR sahnesini burada oluşturun -->
   <a-scene vr-mode-ui="enabled: true" raycaster-autorefresh >
+    <a-entity laser-controls raycaster="lineColor: red; lineOpacity: 0.5"></a-entity>
     <!-- VR içeriğini burada oluşturun -->
     <a-camera id="camera"></a-camera>
   </a-scene>
