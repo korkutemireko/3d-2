@@ -28,12 +28,15 @@ CSS3DObject
 } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS3DRenderer.js';
 
         window.onload=function() {
+           /* document.onclick=function() {
+                document.querySelector('a-scene').enterVR();
+
+            }*/
             let scene = document.querySelector('a-entity').sceneEl.object3D;
-     
-          //  var texture2 = THREE.ImageUtils.loadTexture('chevron.png');
+            var cameraEl = document.querySelector('#camera');
+            var texture2 = THREE.ImageUtils.loadTexture('chevron.png');
 //texture2.minFilter = THREE.LinearFilter; // Ekle, resmin daha iyi görünmesini sağlar.
-   const textureLoader = new THREE.TextureLoader();
-      const texture2 = textureLoader.load('arrow2.png');
+
 var material2 = new THREE.MeshBasicMaterial({ map: texture2 });
 
 /*var mesh78 = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1, 1), material2);
@@ -41,10 +44,8 @@ mesh78.position.set(10, 10, 9);
 mesh78.rotation.y=0.5;
 scene.add(mesh78);*/
 
-//var texture = THREE.ImageUtils.loadTexture('chevron.png');
-          //   const textureLoader = new THREE.TextureLoader();
-      const texture = textureLoader.load('arrow2.png');
-//texture.minFilter = THREE.LinearFilter;
+var texture = THREE.ImageUtils.loadTexture('chevron.png');
+texture.minFilter = THREE.LinearFilter;
 
 var material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 1 });
 
@@ -128,6 +129,7 @@ load4(image3);
 
 
 function load4(image3) {
+       // document.getElementsByClassName("container")[0].style.display="flex";
   var geometry = new THREE.SphereGeometry( 500, 40, 30 );
 geometry.scale( - 1, 1, 1 );
 
@@ -137,6 +139,7 @@ var material = new THREE.MeshBasicMaterial({
   map: new THREE.TextureLoader().load( image3, function (texture) {
   // Yükleme tamamlandığında çalışacak işlev
   console.log('Texture loaded successfully:'+ texture);
+    //document.getElementsByClassName("container")[0].style.display="none";
   new THREE.TextureLoader().load( image1);
 new THREE.TextureLoader().load( image2);
 new THREE.TextureLoader().load( image4);
@@ -154,15 +157,70 @@ function (error) {
 
 mesh3=new THREE.Mesh( geometry, material );
 mesh3.material.transparent = true;
+//target1=mesh3;
 
+/*
+{
+  map: new THREE.TextureLoader().load( image3, function (texture) {
+  // Yükleme tamamlandığında çalışacak işlev
+  console.log('Texture loaded successfully:'+ texture);
+    document.getElementsByClassName("container")[0].style.display="none";
+  new THREE.TextureLoader().load( image1);
+new THREE.TextureLoader().load( image2);
+new THREE.TextureLoader().load( image4);
+},
+function (xhr) {
+  // Yükleme sırasında ilerleme raporları için çalışacak işlev
+  var percentComplete = (xhr.loaded / xhr.total) * 100;
+  console.log('Texture loading progress:'+ percentComplete + '%');
+},
+function (error) {
+  // Yükleme sırasında bir hata oluşursa çalışacak işlev
+  console.error('Error loading texture:'+ error);
+} )
+}
 
+*/
 
 scene.add(mesh3);
 
 
-
 }
 
+//document.querySelector('a-scene').enterVR()
+
+
+/*AFRAME.registerComponent('raycaster-autorefresh', {
+      init: function () {
+        var el = this.el;
+        var cameraEl = document.querySelector('#camera');
+
+        el.addEventListener('click', function (event) {
+          var mouse = new THREE.Vector2();
+          mouse.x = (event.detail.intersection.uv.x) * 2 - 1;
+          mouse.y = -(event.detail.intersection.uv.y) * 2 + 1;
+
+          var raycaster = new THREE.Raycaster();
+          raycaster.setFromCamera(mouse, cameraEl.object3D);
+
+          var intersects = raycaster.intersectObjects(el.sceneEl.object3D.children, true);
+
+          if (intersects.length > 0) {
+            for (var i = 0; i < intersects.length; i++) {
+                alert("sasc");
+              if (intersects[i].object.el === el) {
+                if (el.getAttribute('id') === 'mesh77') {
+                  alert("Mesh77'e tıklandı!");
+                } else if (el.getAttribute('id') === 'mesh78') {
+                  alert("Mesh78'e tıklandı!");
+                }
+                break;
+              }
+            }
+          }
+        });
+      }
+    });*/
 
 function onMouseClick(event) {
   // Fare tıklamasının koordinatlarını alalım
@@ -172,7 +230,7 @@ function onMouseClick(event) {
 
   // Fare tıklamasını sahnede gerçek bir 3B noktaya dönüştürelim
   var raycaster = new THREE.Raycaster();
-  raycaster.setFromCamera(mouse, camera);
+  raycaster.setFromCamera(mouse, cameraEl.object3D.children[0]);
 
   // Fare tıklamasının sahnede vurduğu nesneleri kontrol edelim
   var intersects = raycaster.intersectObjects(scene.children);
@@ -181,12 +239,44 @@ function onMouseClick(event) {
   if (intersects.length > 0) {
     for (var i = 0; i < intersects.length; i++) {
       if (intersects[i].object === mesh77) {
+        mesh3.material.map=new THREE.TextureLoader().load( image1,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+    if(image_n==image3) {
+      document.getElementsByClassName("container")[0].style.display="none";
+    }
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
         // Burada mesh77'ye tıklandı. İstediğiniz eylemi burada gerçekleştirebilirsiniz.
-        alert("Mesh77'e tıklandı!");
+        //alert("Mesh77'e tıklandı!");
         break; // Eğer birden fazla aynı mesh varsa, sadece bir tanesini tıklanmış olarak kabul edelim.
       }
       else if(intersects[i].object===mesh78) {
-        alert("mesh78'e tıklandı");
+        mesh3.material.map=new THREE.TextureLoader().load( image4,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+    if(image_n==image3) {
+      document.getElementsByClassName("container")[0].style.display="none";
+    }
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
+       // alert("mesh78'e tıklandı");
         break;
       }
     }
@@ -198,9 +288,9 @@ window.addEventListener('click', onMouseClick, false);
         }
     </script>
   <!-- A-Frame ile oluşturulmuş VR sahnesini burada oluşturun -->
-  <a-scene vr-mode-ui="enabled: true">
+  <a-scene vr-mode-ui="enabled: true" raycaster-autorefresh >
     <!-- VR içeriğini burada oluşturun -->
-
+    <a-camera id="camera"></a-camera>
   </a-scene>
 </body>
 </html>
