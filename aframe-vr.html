@@ -42,7 +42,7 @@ CSS3DObject
 //texture2.minFilter = THREE.LinearFilter; // Ekle, resmin daha iyi görünmesini sağlar.
 
 var textureLoader = new THREE.TextureLoader();
-      const texture2 = textureLoader.load('chevron.png');
+      const texture2 = textureLoader.load('chevron.jpg');
 
 
 
@@ -56,7 +56,7 @@ scene.add(mesh78);*/
 /*var texture = THREE.ImageUtils.loadTexture('chevron.png');
 texture.minFilter = THREE.LinearFilter;*/
 
-      const texture = textureLoader.load('chevron.png');
+      const texture = textureLoader.load('chevron.jpg');
 
 
 
@@ -70,14 +70,14 @@ var mesh77 = new THREE.Mesh(geometry, material);
 mesh77.position.set(-4, 5, -20.0);
 mesh77.rotation.y=-0.5;
 mesh77.scale.set(0.5,0.5,0.5);
-scene.add(mesh77);
+//scene.add(mesh77);
 console.log(mesh77.scale.x);
 
 var mesh78 = new THREE.Mesh(geometry, material);
 mesh78.position.set(25, 4, 0);
 mesh78.rotation.y=-1;
 mesh78.scale.set(0.5,0.5,0.5);
-scene.add(mesh78);
+//scene.add(mesh78);
 
 var initialScale = 0.5; // Başlangıç boyutu
 var targetScale = 0.7; // Hedef boyutu
@@ -111,6 +111,7 @@ var image1="360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalis
 var image3="360-2/jpeg-optimizer_vecteezy_spherical-360-seamless-panorama-projection-of-an-interior-modern-design-room-in.jpg";
 var image4="360-2/jpeg-optimizer_lavabo.jpg";
 var mesh1,mesh2,mesh3,mesh4;
+
 
 // Video elementini oluşturalım ve video dosyasını yükleyelim
 var video = document.createElement('video');
@@ -293,10 +294,21 @@ scene.add(mesh3);
 }
 window.addEventListener('click', onMouseClick, false);*/
 
-document.querySelector('#cursor').addEventListener('animationcomplete__click', function() {
-     // alert('Animasyon tamamlandı!');
+var check;
 
-        mesh3.material.map=new THREE.TextureLoader().load( image1,function (texture) {
+document.querySelector('#cursor').addEventListener('mouseenter', function(event) {
+ var targetElement = event.detail.intersectedEl; // Hedef elementi al
+    var targetId = targetElement.getAttribute('class');
+    check=targetId;
+   // alert("Hedef elementin sınıfı: " + targetId);
+});
+
+
+document.querySelector('#cursor').addEventListener('animationcomplete__click', function(event) {
+      // alert('Animasyon tamamlandı!');
+    
+    if(check=="box") {
+      mesh3.material.map=new THREE.TextureLoader().load( image1,function (texture) {
     // Yükleme tamamlandığında çalışacak işlev
     console.log('Texture loaded successfully:'+ texture);
    
@@ -310,6 +322,25 @@ document.querySelector('#cursor').addEventListener('animationcomplete__click', f
     // Yükleme sırasında bir hata oluşursa çalışacak işlev
     console.error('Error loading texture:'+ error);
   } );
+    }
+
+    else if(check=="box2") {
+      mesh3.material.map=new THREE.TextureLoader().load( image4,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
+    }
+
     });
 
 AFRAME.registerComponent('showalert', {
@@ -325,24 +356,27 @@ AFRAME.registerComponent('showalert', {
     </script>
   <!-- A-Frame ile oluşturulmuş VR sahnesini burada oluşturun -->
   <a-scene vr-mode-ui="enabled: true" >
-
+    <a-sound src="src: url(Zimmer.mp3)" autoplay="true" position="0 2 5"></a-sound>
     <a-assets>
-      <img id="platform" src="arrow2.png">
+      <img id="platform" src="chevron.jpg">
     </a-assets>
-    <a-circle src="#platform" class="box" position="-1 2 -3" radius="0.25" rotation="-10 0 -90"   raycaster="objects: [data-raycastable]" hoverable  event-set__enter="_event: hover-start; _target: #camera; _function: showalert"></a-circle>
+    <a-circle src="#platform" class="box" position="-0.6 2.5 -3" radius="0.25" rotation="-10 0 0"   raycaster="objects: [data-raycastable]" hoverable  event-set__enter="_event: hover-start; _target: #camera; _function: showalert"></a-circle>
+    <a-circle src="#platform" class="box2" position="4 2.2 0" radius="0.25" rotation="-10 -90 0"   raycaster="objects: [data-raycastable]" hoverable  event-set__enter="_event: hover-start; _target: #camera; _function: showalert"></a-circle>
+
     <a-entity raycaster="objects: .box" cursor></a-entity>
     <!-- VR içeriğini burada oluşturun -->
     <a-assets>
       <a-animation id="alertAnimation" begin="animationcomplete__click" attribute="position" from="0 1 -2" to="0 1 0"></a-animation>
+      <a-animation id="alertAnimation" begin="animationbegin" attribute="position" from="0 1 -2" to="0 1 0"></a-animation>
     </a-assets>
     
     <a-camera look-controls mouse-cursor id="camera">
-      <a-entity id="cursor" raycaster="objects: .box"
+      <a-entity id="cursor" raycaster="objects: .box, .box2"
       cursor="fuse: true;" 
       material="color: black; shader: flat"
       position="0 0 -2"
       geometry="primitive: ring;radiusInner: 0.02; radiusOuter: 0.03;" 
-      animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
+      animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 1500; from: 0.1 0.1 0.1; to: 1 1 1"
       animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"
       animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 1 1 1"
       >
