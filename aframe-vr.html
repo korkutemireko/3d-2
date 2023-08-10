@@ -294,7 +294,22 @@ scene.add(mesh3);
 window.addEventListener('click', onMouseClick, false);*/
 
 document.querySelector('#cursor').addEventListener('animationcomplete__click', function() {
-      alert('Animasyon tamamlandı!');
+     // alert('Animasyon tamamlandı!');
+
+        mesh3.material.map=new THREE.TextureLoader().load( image1,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
     });
 
 AFRAME.registerComponent('showalert', {
