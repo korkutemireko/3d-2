@@ -7,10 +7,10 @@ CSS3DObject
 window.onload=function() {
 
 
-    var image2='360/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081472.jpg';
-var image1="360/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474.jpg";
-var image3="360/jpeg-optimizer_vecteezy_spherical-360-seamless-panorama-projection-of-an-interior-modern-design-room-in.jpg";
-var image4="360/jpeg-optimizer_lavabo.jpg";
+    var image2='360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081472.jpg';
+var image1="360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474.jpg";
+var image3="360-2/jpeg-optimizer_vecteezy_spherical-360-seamless-panorama-projection-of-an-interior-modern-design-room-in.jpg";
+var image4="360-2/jpeg-optimizer_lavabo.jpg";
 
 
 
