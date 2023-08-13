@@ -1,10 +1,10 @@
  import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
 
-THREE.DeviceOrientationControls = function ( object ) {
+THREE.DeviceOrientationControls = function ( camera ) {
 
   var scope = this;
 
-  this.object = object;
+  this.object = camera;
   this.object.rotation.reorder( 'YXZ' );
 
   this.enabled = true;
