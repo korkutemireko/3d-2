@@ -1,4 +1,5 @@
-	DeviceOrientationControls = function ( object ) {
+
+THREE.DeviceOrientationControls = function ( object ) {
 
   var scope = this;
 
