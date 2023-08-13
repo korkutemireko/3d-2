@@ -994,6 +994,7 @@ import {
 CSS3DRenderer,
 CSS3DObject
 } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS3DRenderer.js';
+import "./DeviceOrientationControls";
 window.onload=function() {
 
 	
@@ -2122,7 +2123,7 @@ document.getElementsByClassName("voice")[0].onclick=function() {
 	
 
 
-	new THREE.DeviceOrientationControls(camera);
+var panoramacontrols=new THREE.DeviceOrientationControls(camera);
 
 	  
 /*var alpha,beta,gamma;
@@ -2158,7 +2159,7 @@ function render() {
 function animate() {
 requestAnimationFrame(animate);
 
-	//panoramacontrols.update();
+	panoramacontrols.update();
 //update();
 	 if(rotate_check==true) {
 		 	controls.update();
