@@ -14,6 +14,8 @@
  * W3C Device Orientation control
  * (http://w3c.github.io/deviceorientation/spec-source-orientation.html)
  */
+    import * as THREE from "https://cdn.skypack.dev/three@0.150.0";
+
 
 (function() {
 
