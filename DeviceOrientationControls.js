@@ -1,4 +1,4 @@
- import * as THREE from "https://unpkg.com/browse/three@0.155.0";
+ import * as THREE from "https://unpkg.com/browse/three@0.155.0/build/three.module.js";
 
 THREE.DeviceOrientationControls = function ( camera ) {
 
