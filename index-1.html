@@ -2149,7 +2149,7 @@ function handleOrientation(event) {
 
 window.addEventListener('deviceorientation', onDeviceOrientation ,false);*/
 
- var panoramacontrol=new THREE.DeviceOrientationControls(camera, true); 
+ var panoramacontrol=new DeviceOrientationControls(camera, true); 
 panoramacontrol.connect();
 panoramacontrols.update();
 function render() {
