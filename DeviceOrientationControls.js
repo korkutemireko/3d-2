@@ -1,4 +1,4 @@
- import * as THREE from "https://unpkg.com/browse/three@0.155.0/build/three.module.js";
+ import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
 
 THREE.DeviceOrientationControls = function ( camera ) {
 
