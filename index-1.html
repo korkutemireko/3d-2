@@ -2093,7 +2093,7 @@ var rotate_check=false;
 
 document.getElementsByClassName("rotate")[0].onclick=function() {
   if(rotate_check==false) {
-	  new THREE.DeviceOrientationControls(mesh3);
+	 // new THREE.DeviceOrientationControls(mesh3);
     document.getElementById("img-rotate").setAttribute("src","tap.png");
     rotate_check=true;
   }
@@ -2118,6 +2118,7 @@ document.getElementsByClassName("voice")[0].onclick=function() {
   }
 }
 
+	
 	
 	THREE.DeviceOrientationControls = function ( object ) {
 
@@ -2223,6 +2224,9 @@ document.getElementsByClassName("voice")[0].onclick=function() {
   this.connect();
 
 };
+
+	var panoramacontrols=new THREE.DeviceOrientationControls(mesh3);
+
 	  
 /*var alpha,beta,gamma;
 var compassHeading = null;
@@ -2256,6 +2260,8 @@ function render() {
 
 function animate() {
 requestAnimationFrame(animate);
+
+	panoramacontrols.update();
 //update();
 	 if(rotate_check==true) {
 		 	controls.update();
