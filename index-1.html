@@ -2225,7 +2225,7 @@ document.getElementsByClassName("voice")[0].onclick=function() {
 
 };
 
-	var panoramacontrols=new THREE.DeviceOrientationControls(mesh3);
+	new THREE.DeviceOrientationControls(camera);
 
 	  
 /*var alpha,beta,gamma;
@@ -2261,7 +2261,7 @@ function render() {
 function animate() {
 requestAnimationFrame(animate);
 
-	panoramacontrols.update();
+	//panoramacontrols.update();
 //update();
 	 if(rotate_check==true) {
 		 	controls.update();
