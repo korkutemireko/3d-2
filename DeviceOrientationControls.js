@@ -50,8 +50,7 @@
   }
   window.addEventListener('orientationchange', onScreenOrientationChangeEvent, false);
 
-
-THREE.DeviceOrientationControls = function(object) {
+DeviceOrientationControls = function(object) {
 
   this.object = object;
 
