@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>A-Frame VR İçeriği</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <!-- vr-mode-ui bileşenini ekleyin -->
+  <!--<script src="node_modules/aframe/dist/aframe.min.js"></script>-->
+  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.1.0/dist/aframe-extras.min.js"></script>
+  <script src="https://unpkg.com/browse/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+  <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
+  <style>
+     .label {
+    text-align: center;
+    width: 460px;
+    height: 260px;
+   /* border: 1px solid white;*/
+   border: none;
+    border-radius: 5px;
+   /* background: rgba( 0, 0, 0, .6 );*/
+  }
+  .a-loader-title {
+    display: none !important;
+  }
+
+  .btn, .btn-1  {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 30px 30px;
+    border-radius: 50%;
+    display: inline-block;
+    border-radius: 50%;
+    transition: all .2s;
+    position: absolute;
+    border:7px solid white;
+    background: transparent;
+}
+.btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+    animation: moveInBottom 2s ease-out infinite;
+}
+.btn-white {
+   /* background-color: #fff;*/
+    color: #777;
+}
+
+.btn-white::after {
+    background-color: #fff;
+}
+
+.btn i {
+ font-size: 45px;
+ margin: 0;
+ padding: 0;
+ color:#fff;
+}
+@keyframes moveInBottom {
+    0% {
+        opacity: 1;
+       /* transform: translateY(30px);*/
+    }
+
+    100% {
+        opacity: 0;
+       /* transform: translateY(0px);*/
+        transform: scaleX(2.0) scaleY(2.1);
+    }
+}
+  </style>
+</head>
+<body>
+    <script type="module">
+
+//import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
+import {
+CSS3DRenderer,
+CSS3DObject
+} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS3DRenderer.js';
+
+        window.onload=function() {
+           /* document.onclick=function() {
+                document.querySelector('a-scene').enterVR();
+
+            }*/
+       
+           // let scene = document.querySelector('a-entity').sceneEl.object3D;
+           var scene=document.querySelector('a-scene').object3D;
+            var cameraEl = document.querySelector('#camera');
+           // var texture2 = THREE.ImageUtils.loadTexture('chevron.png');
+//texture2.minFilter = THREE.LinearFilter; // Ekle, resmin daha iyi görünmesini sağlar.
+var cameraW = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 1, 1000);
+cameraW.position.set(10, 10, 10);
+cameraW.target = new THREE.Vector3( 0, 0, 0 );
+
+AFRAME.registerComponent('toggle', {
+                schema: {                    
+                },
+                init: function() {
+                 // document.querySelector('a-scene').enterVR();
+                    this.el.addEventListener('enter-vr', () => vonsole.log("enter vr"));
+                    this.el.addEventListener('exit-vr', () => window.location.href="index-ev-1.html");
+                }
+            });
+    
+
+var textureLoader = new THREE.TextureLoader();
+      const texture2 = textureLoader.load('chevron.jpg');
+
+
+
+var material2 = new THREE.MeshBasicMaterial({ map: texture2 });
+
+/*var mesh78 = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1, 1), material2);
+mesh78.position.set(10, 10, 9);
+mesh78.rotation.y=0.5;
+scene.add(mesh78);*/
+
+/*var texture = THREE.ImageUtils.loadTexture('chevron.png');
+texture.minFilter = THREE.LinearFilter;*/
+
+      const texture = textureLoader.load('chevron.jpg');
+
+
+
+var material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 1 });
+
+var radius = 3;
+var segments = 32; // Dairenin kenar sayısı
+var geometry = new THREE.CircleGeometry(radius, segments);
+
+var mesh77 = new THREE.Mesh(geometry, material);
+mesh77.position.set(-4, 5, -20.0);
+mesh77.rotation.y=-0.5;
+mesh77.scale.set(0.5,0.5,0.5);
+//scene.add(mesh77);
+console.log(mesh77.scale.x);
+
+var mesh78 = new THREE.Mesh(geometry, material);
+mesh78.position.set(25, 4, 0);
+mesh78.rotation.y=-1;
+mesh78.scale.set(0.5,0.5,0.5);
+//scene.add(mesh78);
+
+var initialScale = 0.5; // Başlangıç boyutu
+var targetScale = 0.7; // Hedef boyutu
+var scaleSpeed = 0.005; // Boyut değiştirme hızı
+
+var growing = true; // Mesh büyüyor mu?
+
+window.setInterval(function() {
+  // Büyütme ve küçültme animasyonu
+  if (growing) {
+    mesh77.scale.x += scaleSpeed;
+    mesh77.scale.y += scaleSpeed;
+    mesh78.scale.x += scaleSpeed;
+    mesh78.scale.y += scaleSpeed;
+    if (mesh77.scale.x >= targetScale) {
+      growing = false;
+    }
+  } else {
+    mesh77.scale.x -= scaleSpeed;
+    mesh77.scale.y -= scaleSpeed;
+    mesh78.scale.x -= scaleSpeed;
+    mesh78.scale.y -= scaleSpeed;
+    if (mesh77.scale.x <= initialScale) {
+      growing = true;
+    }
+  }
+},100);
+
+var image2='360/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081472.jpg';
+var image1="360/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474.jpg";
+var image3="360/jpeg-optimizer_vecteezy_spherical-360-seamless-panorama-projection-of-an-interior-modern-design-room-in.jpg";
+var image4="360/jpeg-optimizer_lavabo.jpg";
+var mesh1,mesh2,mesh3,mesh4;
+
+
+// Video elementini oluşturalım ve video dosyasını yükleyelim
+var video = document.createElement('video');
+video.src = '360/karasu.mp4'; // Video dosyanızın yolu buraya gelecek
+video.loop = true;
+video.muted = true; // Dikkat: otomatik ses çıkışı engellemek için video sesini kapatıyoruz
+video.play();
+
+// Video texture oluşturalım ve materyale ekleyelim
+var texture3 = new THREE.VideoTexture(video);
+//texture3.minFilter = THREE.LinearFilter;
+
+var material3 = new THREE.MeshBasicMaterial({ map: texture3, transparent: true, opacity: 1 });
+
+// Dairenin özelliklerini belirleyelim
+var radius = 3;
+var segments = 32; // Dairenin kenar sayısı
+var geometry3 = new THREE.PlaneGeometry(14.3, 8);
+
+// Mesh'i oluşturup sahneye ekleyelim
+var mesh79 = new THREE.Mesh(geometry3, material3);
+mesh79.position.set(-20, 1, -20.0);
+mesh79.rotation.y = -0.01;
+//mesh79.scale.set(0.5,0.5,0.5);
+//scene.add(mesh79);
+//console.log(mesh79.rotation.y);
+
+load4(image3);
+
+
+function load4(image3) {
+       // document.getElementsByClassName("container")[0].style.display="flex";
+  var geometry = new THREE.SphereGeometry( 500, 40, 30 );
+geometry.scale( - 1, 1, 1 );
+
+
+
+var material = new THREE.MeshBasicMaterial({
+  map: new THREE.TextureLoader().load( image3, function (texture) {
+  // Yükleme tamamlandığında çalışacak işlev
+  console.log('Texture loaded successfully:'+ texture);
+    //document.getElementsByClassName("container")[0].style.display="none";
+  new THREE.TextureLoader().load( image1);
+new THREE.TextureLoader().load( image2);
+new THREE.TextureLoader().load( image4);
+},
+function (xhr) {
+  // Yükleme sırasında ilerleme raporları için çalışacak işlev
+  var percentComplete = (xhr.loaded / xhr.total) * 100;
+  console.log('Texture loading progress:'+ percentComplete + '%');
+},
+function (error) {
+  // Yükleme sırasında bir hata oluşursa çalışacak işlev
+  console.error('Error loading texture:'+ error);
+} )
+});
+
+mesh3=new THREE.Mesh( geometry, material );
+mesh3.material.transparent = true;
+//target1=mesh3;
+
+/*
+{
+  map: new THREE.TextureLoader().load( image3, function (texture) {
+  // Yükleme tamamlandığında çalışacak işlev
+  console.log('Texture loaded successfully:'+ texture);
+    document.getElementsByClassName("container")[0].style.display="none";
+  new THREE.TextureLoader().load( image1);
+new THREE.TextureLoader().load( image2);
+new THREE.TextureLoader().load( image4);
+},
+function (xhr) {
+  // Yükleme sırasında ilerleme raporları için çalışacak işlev
+  var percentComplete = (xhr.loaded / xhr.total) * 100;
+  console.log('Texture loading progress:'+ percentComplete + '%');
+},
+function (error) {
+  // Yükleme sırasında bir hata oluşursa çalışacak işlev
+  console.error('Error loading texture:'+ error);
+} )
+}
+
+*/
+
+//scene.add(mesh3);
+
+
+}
+
+//document.querySelector('a-scene').enterVR()
+
+
+/*AFRAME.registerComponent('raycaster-autorefresh', {
+      init: function () {
+        var el = this.el;
+        var cameraEl = document.querySelector('#camera');
+
+        el.addEventListener('click', function (event) {
+          var mouse = new THREE.Vector2();
+          mouse.x = (event.detail.intersection.uv.x) * 2 - 1;
+          mouse.y = -(event.detail.intersection.uv.y) * 2 + 1;
+
+          var raycaster = new THREE.Raycaster();
+          raycaster.setFromCamera(mouse, cameraEl.object3D);
+
+          var intersects = raycaster.intersectObjects(el.sceneEl.object3D.children, true);
+
+          if (intersects.length > 0) {
+            for (var i = 0; i < intersects.length; i++) {
+                alert("sasc");
+              if (intersects[i].object.el === el) {
+                if (el.getAttribute('id') === 'mesh77') {
+                  alert("Mesh77'e tıklandı!");
+                } else if (el.getAttribute('id') === 'mesh78') {
+                  alert("Mesh78'e tıklandı!");
+                }
+                break;
+              }
+            }
+          }
+        });
+      }
+    });*/
+
+/*function onMouseClick(event) {
+  // Fare tıklamasının koordinatlarını alalım
+  var mouse = new THREE.Vector2();
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  // Fare tıklamasını sahnede gerçek bir 3B noktaya dönüştürelim
+  var raycaster = new THREE.Raycaster();
+  raycaster.setFromCamera(mouse, cameraEl.object3D.children[0]);
+
+  // Fare tıklamasının sahnede vurduğu nesneleri kontrol edelim
+  var intersects = raycaster.intersectObjects(scene.children);
+
+  // Eğer tıklama sonucunda nesneler varsa, mesh77 nesnesine tıklandı mı kontrol edelim
+  if (intersects.length > 0) {
+    for (var i = 0; i < intersects.length; i++) {
+      if (intersects[i].object === mesh77) {
+        mesh3.material.map=new THREE.TextureLoader().load( image1,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
+        // Burada mesh77'ye tıklandı. İstediğiniz eylemi burada gerçekleştirebilirsiniz.
+        //alert("Mesh77'e tıklandı!");
+        break; // Eğer birden fazla aynı mesh varsa, sadece bir tanesini tıklanmış olarak kabul edelim.
+      }
+      else if(intersects[i].object===mesh78) {
+        mesh3.material.map=new THREE.TextureLoader().load( image4,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+ 
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
+       // alert("mesh78'e tıklandı");
+        break;
+      }
+    }
+  }
+}
+window.addEventListener('click', onMouseClick, false);*/
+
+var check;
+let myEl = document.querySelector("#video1");
+let myEl2 = document.querySelector("#video2");
+let box = document.querySelector("#box");
+let box2 = document.querySelector("#box2");
+let box3 = document.querySelector("#box3");
+let box4 = document.querySelector("#box4");
+let box5 = document.querySelector("#box5");
+let box6 = document.querySelector("#box6");
+ 
+document.querySelector('#cursor').addEventListener('mouseenter', function(event) {
+ var targetElement = event.detail.intersectedEl; // Hedef elementi al
+    var targetId = targetElement.getAttribute('class');
+    check=targetId;
+   // alert("Hedef elementin sınıfı: " + targetId);
+});
+
+
+document.querySelector('#cursor').addEventListener('animationcomplete__click', function(event) {
+      // alert('Animasyon tamamlandı!');
+    
+    if(check=="box") {
+  myEl.setAttribute("visible","false");
+  box.setAttribute("visible","false");
+  box2.setAttribute("visible","false");
+  box3.setAttribute("visible","true");
+  box4.setAttribute("visible","true");
+  myEl2.setAttribute("visible","true");
+      mesh3.material.map=new THREE.TextureLoader().load( image1,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
+    }
+
+    else if(check=="box2") {
+      myEl.setAttribute("visible","false");
+  box.setAttribute("visible","false");
+  box2.setAttribute("visible","false");
+  box3.setAttribute("visible","false");
+  box4.setAttribute("visible","false");
+  box5.setAttribute("visible","true");
+  myEl2.setAttribute("visible","false");
+      mesh3.material.map=new THREE.TextureLoader().load( image4,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
+    }
+    else if(check=="box3") {
+      myEl.setAttribute("visible","true");
+  box.setAttribute("visible","true");
+  box2.setAttribute("visible","true");
+  box3.setAttribute("visible","false");
+  box4.setAttribute("visible","false");
+  myEl2.setAttribute("visible","false");
+      mesh3.material.map=new THREE.TextureLoader().load( image3,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
+    }
+    else if(check=="box4") {
+      myEl.setAttribute("visible","false");
+  box.setAttribute("visible","false");
+  box2.setAttribute("visible","false");
+  box3.setAttribute("visible","false");
+  box4.setAttribute("visible","false");
+  box5.setAttribute("visible","false");
+  box6.setAttribute("visible","true");
+  myEl2.setAttribute("visible","false");
+      mesh3.material.map=new THREE.TextureLoader().load( image2,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
+    }
+    else if(check=="box5") {
+      myEl.setAttribute("visible","true");
+  box.setAttribute("visible","true");
+  box2.setAttribute("visible","true");
+  box3.setAttribute("visible","false");
+  box4.setAttribute("visible","false");
+  box5.setAttribute("visible","false");
+  myEl2.setAttribute("visible","false");
+      mesh3.material.map=new THREE.TextureLoader().load( image3,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
+    }
+    else if(check=="box6") {
+      myEl.setAttribute("visible","false");
+  box.setAttribute("visible","false");
+  box2.setAttribute("visible","false");
+  box3.setAttribute("visible","true");
+  box4.setAttribute("visible","true");
+  box5.setAttribute("visible","false");
+  box6.setAttribute("visible","false");
+  myEl2.setAttribute("visible","true");
+      mesh3.material.map=new THREE.TextureLoader().load( image1,function (texture) {
+    // Yükleme tamamlandığında çalışacak işlev
+    console.log('Texture loaded successfully:'+ texture);
+   
+  },
+  function (xhr) {
+    // Yükleme sırasında ilerleme raporları için çalışacak işlev
+    var percentComplete = (xhr.loaded / xhr.total) * 100;
+    console.log('Texture loading progress:'+ percentComplete + '%');
+  },
+  function (error) {
+    // Yükleme sırasında bir hata oluşursa çalışacak işlev
+    console.error('Error loading texture:'+ error);
+  } );
+    }
+    });
+    var labelRenderer = new CSS3DRenderer();
+//labelRenderer.setPixelRatio(0.5);
+labelRenderer.setSize(window.innerWidth, window.innerHeight);
+labelRenderer.domElement.style.position = 'absolute';
+labelRenderer.domElement.style.top = '0px';
+//document.body.appendChild(labelRenderer.domElement);
+
+var box_a = new THREE.Mesh(new THREE.BoxBufferGeometry(0, 0, 0), new THREE.MeshLambertMaterial({
+color: 0x0088ff,
+wireframe: false
+}));
+//scene.add(box_a);
+
+var pos2 = new THREE.Vector3(9.1, 11.0, 20.5);
+
+var div_anno_a=document.createElement("a");
+div_anno_a.className="btn btn-1 btn-white";
+var div_anno_i=document.createElement("i");
+div_anno_i.className="fa-solid fa-chevron-down fa-shake";
+div_anno_a.appendChild(div_anno_i);
+var label2_a = new CSS3DObject(div_anno_a);
+label2_a.position.copy(pos2);
+label2_a.rotation.y = Math.PI * 0;
+label2_a.scale.set(0.025, 0.025, 1);
+box_a.add(label2_a);
+    //document.querySelector('a-scene').enterVR();
+
+    function onWindowResize() {
+
+//cameraW.aspect = window.innerWidth / window.innerHeight;
+
+//cameraW.updateProjectionMatrix();
+
+
+//labelRenderer.setSize(window.innerWidth, window.innerHeight);
+
+}
+window.addEventListener('resize', onWindowResize, false);
+
+    function animate() {
+requestAnimationFrame(animate);
+
+//labelRenderer.render(scene, cameraW);
+
+    }
+    animate();
+var sayac=0;
+var sayac2=0;
+    document.onkeydown=function(event) {
+      if(event.key=="d") {
+        sayac=parseInt(sayac)+5;
+        document.getElementById("model-glb").setAttribute("rotation","0 "+sayac+" 0")
+      }
+        else if(event.key=="s") {
+        sayac2=parseInt(sayac2)+5;
+        document.getElementById("model-glb").setAttribute("rotation",sayac2+" "+sayac+" 0")
+      }
+    } 
+
+        }
+        
+    </script>
+  <!-- A-Frame ile oluşturulmuş VR sahnesini burada oluşturun -->
+  <a-scene vr-mode-ui="enabled: true" toggle>
+   <!-- <a-sound src="src: url(Zimmer.mp3)" autoplay="true" position="0 2 5"></a-sound> -->
+    <a-assets>
+      <img id="platform" src="chevron.jpg">
+      <video id="karasu" autoplay loop="true" src="360/karasu.mp4"></video>
+    </a-assets>
+    <a-circle src="#platform" class="box" id="box" visible="true" position="-0.6 2.5 -3" radius="0.25" rotation="-10 0 0"   raycaster="objects: [data-raycastable]" hoverable  event-set__enter="_event: hover-start; _target: #camera; _function: showalert"></a-circle>
+    <a-circle src="#platform" class="box2" id="box2" visible="true" position="4 2.2 0" radius="0.25" rotation="-10 -90 0"   raycaster="objects: [data-raycastable]" hoverable  event-set__enter="_event: hover-start; _target: #camera; _function: showalert"></a-circle>
+    <a-circle src="#platform" class="box3" id="box3" visible="false" position="4 3 1.7" radius="0.25" rotation="-10 -90 0"   raycaster="objects: [data-raycastable]" hoverable  event-set__enter="_event: hover-start; _target: #camera; _function: showalert"></a-circle>
+    <a-circle src="#platform" class="box4" id="box4" visible="false" position="-2.9 2 1.3" radius="0.25" rotation="-10 90 0"   raycaster="objects: [data-raycastable]" hoverable  event-set__enter="_event: hover-start; _target: #camera; _function: showalert"></a-circle>
+    <a-circle src="#platform" class="box5" id="box5" visible="false" position="-0.2 2 3" radius="0.25" rotation="0 180 0"   raycaster="objects: [data-raycastable]" hoverable  event-set__enter="_event: hover-start; _target: #camera; _function: showalert"></a-circle>
+    <a-circle src="#platform" class="box6" id="box6" visible="false" position="-2.9 2 -2.1" radius="0.25" rotation="0 90 0"   raycaster="objects: [data-raycastable]" hoverable  event-set__enter="_event: hover-start; _target: #camera; _function: showalert"></a-circle>
+
+    <a-video src="#karasu" id="video2" visible="false" width="15.7" height="9" position="20 5 -9.8" rotation="0 -90 0"></a-video>
+    <a-video src="#karasu" id="video1" visible="true" width="15.7" height="9" position="-21.85 1 -21.9" rotation="0 0 0"></a-video>
+    <a-entity raycaster="objects: .box" cursor></a-entity>
+    <!-- VR içeriğini burada oluşturun -->
+    <a-assets>
+      <a-animation id="alertAnimation" begin="animationcomplete__click" attribute="position" from="0 1 -2" to="0 1 0"></a-animation>
+      <a-animation id="alertAnimation" begin="animationbegin" attribute="position" from="0 1 -2" to="0 1 0"></a-animation>
+    </a-assets>
+
+    <a-assets>
+      <a-asset-item id="tree" src="sofa_web.glb"></a-asset-item>
+    </a-assets>
+  
+   <!-- <a-entity id="model-glb" gltf-model="#tree" position="-5 0 -2.5" scale="2 2 2" rotation="0 0 0"></a-entity> -->
+   <!----> <a-entity id="model-glb" gltf-model="#tree" position="1.5 -1 -8.5" scale="0.005 0.005 0.005" rotation="0 0 0"></a-entity>
+    
+    <a-camera look-controls wasd-controls-enabled="false" mouse-cursor id="camera">
+      <a-entity id="cursor" raycaster="objects: .box, .box2, .box3, .box4, .box5, .box6"
+      cursor="fuse: true;" 
+      material="color: black; shader: flat"
+      position="0 0 -2"
+      geometry="primitive: ring;radiusInner: 0.02; radiusOuter: 0.03;" 
+      animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 1500; from: 0.1 0.1 0.1; to: 1 1 1"
+      animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"
+      animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 1 1 1"
+      >
+      </a-entity>
+     </a-camera>
+  </a-scene>
+</body>
+</html>
