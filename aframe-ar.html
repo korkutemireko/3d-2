@@ -19,62 +19,7 @@
     border-radius: 5px;
    /* background: rgba( 0, 0, 0, .6 );*/
   }
-  .a-loader-title {
-    display: none !important;
-  }
 
-  .btn, .btn-1  {
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 30px 30px;
-    border-radius: 50%;
-    display: inline-block;
-    border-radius: 50%;
-    transition: all .2s;
-    position: absolute;
-    border:7px solid white;
-    background: transparent;
-}
-.btn::after {
-    content: "";
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    transition: all .4s;
-    animation: moveInBottom 2s ease-out infinite;
-}
-.btn-white {
-   /* background-color: #fff;*/
-    color: #777;
-}
-
-.btn-white::after {
-    background-color: #fff;
-}
-
-.btn i {
- font-size: 45px;
- margin: 0;
- padding: 0;
- color:#fff;
-}
-@keyframes moveInBottom {
-    0% {
-        opacity: 1;
-       /* transform: translateY(30px);*/
-    }
-
-    100% {
-        opacity: 0;
-       /* transform: translateY(0px);*/
-        transform: scaleX(2.0) scaleY(2.1);
-    }
-}
   </style>
 </head>
 <body>
