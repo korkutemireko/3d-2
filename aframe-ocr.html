@@ -639,6 +639,7 @@ var target5=-1,target6=-8.5;
                     { logger: m => console.log(m) }
                 ).then(({ data: { text } }) => {
                     console.log(text);
+                    alert(text);
                     // Tanınan metni sanal dünyada göster
                     textPlane3.setAttribute("text", {
                         value: text,
