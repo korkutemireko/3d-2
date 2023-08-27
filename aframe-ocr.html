@@ -635,7 +635,7 @@ var target5=-1,target6=-8.5;
              var canvas = document.querySelector('a-scene').components.screenshot.getCanvas('equirectangular')
                 Tesseract.recognize(
                     canvas,
-                    "eng", // Tanıma dilini burada ayarlayabilirsiniz
+                    "tr", // Tanıma dilini burada ayarlayabilirsiniz
                     { logger: m => console.log(m) }
                 ).then(({ data: { text } }) => {
                     console.log(text);
