@@ -80,9 +80,9 @@ app.get('/aframe',function(req,res) {
      res.sendFile( __dirname + "/index-ev-1.html");
 });
 
-app.get('/about-tr',function(req,res) {
+app.get('/ocr',function(req,res) {
   // res.send({"name":process.pid});
-     res.sendFile( __dirname + "/www/aboutme-tr.html");
+     res.sendFile( __dirname + "/aframe-ocr.html");
 });
 
 app.get('/contact-tr',function(req,res) {
