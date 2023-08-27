@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://unpkg.com/tesseract.js@2.1.5/dist/tesseract.min.js"></script>
+    <script>
+        window.onload=function() {
+            async function runOCR(imageData) {
+  const { data: { text } } = await Tesseract.recognize(
+    imageData,
+    'tur',
+    { logger: m => console.log(m) }
+  );
+  return text;
+}
+async function captureImageFromCamera() {
+  const videoElement = document.createElement('video');
+  const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+
+  videoElement.srcObject = stream;
+  await videoElement.play();
+
+  const canvas = document.createElement('canvas');
+  canvas.width = videoElement.videoWidth;
+  canvas.height = videoElement.videoHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+  stream.getTracks().forEach(track => track.stop()); // Kamerayı kapat
+
+  /*var a=document.createElement("a");
+  a.href=canvas.toDataURL('image/png');
+  a.download="eko";
+  a.click();*/
+
+  return canvas.toDataURL('image/png'); // Görüntü verisini döndür
+}
+
+document.addEventListener('click', async function() {
+  // VR sahnenizden veya bir HTML öğesinden görüntü verilerini alın
+  let imageData = await captureImageFromCamera();
+  //let imageData = getYourImageDataSomehow();
+  
+  // OCR çalıştır
+  let text = await runOCR(imageData);
+
+  console.log(text);
+  alert(text);
+  // Metni A-Frame sahnenizde bir şeyler yapmak için kullanın
+  //updateYourSceneWithText(text);
+});
+        }
+    </script>
+    <a-scene embedded arjs>
+        <a-marker preset="hiro">
+          <!-- Your AR content here -->
+        </a-marker>
+        <a-entity camera></a-entity>
+      </a-scene>  
+</body>
+</html>
