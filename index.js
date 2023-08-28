@@ -82,7 +82,7 @@ app.get('/aframe',function(req,res) {
 
 app.get('/ocr',function(req,res) {
   // res.send({"name":process.pid});
-     res.sendFile( __dirname + "/aframe-ocr2.html");
+     res.sendFile( __dirname + "/aframe-hiro.html");
 });
 
 app.get('/contact-tr',function(req,res) {
