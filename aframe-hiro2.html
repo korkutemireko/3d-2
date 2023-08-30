@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+      <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.1.0/dist/aframe-extras.min.js"></script>
+  <script src="https://unpkg.com/browse/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+
+    <script>
+        window.onload=function() {
+            console.log("sadsd");
+        }
+    </script>
+    <a-scene arjs  renderer="logarithmicDepthBuffer: true;"  vr-mode-ui="enabled: false" gesture-detector >
+          <a-assets>
+      <a-asset-item id="tree" src="extra.glb"></a-asset-item>
+    </a-assets>
+            <a-marker preset='pattern' type="pattern" url="pattern-company.patt" raycaster="objects: .clickable"  emitevents="true"    cursor="fuse: false; rayOrigin: mouse;" >
+          <!-- Your AR content here -->
+         <!-- <a-box position="0 0.5 0" material="color: yellow;"></a-box> -->
+         <a-entity 
+        gltf-model="#tree"  position="0 -5 -4" scale="0.5 0.5 0.5" rotation="0 0 0"  class="clickable"  gesture-handler >
+         </a-entity> 
+        </a-marker>
+        <a-entity camera ></a-entity>
+      </a-scene>  
+</body>
+</html>
