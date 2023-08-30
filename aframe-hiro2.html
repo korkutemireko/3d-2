@@ -18,7 +18,7 @@
             console.log("sadsd");
         }
     </script>
-    <a-scene arjs  renderer="logarithmicDepthBuffer: true;"  vr-mode-ui="enabled: false" gesture-detector >
+    <a-scene arjs="trackingMethod: best"  renderer="logarithmicDepthBuffer: true;"  vr-mode-ui="enabled: false" gesture-detector >
           <a-assets>
       <a-asset-item id="tree" src="extra.glb"></a-asset-item>
     </a-assets>
@@ -28,14 +28,7 @@
          <a-entity 
         gltf-model="#tree"  position="0 0 0" scale="0.5 0.5 0.5" rotation="0 0 0"  class="clickable"  gesture-handler >
          </a-entity> 
-                      <!-- Fiyat kartı tahtası -->
-      <a-box id="target" position="0 1.6 -2" rotation="0 0 0" color="#FFF" depth="0.1" height="1.5" width="1"></a-box>
-
-      <!-- Fiyat kartı metni -->
-      <a-text value="Price: $10" align="center" position="0 1.8 -2" width="1.5" color="black"></a-text>
-      <a-text value="Product: Apple" align="center" position="0 1.6 -2" width="1.5" color="black"></a-text>
-      <a-text value="In Stock" align="center" position="0 1.4 -2" width="1.5" color="black"></a-text>
-  
+                
         </a-marker>
         <a-entity camera ></a-entity>
       </a-scene>  
