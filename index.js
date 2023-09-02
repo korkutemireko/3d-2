@@ -90,6 +90,10 @@ app.get('/ocr2',function(req,res) {
      res.sendFile( __dirname + "/aframe-hiro2.html");
 });
 
+app.get('/vr',function(req,res) {
+  // res.send({"name":process.pid});
+     res.sendFile( __dirname + "/aframe-vr2.html");
+});
  
  var port=process.env.PORT || 8080;
 
