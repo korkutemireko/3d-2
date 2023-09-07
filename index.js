@@ -94,7 +94,10 @@ app.get('/vr',function(req,res) {
   // res.send({"name":process.pid});
      res.sendFile( __dirname + "/aframe-vr2.html");
 });
- 
+ app.get('/ar3',function(req,res) {
+  // res.send({"name":process.pid});
+     res.sendFile( __dirname + "/aframe-house1-ar.html");
+});
  var port=process.env.PORT || 8080;
 
 
