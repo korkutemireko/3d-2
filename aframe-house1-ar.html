@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>A-Frame VR İçeriği</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <!-- vr-mode-ui bileşenini ekleyin -->
+  <!--<script src="node_modules/aframe/dist/aframe.min.js"></script>-->
+  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.1.0/dist/aframe-extras.min.js"></script>
+ <!-- <script src="https://unpkg.com/browse/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+  <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+ .btn, .btn-1, .btn-1-1, .btn-3, .btn-4, .btn-5, .btn-6  {
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 20px 20px;
+      border-radius: 50%;
+      display: inline-block;
+      border-radius: 50%;
+      transition: all .2s;
+      position: absolute;
+      border:13px solid white;
+      background: transparent;
+  }
+          .btn i, .btn-2 i, .btn-1 i, .btn-1-1 i, .btn-3 i, .btn-4 i, .btn-5 i, .btn-6 i  {
+   cursor:pointer;
+  }
+  .btn-2 {
+    text-transform: uppercase;
+      text-decoration: none;
+      padding: 50px 50px;
+      border-radius: 50%;
+      display: inline-block;
+      border-radius: 50%;
+      transition: all .2s;
+      position: absolute;
+      border:10px solid white;
+      background: transparent;
+  }
+  .btn-2 i {
+    margin:5px !important;
+  }
+  .btn-1,.btn-4,.btn-3,.btn-5,.btn-6 {
+    visibility: visible;
+   /* display: none;*/
+  }
+  .btn-6 {
+    padding: 40px 40px !important;
+    border:10px solid white !important;
+  }
+  .btn-6 i {
+    font-size: 50px !important;
+    margin:5px !important;
+  }
+  .btn-3 {
+  border:10px solid black !important;
+  }
+  .btn-3 i {
+    color:black !important;
+  }
+  
+  .btn-1-1 {
+    padding: 20px 20px !important;
+    border:13px solid white !important;
+  }
+  .btn-1-1 i {
+    margin:5px !important;
+  }
+  .btn::after {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: all .4s;
+      animation: moveInBottom 2s ease-out infinite;
+  }
+  .btn-2::after {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: all .4s;
+      animation: moveInBottom 2s ease-out infinite;
+  }
+  
+  .btn-white {
+     /* background-color: #fff;*/
+      color: #777;
+  }
+  
+  .btn-white::after {
+      background-color: #fff;
+  }
+  
+  .btn i {
+   font-size: 45px;
+   margin: 0;
+   padding: 0;
+   color:#fff;
+  }
+  .btn-2 i {
+   font-size: 68px;
+   margin: 0;
+   padding: 0;
+   color:#fff;
+  }
+  
+  @keyframes moveInBottom {
+      0% {
+          opacity: 1;
+         /* transform: translateY(30px);*/
+      }
+  
+      100% {
+          opacity: 0;
+         /* transform: translateY(0px);*/
+          transform: scaleX(2.0) scaleY(2.1);
+      }
+  }
+  </style>
+</head>
+<body>
+    <script type="module">
+
+//import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
+import {
+CSS3DRenderer,
+CSS3DObject
+} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS3DRenderer.js';
+
+        window.onload=function() {
+           /* document.onclick=function() {
+                document.querySelector('a-scene').enterVR();
+
+            }*/
+       
+           // let scene = document.querySelector('a-entity').sceneEl.object3D;
+           var scene2=document.querySelector('a-scene').object3D;
+            var cameraEl = document.querySelector('#camera');
+           // var texture2 = THREE.ImageUtils.loadTexture('chevron.png');
+//texture2.minFilter = THREE.LinearFilter; // Ekle, resmin daha iyi görünmesini sağlar.
+let xrController;
+
+
+
+
+/*AFRAME.registerComponent('toggle', {
+                schema: {                    
+                },
+                init: function() {
+                  document.querySelector('a-scene').enterVR();
+                    this.el.addEventListener('enter-vr', () => vonsole.log("enter vr"));
+                    this.el.addEventListener('exit-vr', () => window.location.href="index-ev-1.html");
+                }
+            });*/
+            document.addEventListener('wheel', function(event) {
+  const camera = document.getElementById('camera');
+  let fov = camera.getAttribute('camera').fov;
+  if (event.deltaY > 0 && fov < 90) { // zoom out
+    fov += 5;
+  } else if (event.deltaY < 0 && fov > 10) { // zoom in
+    fov -= 5;
+  }
+  camera.setAttribute('camera', 'fov', fov);
+});
+    
+document.onkeydown=function(event){
+  if(event.key=="t") {
+      const scene = document.querySelector('#scene');
+      const canvas = scene.components.screenshot.getCanvas('perspective');
+      const imgDataUrl = canvas.toDataURL('image/png');
+
+      // Save or display the image
+      const link = document.createElement('a');
+      link.href = imgDataUrl;
+      link.download = 'screenshot.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  }
+    }
+
+
+      // A-Frame scene
+      const scene = document.querySelector('a-scene').object3D;
+   // const camera = document.querySelector('a-camera').object3D;
+    var camera=document.querySelector('a-scene').camera;
+    // CSS3D setup
+    const cssScene = new THREE.Scene();
+    const cssRenderer = new CSS3DRenderer();
+    cssRenderer.setSize(window.innerWidth, window.innerHeight);
+    cssRenderer.domElement.style.position = 'absolute';
+    cssRenderer.domElement.style.top = 0;
+    cssRenderer.domElement.style.pointerEvents = 'none'
+    document.body.appendChild(cssRenderer.domElement);
+
+    // Create CSS3DObject
+   /* const element = document.getElementById('css-element');
+    const cssObject = new CSS3DObject(element);
+    cssObject.position.set(0, 1, -200);
+    cssScene.add(cssObject);*/
+    var pos_anno_2 = new THREE.Vector3(0, 1, -200);
+
+
+var div_anno_a_1=document.createElement("a");
+div_anno_a_1.className="btn btn-1 btn-white button1";
+var div_anno_i_1=document.createElement("i");
+div_anno_i_1.className="fa-solid fa-chevron-down fa-shake";
+div_anno_a_1.appendChild(div_anno_i_1);
+var label2_a_1 = new CSS3DObject(div_anno_a_1);
+label2_a_1.position.set(-45,30,-200);
+label2_a_1.rotation.y = Math.PI * 1;
+label2_a_1.scale.set(0.25, 0.25, 1);
+cssScene.add(label2_a_1);
+  
+div_anno_a_1.addEventListener("click",function() {
+  document.querySelector("a-video").setAttribute("position","4.7 2.4 -2.3");
+  document.querySelector("a-video").setAttribute("rotation","0 90 0");
+document.getElementsByClassName("button1")[0].style.visibility="hidden";
+document.getElementsByClassName("button2")[0].style.visibility="hidden";
+document.getElementsByClassName("button3")[0].style.visibility="visible";
+document.querySelector("a-sky").setAttribute("src","#pano2");
+
+});
+
+var div_anno_a_2=document.createElement("a");
+div_anno_a_2.className="btn btn-1 btn-white button2";
+var div_anno_i_2=document.createElement("i");
+div_anno_i_2.className="fa-solid fa-chevron-down fa-shake";
+div_anno_a_2.appendChild(div_anno_i_2);
+var label2_a_2 = new CSS3DObject(div_anno_a_2);
+label2_a_2.position.set(200,25,0);
+label2_a_2.rotation.y = Math.PI * 0.5;
+label2_a_2.scale.set(0.23, 0.23, 1);
+cssScene.add(label2_a_2);
+
+div_anno_a_2.addEventListener("click",function() {
+document.getElementsByClassName("button1")[0].style.visibility="hidden";
+document.getElementsByClassName("button2")[0].style.visibility="hidden";
+document.querySelector("a-sky").setAttribute("src","#pano4");
+
+var scene3=document.querySelector("a-scene");
+scene3.setAttribute('xr-session', 'type: ar');
+navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
+      if (supported) {
+        navigator.xr.requestSession('immersive-ar', {
+          optionalFeatures: ['local-floor', 'bounded-floor']
+        }).then((session) => {
+          scene3.xrSession = session;
+          scene3.setAttribute('enter-vr-button', 'xrSession: immersive-ar');
+        });
+      } else {
+        console.warn('AR not supported');
+      }
+    });
+});
+
+
+
+var div_anno_a_3=document.createElement("a");
+div_anno_a_3.className="btn btn-1 btn-white button3";
+var div_anno_i_3=document.createElement("i");
+div_anno_i_3.className="fa-solid fa-chevron-down fa-shake";
+div_anno_a_3.appendChild(div_anno_i_3);
+var label2_a_3 = new CSS3DObject(div_anno_a_3);
+label2_a_3.position.set(200,25,0);
+label2_a_3.rotation.y = Math.PI * 0.5;
+label2_a_3.scale.set(0.23, 0.23, 1);
+cssScene.add(label2_a_3);
+   
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Update A-Frame scene
+      scene.updateMatrixWorld();
+      scene.updateWorldMatrix();
+
+      // Update CSS3DRenderer
+      cssRenderer.render(cssScene, camera);
+
+      // Update A-Frame Renderer
+     // scene.renderer.render(scene, camera.camera);
+
+    }
+
+    animate();
+
+}
+
+
+
+        
+    </script> -->
+  <!-- A-Frame ile oluşturulmuş VR sahnesini burada oluşturun -->
+  <a-scene vr-mode-ui="enabled: true" toggle id="scene">
+   <!-- <a-sound src="src: url(Zimmer.mp3)" autoplay="true" position="0 2 5"></a-sound> -->
+   <a-assets>
+    <img id="pano1" src="360-2/vecteezy_spherical-360-seamless-panorama-projection-of-an-interior-modern-design-room-in-3d-illustration_2075997.jpg">
+    <img id="pano2" src="360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474.jpg">
+    <img id="pano3" src="360-2/vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474-min-1.jpg">
+    <img id="pano4" src="360-2/vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081472.jpg">
+    <img id="pano5" src="360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474.jpg">
+    <img id="pano6" src="360-2/jpeg-optimizer_360-2.jpeg">
+  </a-assets>
+  <a-video position="-5.2 1.47 -5.2" rotation="0 0 0" autoplay="false" loop="false" scale="3.7 2.1 1"
+         src="360-2/karasu.mp4">
+</a-video>
+    <a-camera look-controls fov="80" id="camera"></a-camera>
+    <!-- <a-sky src="#pano1" animation="property: material.opacity; to: 0.1; dur: 2000; loop: true; dir: alternate"></a-sky> -->
+    <a-sky src="#pano1" ></a-sky>
+  </a-scene>
+  <div id="css-element" style="display: none;width: 100px; height: 100px; background-color: red; color: white; text-align: center;">
+    CSS Element
+  </div>
+</body>
+</html>
