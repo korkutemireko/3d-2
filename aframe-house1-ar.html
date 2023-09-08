@@ -157,14 +157,14 @@ let xrController;
 
 var check=false;
 
-AFRAME.registerComponent('toggle', {
+/*AFRAME.registerComponent('toggle', {
                 schema: {                    
                 },
                 init: function() {
                   alert("asdad");
                 check=true;
                 }
-            });
+            });*/
             document.addEventListener('wheel', function(event) {
   const camera = document.getElementById('camera');
   let fov = camera.getAttribute('camera').fov;
@@ -302,9 +302,10 @@ cssRenderer.setSize(window.innerWidth, window.innerHeight);
       scene.updateWorldMatrix();
 
       // Update CSS3DRenderer
-      if(check==true) {
-      cssRenderer.render(cssScene, camera);
-      }
+      window.setTimeout(function() {
+              cssRenderer.render(cssScene, camera);
+      },5000); 
+      
 
       // Update A-Frame Renderer
      // scene.renderer.render(scene, camera);
