@@ -296,7 +296,7 @@ cssRenderer.setSize(window.innerWidth, window.innerHeight);
 document.querySelector('a-scene').addEventListener('loaded', () => {
   let camera = document.querySelector('a-scene').camera;
   camera.updateProjectionMatrix();
-  check=true;
+  animate();
 });
           
     function animate() {
@@ -308,9 +308,8 @@ document.querySelector('a-scene').addEventListener('loaded', () => {
 
       //document.querySelector('a-scene').camera.updateProjectionMatrix();
       // Update CSS3DRenderer
-      if(check==true) {
                       cssRenderer.render(cssScene, camera);
-      }
+      
     
       
 
@@ -319,7 +318,7 @@ document.querySelector('a-scene').addEventListener('loaded', () => {
 
     }
 
-    animate();
+  
 
 }
 
