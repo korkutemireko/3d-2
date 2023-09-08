@@ -304,7 +304,7 @@ label2_a_3.scale.set(0.23, 0.23, 1);
 
 
         
-    </script> -->
+    </script> 
   <!-- A-Frame ile oluşturulmuş VR sahnesini burada oluşturun -->
   <a-scene renderer="logarithmicDepthBuffer: true;"  vr-mode-ui="enabled: true" toggle id="scene">
    <!-- <a-sound src="src: url(Zimmer.mp3)" autoplay="true" position="0 2 5"></a-sound> -->
@@ -316,14 +316,12 @@ label2_a_3.scale.set(0.23, 0.23, 1);
     <img id="pano5" src="360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474.jpg">
     <img id="pano6" src="360-2/jpeg-optimizer_360-2.jpeg">
     <video id="karasu" autoplay loop="true" src="360/karasu.mp4"></video>
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </a-assets>
   <a-video src="#karasu" position="-5.2 1.47 -5.2" rotation="0 0 0" scale="3.7 2.1 1" ></a-video>
     <a-camera look-controls fov="80" id="camera"></a-camera>
     <!-- <a-sky src="#pano1" animation="property: material.opacity; to: 0.1; dur: 2000; loop: true; dir: alternate"></a-sky> -->
     <a-sky src="#pano1" ></a-sky>
   </a-scene>
-  <div id="css-element" style="display: none;width: 100px; height: 100px; background-color: red; color: white; text-align: center;">
-    CSS Element
-  </div>
 </body>
 </html>
