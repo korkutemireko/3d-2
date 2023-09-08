@@ -247,6 +247,7 @@ label2_a_2.scale.set(0.23, 0.23, 1);
 cssScene.add(label2_a_2);
 
 div_anno_a_2.addEventListener("click",function() {
+  document.querySelector("a-sky").removeAttribute("src");
 document.getElementsByClassName("button1")[0].style.visibility="hidden";
 document.getElementsByClassName("button2")[0].style.visibility="hidden";
 document.querySelector("a-sky").setAttribute("src","#pano4");
@@ -314,7 +315,7 @@ cssScene.add(label2_a_3);
     <img id="pano5" src="360-2/jpeg-optimizer_vecteezy_360-panorama-view-of-a-black-minimalist-interior-of-a-modern-home-in-3d-rendering_2081474.jpg">
     <img id="pano6" src="360-2/jpeg-optimizer_360-2.jpeg">
   </a-assets>
-  <a-video position="-5.2 1.47 -5.2" rotation="0 0 0" autoplay="false" loop="false" scale="3.7 2.1 1"
+  <a-video position="-5.2 1.47 -5.2" rotation="0 0 0" autoplay="true" loop="true" scale="3.7 2.1 1"
          src="360/karasu.mp4">
 </a-video>
     <a-camera look-controls fov="80" id="camera"></a-camera>
