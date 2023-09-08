@@ -283,6 +283,9 @@ label2_a_3.scale.set(0.23, 0.23, 1);
 
           function onWindowResize() {
 
+            document.querySelector('a-scene').camera.aspect = window.innerWidth / window.innerHeight;
+
+document.querySelector('a-scene').camera.updateProjectionMatrix();
 
 cssRenderer.setSize(window.innerWidth, window.innerHeight);
 
