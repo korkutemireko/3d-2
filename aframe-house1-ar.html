@@ -155,17 +155,15 @@ CSS3DObject
 let xrController;
 
 
+var check=false;
 
-
-/*AFRAME.registerComponent('toggle', {
+AFRAME.registerComponent('toggle', {
                 schema: {                    
                 },
                 init: function() {
-                  document.querySelector('a-scene').enterVR();
-                    this.el.addEventListener('enter-vr', () => vonsole.log("enter vr"));
-                    this.el.addEventListener('exit-vr', () => window.location.href="index-ev-1.html");
+                check=true;
                 }
-            });*/
+            });
             document.addEventListener('wheel', function(event) {
   const camera = document.getElementById('camera');
   let fov = camera.getAttribute('camera').fov;
@@ -299,11 +297,13 @@ cssRenderer.setSize(window.innerWidth, window.innerHeight);
       requestAnimationFrame(animate);
 
       // Update A-Frame scene
-      /*scene.updateMatrixWorld();
-      scene.updateWorldMatrix();*/
+      scene.updateMatrixWorld();
+      scene.updateWorldMatrix();
 
       // Update CSS3DRenderer
+      if(check==true) {
       cssRenderer.render(cssScene, camera);
+      }
 
       // Update A-Frame Renderer
      // scene.renderer.render(scene, camera);
