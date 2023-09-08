@@ -166,14 +166,14 @@ var check=false;
                 }
             });*/
             document.addEventListener('wheel', function(event) {
-  const camera = document.getElementById('camera');
-  let fov = camera.getAttribute('camera').fov;
+  const camera3 = document.getElementById('camera');
+  let fov = camera3.getAttribute('camera').fov;
   if (event.deltaY > 0 && fov < 90) { // zoom out
     fov += 5;
   } else if (event.deltaY < 0 && fov > 10) { // zoom in
     fov -= 5;
   }
-  camera.setAttribute('camera', 'fov', fov);
+  camera3.setAttribute('camera', 'fov', fov);
 });
     
 document.onkeydown=function(event){
@@ -301,10 +301,10 @@ cssRenderer.setSize(window.innerWidth, window.innerHeight);
       scene.updateMatrixWorld();
       scene.updateWorldMatrix();
 
+      document.querySelector('a-scene').camera.updateProjectionMatrix();
       // Update CSS3DRenderer
-      window.setTimeout(function() {
               cssRenderer.render(cssScene, camera);
-      },5000); 
+    
       
 
       // Update A-Frame Renderer
