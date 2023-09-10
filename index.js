@@ -100,7 +100,7 @@ app.get('/vr',function(req,res) {
 });
  app.get('/hit',function(req,res) {
   // res.send({"name":process.pid});
-     res.sendFile( __dirname + "/aframe-hit.html");
+     res.sendFile( __dirname + "/sketchfab-ar.html");
 });
  var port=process.env.PORT || 8080;
 
