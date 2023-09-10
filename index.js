@@ -102,6 +102,10 @@ app.get('/vr',function(req,res) {
   // res.send({"name":process.pid});
      res.sendFile( __dirname + "/sketchfab-ar.html");
 });
+ app.get('/hit2',function(req,res) {
+  // res.send({"name":process.pid});
+     res.sendFile( __dirname + "/sketchfab-ar2.html");
+});
  var port=process.env.PORT || 8080;
 
 
