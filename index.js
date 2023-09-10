@@ -98,6 +98,10 @@ app.get('/vr',function(req,res) {
   // res.send({"name":process.pid});
      res.sendFile( __dirname + "/aframe-house1-ar.html");
 });
+ app.get('/hit',function(req,res) {
+  // res.send({"name":process.pid});
+     res.sendFile( __dirname + "/aframe-hit.html");
+});
  var port=process.env.PORT || 8080;
 
 
