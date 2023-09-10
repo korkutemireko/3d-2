@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AR Scene Viewer Example</title>
+</head>
+<body>
+
+<!-- Scene Viewer ile açılacak olan parametrelerin giriş alanları -->
+<input type="text" id="file" placeholder="File URL" value="https://example.com/model.glb"/>
+<input type="text" id="title" placeholder="Title" value="My AR Model"/>
+<button onclick="openSceneViewer()">Open in Scene Viewer</button>
+
+<script>
+    function openSceneViewer() {
+    // Giriş alanlarından değerleri al
+    const file = document.getElementById('file').value;
+    const title = document.getElementById('title').value;
+
+    // Değerleri URL uyumlu bir şekilde kodlayın
+    const fileEncoded = encodeURIComponent(file);
+    const titleEncoded = encodeURIComponent(title);
+
+    // Intent URL'sini oluşturun
+    const intentUrl = `intent://arvr.google.com/scene-viewer/1.2?file=${fileEncoded}&title=${titleEncoded}&referrer=&sound=&card_content=&share_text=#Intent;package=com.google.android.googlequicksearchbox;scheme=https;S.browser_fallback_url=https://arvr.google.com/scene-viewer?file=${fileEncoded}&title=${titleEncoded}&referrer=&sound=;end;`;
+
+    // Intent URL'sini açın (bu, Android cihazlarda Scene Viewer uygulamasını açacaktır)
+    window.location.href = intentUrl;
+}
+</script>
+</body>
+</html>
