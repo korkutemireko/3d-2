@@ -154,7 +154,6 @@ AFRAME.registerComponent('toggle', {
             y: finalTouch2.y - initialTouch2.y
         };
         document.getElementById("baslik").innerHTML=direction1.x * direction2.x+", "+direction1.y * direction2.y;
-
         if (direction1.x * direction2.x < 0 || direction1.y * direction2.y < 0) {
             document.getElementById("baslik").innerHTML="İki parmak zıt yöndedir";
         } else {
@@ -2073,17 +2072,6 @@ animate();
   
     <a-assets>
         <img id="background" src="resimler/empty-room-with-little-bookcase-2021-08-26-15-32-55-utc.jpg">
-      <a-asset-item id="tree" src="resimler/3LEG GOLD TEXT.glb"></a-asset-item>
-            <a-asset-item id="tree2" src="beyonce_mona_lisa.glb"></a-asset-item>
-            <a-asset-item id="tree3" src="tv_stand_low_poly.glb"></a-asset-item>
-            <a-asset-item id="tree4" src="persian_malayer_carpet.glb"></a-asset-item>
-            <a-asset-item id="tree5" src="statue.glb"></a-asset-item>
-            <a-asset-item id="tree6" src="sofa_web.glb"></a-asset-item>
-            <a-asset-item id="tree7" src="round_table_furniture_model(1).glb"></a-asset-item>
-            <a-asset-item id="tree8" src="resimler/sofa_cama_hamburgo.glb"></a-asset-item>
-            <a-asset-item id="tree9" src="resimler/sofa_parma.glb"></a-asset-item>
-            <a-asset-item id="tree10" src="resimler/sofa_with_puma_mech.glb"></a-asset-item>
-
     </a-assets>
   
    <!-- <a-entity id="model-glb" gltf-model="#tree" position="-5 0 -2.5" scale="2 2 2" rotation="0 0 0"></a-entity> -->
@@ -2124,14 +2112,14 @@ animate();
   <div class="gallery">
     <section class="gallery-section">
       <h2 id="baslik">Furnitures</h2>
-      <img id="model-img" id2="model-glb" id3="#tree" position="0 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Sample Render 1 (1).jpg" alt="Resim 1">
-      <img id="model-img" id2="model-glb6" id3="#tree6"  position="0 2 -1.5" scale="0.002 0.002 0.002" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 205728.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb7" id3="#tree7"  position="0 2 -1.5" scale="0.5 0.5 0.5" rotation="0 270 0" src="resimler/Ekran görüntüsü 2023-09-20 220105.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb4" id3="#tree4" position="0 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 215649.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb3" id3="#tree3" position="1 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 220357.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb9" id3="#tree9" position="0 1 -1.5" scale="0.005 0.005 0.005" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-21 164631.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb10" id3="#tree10" position="-1 1 -1.5" scale="0.5 0.5 0.5" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-21 164702.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb8" id3="#tree8" position="0 1 -1.5" scale="0.5 0.5 0.5" rotation="0 270 0" src="resimler/Ekran görüntüsü 2023-09-21 164745.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb" id3="resimler/3LEG GOLD TEXT.glb" position="0 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Sample Render 1 (1).jpg" alt="Resim 1">
+      <img id="model-img" id2="model-glb6" id3="sofa_web.glb"  position="0 2 -1.5" scale="0.002 0.002 0.002" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 205728.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb7" id3="round_table_furniture_model(1).glb"  position="0 2 -1.5" scale="0.5 0.5 0.5" rotation="0 270 0" src="resimler/Ekran görüntüsü 2023-09-20 220105.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb4" id3="persian_malayer_carpet.glb" position="0 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 215649.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb3" id3="tv_stand_low_poly.glb" position="1 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 220357.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb9" id3="resimler/sofa_parma.glb" position="0 1 -1.5" scale="0.005 0.005 0.005" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-21 164631.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb10" id3="resimler/sofa_with_puma_mech.glb" position="-1 1 -1.5" scale="0.5 0.5 0.5" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-21 164702.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb8" id3="resimler/sofa_cama_hamburgo.glb" position="0 1 -1.5" scale="0.5 0.5 0.5" rotation="0 270 0" src="resimler/Ekran görüntüsü 2023-09-21 164745.png" alt="Resim 2">
 
       <details>
   <summary>Textures</summary>
@@ -2158,8 +2146,8 @@ animate();
     </section>
     <section class="gallery-section">
       <h2>Artworks</h2>
-      <img id="model-img" id2="model-glb2" id3="#tree2" position="0 1 -1.5" scale="0.09 0.09 0.09" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 220455.png" alt="Resim 3">
-      <img id="model-img" id2="model-glb5" id3="#tree5" position="0 2 -1.5" scale="0.05 0.05 0.05" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 215716.png" alt="Resim 4">
+      <img id="model-img" id2="model-glb2" id3="beyonce_mona_lisa.glb" position="0 1 -1.5" scale="0.09 0.09 0.09" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 220455.png" alt="Resim 3">
+      <img id="model-img" id2="model-glb5" id3="statue.glb" position="0 2 -1.5" scale="0.05 0.05 0.05" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 215716.png" alt="Resim 4">
       <details>
         <summary>Textures</summary>
         <img id="texture-art" src="tablo (1).jpg" alt="Resim 1">
