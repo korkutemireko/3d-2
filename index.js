@@ -114,7 +114,7 @@ app.get('/vr',function(req,res) {
 
 
 var httpServer = http.createServer(app);
-//var httpsServer = https.createServer(credentials, app); 
+//var httpsServer = https.createServer(credentials, app); dsfdsf
 
 /*httpsServer.listen(8443,ip_1,function() {
     console.log("server 84433");
