@@ -122,6 +122,53 @@ AFRAME.registerComponent('toggle', {
                
                   }
             });
+
+            var check_model=false;
+ var ctrl_key=false;
+ var model_name;
+
+            AFRAME.registerComponent('touch-listener', {
+  init: function () {
+    this.el.addEventListener('raycaster-intersected', () => {
+      window.addEventListener('touchstart', this.handleTouch);
+      window.addEventListener('touchend', this.handleTouch2);
+      window.addEventListener('touchmove', this.handleTouch3);
+      window.addEventListener('click', this.handleTouch4);
+    });
+    this.el.addEventListener('raycaster-intersected-cleared', () => {
+      window.removeEventListener('touchstart', this.handleTouch);
+      window.removeEventListener('touchend', this.handleTouch2);
+      window.removeEventListener('touchmove', this.handleTouch3);
+      window.removeEventListener('click', this.handleTouch4);
+    });
+  },
+  handleTouch: function(event) {
+    console.log("touchstart");
+   // alert('Entity touched!');
+    // İlgili işlemler burada yapılabilir
+    check_model=true;
+        // model_name=event.target.id;
+          //console.log(model_name);
+         // console.log(event.target.id);
+  },
+  handleTouch2: function(event) {
+    console.log("touchend");
+   // alert('Entity touched!');
+    // İlgili işlemler burada yapılabilir
+    check_model=false;    
+         // console.log(event.target.id);
+  },
+  handleTouch3: function(event) {
+    console.log("touchmove");
+   touch_event(event);
+  },
+  handleTouch4: function(event) {
+    console.log("click");
+ model_name=event.target.id;
+ console.log(model_name);
+  }
+});
+
             var loader=new THREE.TextureLoader();
             var model_array=[];
             var model_array2=[];
@@ -173,9 +220,6 @@ AFRAME.registerComponent('toggle', {
  var model10_x1=0,model10_y1=0,model10_c1=0;
  var model10_scale_x=0.5, model10_scale_y=0.5, model10_scale_z=0.5;
 
- var check_model=false;
- var ctrl_key=false;
- var model_name;
 
 
  document.ondblclick=function() {
@@ -198,7 +242,8 @@ AFRAME.registerComponent('toggle', {
       model_model_sayac.setAttribute("position",this.getAttribute("position"));
       model_model_sayac.setAttribute("rotation",this.getAttribute("rotation"));
       model_model_sayac.setAttribute("scale",this.getAttribute("scale"));
-    
+      model_model_sayac.setAttribute("class","clickable");
+      model_model_sayac.setAttribute("touch-listener","");
 
 
      // group_model.innerHTML="<a-entity id='model-glb' gltf-model='#tree' position='0 1 -1.5' scale='0.05 0.05 0.05' rotation='0 0 0'></a-entity>"
@@ -212,15 +257,14 @@ AFRAME.registerComponent('toggle', {
    check_model=false;    
    });
 
-   model_model_sayac.addEventListener('touchstart', function (event) {
-    alert("asdasd");
+   /*model_model_sayac.addEventListener('touchstart', function (event) {
           check_model=true;
           model_name=event.target.id;
          // console.log(event.target.id);
        });
        model_model_sayac.addEventListener('touchend', function () {
    check_model=false;    
-   });
+   });*/
 
    group_model.appendChild(model_model_sayac);
 
@@ -1023,22 +1067,24 @@ else if(model_name=="model-glb10") {
 });
 
 
+function touch_event(event) {
 
-
-/*document.addEventListener('touchmove', (event) => {
   if (typeof lastX === 'undefined') {
-    lastX = event.clientX;
-    lastY = event.clientY;
+    console.log("undefined");
+    lastX = event.touches[0].clientX;
+    lastY = event.touches[0].clientY;
     return;
   }
-  const deltaX = event.clientX - lastX;
-  const deltaY = event.clientY - lastY;
-if(check_model && ctrl_key==false) {
+  
+  const deltaX = event.touches[0].clientX - lastX;
+  const deltaY = event.touches[0].clientY - lastY;
+  //console.log(deltaX,deltaY);
+if(check_model) {
   if(model_name=="model-glb") {
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
     // Fare daha çok yatay yönde hareket etti
     if (deltaX > 0) {
-     // //console.log('Sağa hareket');
+   // console.log('Sağa hareket');
     //  model1_x=parseFloat(model1_x)+0.01;
    model1_x += Math.abs(deltaX)  * 0.002;
   document.getElementById(model_name).setAttribute("position",model1_x+" "+model1_y+" "+model1_c);
@@ -1600,12 +1646,12 @@ else if(model_name=="model-glb10") {
 }
 }
 
-  lastX = event.clientX;
-  lastY = event.clientY;
+  lastX = event.touches[0].clientX;
+  lastY = event.touches[0].clientY;
 
   
 
-});*/
+};
 
 
 
@@ -2029,7 +2075,7 @@ animate();
       </a-entity>
    <a-plane id="bground" src="#background" visible="true" position="0 1.65 -5.3" rotation="0 0 0" width="16" height="9"  material="sampling: linear"></a-plane>
     <a-camera look-controls-enabled="false" wasd-controls-enabled="false"  id="camera">
-      <a-entity cursor="rayOrigin:mouse"></a-entity>
+      <a-entity cursor="rayOrigin:mouse" raycaster="objects: .clickable;"></a-entity>
     </a-camera>
   </a-scene>
  
