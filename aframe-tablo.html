@@ -134,6 +134,7 @@ AFRAME.registerComponent('toggle', {
 
  document.ontouchstart=function(event) {
          if (event.touches.length >= 2) {
+                      document.getElementById("baslik").innerHTML="İkiden fazla parmak";
         initialTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
         initialTouch2 = { x: event.touches[1].clientX, y: event.touches[1].clientY };
     }
