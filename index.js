@@ -106,11 +106,16 @@ app.get('/vr',function(req,res) {
   // res.send({"name":process.pid});
      res.sendFile( __dirname + "/sketchfab-ar2.html");
 });
+ app.get('/tablo',function(req,res) {
+  // res.send({"name":process.pid});
+     res.sendFile( __dirname + "/aframe-tablo.html");
+});
+
  var port=process.env.PORT || 8080;
 
 
 var httpServer = http.createServer(app);
-//var httpsServer = https.createServer(credentials, app); 
+//var httpsServer = https.createServer(credentials, app); dsfdsf
 
 /*httpsServer.listen(8443,ip_1,function() {
     console.log("server 84433");
