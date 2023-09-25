@@ -20,14 +20,20 @@
     </script>
     <a-scene arjs="trackingMethod: best"  renderer="logarithmicDepthBuffer: true;"  vr-mode-ui="enabled: false" gesture-detector >
           <a-assets>
-      <a-asset-item id="tree" src="iskenderV1.glb"></a-asset-item>
+      <a-asset-item id="tree" src="iskenderV2.obj"></a-asset-item>
+     <a-asset-item id="tree-mtl" src="iskenderV2.mtl"></a-asset-item>
     </a-assets>
             <a-marker preset='pattern' type="pattern" url="pattern-company.patt" raycaster="objects: .clickable"  emitevents="true"    cursor="fuse: false; rayOrigin: mouse;" >
           <!-- Your AR content here -->
          <!-- <a-box position="0 0.5 0" material="color: yellow;"></a-box> -->
-         <a-entity 
-        gltf-model="#tree"  position="0 0 0" scale="0.5 0.5 0.5" rotation="0 0 0"  class="clickable"  gesture-handler >
-         </a-entity> 
+        <a-entity 
+            obj-model="obj: #tree; mtl: #tree-mtl"
+            position="0 0 0" 
+            scale="0.5 0.5 0.5" 
+            rotation="0 0 0"  
+            class="clickable"  
+            gesture-handler>
+        </a-entity>
                 
         </a-marker>
         <a-entity camera ></a-entity>
