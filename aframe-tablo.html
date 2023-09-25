@@ -127,18 +127,22 @@ AFRAME.registerComponent('toggle', {
  var ctrl_key=false;
  var model_name;
 
+ document.ontouchmove=function(event) {
+  touch_event(event);
+ }
+
             AFRAME.registerComponent('touch-listener', {
   init: function () {
     this.el.addEventListener('raycaster-intersected', () => {
       window.addEventListener('touchstart', this.handleTouch);
       window.addEventListener('touchend', this.handleTouch2);
-      window.addEventListener('touchmove', this.handleTouch3);
+    //  window.addEventListener('touchmove', this.handleTouch3);
       window.addEventListener('click', this.handleTouch4);
     });
     this.el.addEventListener('raycaster-intersected-cleared', () => {
       window.removeEventListener('touchstart', this.handleTouch);
       window.removeEventListener('touchend', this.handleTouch2);
-      window.removeEventListener('touchmove', this.handleTouch3);
+    //  window.removeEventListener('touchmove', this.handleTouch3);
       window.removeEventListener('click', this.handleTouch4);
     });
   },
@@ -146,7 +150,7 @@ AFRAME.registerComponent('toggle', {
     console.log("touchstart");
    // alert('Entity touched!');
     // İlgili işlemler burada yapılabilir
-    check_model=true;
+    //check_model=true;
         // model_name=event.target.id;
           //console.log(model_name);
          // console.log(event.target.id);
@@ -158,12 +162,13 @@ AFRAME.registerComponent('toggle', {
     check_model=false;    
          // console.log(event.target.id);
   },
-  handleTouch3: function(event) {
+ /* handleTouch3: function(event) {
     console.log("touchmove");
    touch_event(event);
-  },
+  },*/
   handleTouch4: function(event) {
     console.log("click");
+    check_model=true;
  model_name=event.target.id;
  console.log(model_name);
   }
@@ -1086,24 +1091,24 @@ if(check_model) {
     if (deltaX > 0) {
    // console.log('Sağa hareket');
     //  model1_x=parseFloat(model1_x)+0.01;
-   model1_x += Math.abs(deltaX)  * 0.002;
+   model1_x += Math.abs(deltaX)  * 0.004;
   document.getElementById(model_name).setAttribute("position",model1_x+" "+model1_y+" "+model1_c);
     } else {
      // //console.log('Sola hareket');
       //model1_x=parseFloat(model1_x)-0.01;
-      model1_x += Math.abs(deltaX)  * -0.002;
+      model1_x += Math.abs(deltaX)  * -0.004;
       document.getElementById(model_name).setAttribute("position",model1_x+" "+model1_y+" "+model1_c);
     }
   } else {
     // Fare daha çok dikey yönde hareket etti
     if (deltaY > 0) {
       //('Aşağı hareket');
-      model1_y +=Math.abs(deltaY) * -0.002;
+      model1_y +=Math.abs(deltaY) * -0.004;
       document.getElementById(model_name).setAttribute("position",model1_x+" "+model1_y+" "+model1_c);
 
     } else {
       //console.log('Yukarı hareket');
-      model1_y +=Math.abs(deltaY) * 0.002;
+      model1_y +=Math.abs(deltaY) * 0.004;
       document.getElementById(model_name).setAttribute("position",model1_x+" "+model1_y+" "+model1_c);
 
     }
@@ -1115,23 +1120,23 @@ else if(model_name=="model-glb2") {
     // Fare daha çok yatay yönde hareket etti
     if (deltaX > 0) {
       //console.log('Sağa hareket');
-      model2_x += Math.abs(deltaX) * 0.002;
+      model2_x += Math.abs(deltaX) * 0.004;
       document.getElementById(model_name).setAttribute("position",model2_x+" "+model2_y+" "+model2_c);
     } else {
       //console.log('Sola hareket');
-      model2_x += Math.abs(deltaX) * -0.002;
+      model2_x += Math.abs(deltaX) * -0.004;
       document.getElementById(model_name).setAttribute("position",model2_x+" "+model2_y+" "+model2_c);
     }
   } else {
     // Fare daha çok dikey yönde hareket etti
     if (deltaY > 0) {
       //console.log('Aşağı hareket');
-      model2_y +=Math.abs(deltaY) * -0.002;
+      model2_y +=Math.abs(deltaY) * -0.004;
       document.getElementById(model_name).setAttribute("position",model2_x+" "+model2_y+" "+model2_c);
 
     } else {
       //console.log('Yukarı hareket');
-      model2_y +=Math.abs(deltaY) * 0.002;
+      model2_y +=Math.abs(deltaY) * 0.004;
       document.getElementById(model_name).setAttribute("position",model2_x+" "+model2_y+" "+model2_c);
 
     }
