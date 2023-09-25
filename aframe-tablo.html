@@ -112,17 +112,18 @@ CSS3DObject
 } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/renderers/CSS3DRenderer.js';
 
         window.onload=function() {
-AFRAME.registerComponent('toggle', {
-                schema: {                    
-                },
-                init: function() {
-                 // document.querySelector('a-scene').enterVR();
-                  //  this.el.addEventListener('enter-vr', () => vonsole.log("enter vr"));
-                 //  this.el.addEventListener('exit-vr', () => window.location.href="index-ev-1.html");
-               
-                  }
-            });
+ var model_id3;
+          document.querySelectorAll("#model-img").forEach(function(data) {
+        model_id3 = data.getAttribute("id4");
 
+        var assetItem = document.createElement("a-asset-item");
+        assetItem.setAttribute("id", model_id3);
+        assetItem.setAttribute("src", data.getAttribute("id3"));
+
+        document.querySelector("a-assets").appendChild(assetItem);
+
+    });
+          
             var check_model=false;
  var ctrl_key=false;
  var model_name;
@@ -2068,7 +2069,7 @@ animate();
         
     </script>
   <!-- A-Frame ile oluşturulmuş VR sahnesini burada oluşturun -->
-  <a-scene id="scene" renderer="colorManagement: true;logarithmicDepthBuffer: true;"  vr-mode-ui="enabled: false" toggle>
+  <a-scene loading-screen="enabled:false"  id="scene"  renderer="colorManagement: true;logarithmicDepthBuffer: true;" vr-mode-ui="enabled: false">
   
     <a-assets>
         <img id="background" src="resimler/empty-room-with-little-bookcase-2021-08-26-15-32-55-utc.jpg">
@@ -2112,14 +2113,14 @@ animate();
   <div class="gallery">
     <section class="gallery-section">
       <h2 id="baslik">Furnitures</h2>
-      <img id="model-img" id2="model-glb" id3="resimler/3LEG GOLD TEXT.glb" position="0 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Sample Render 1 (1).jpg" alt="Resim 1">
-      <img id="model-img" id2="model-glb6" id3="sofa_web.glb"  position="0 2 -1.5" scale="0.002 0.002 0.002" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 205728.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb7" id3="round_table_furniture_model(1).glb"  position="0 2 -1.5" scale="0.5 0.5 0.5" rotation="0 270 0" src="resimler/Ekran görüntüsü 2023-09-20 220105.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb4" id3="persian_malayer_carpet.glb" position="0 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 215649.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb3" id3="tv_stand_low_poly.glb" position="1 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 220357.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb9" id3="resimler/sofa_parma.glb" position="0 1 -1.5" scale="0.005 0.005 0.005" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-21 164631.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb10" id3="resimler/sofa_with_puma_mech.glb" position="-1 1 -1.5" scale="0.5 0.5 0.5" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-21 164702.png" alt="Resim 2">
-      <img id="model-img" id2="model-glb8" id3="resimler/sofa_cama_hamburgo.glb" position="0 1 -1.5" scale="0.5 0.5 0.5" rotation="0 270 0" src="resimler/Ekran görüntüsü 2023-09-21 164745.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb" id4="#tree" id3="resimler/3LEG GOLD TEXT.glb"  position="0 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Sample Render 1 (1).jpg" alt="Resim 1">
+      <img id="model-img" id2="model-glb6" id4="#tree6" id3="sofa_web.glb"  position="0 2 -1.5" scale="0.002 0.002 0.002" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 205728.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb7" id4="#tree7" id3="round_table_furniture_model(1).glb"  position="0 2 -1.5" scale="0.5 0.5 0.5" rotation="0 270 0" src="resimler/Ekran görüntüsü 2023-09-20 220105.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb4" id4="#tree4" id3="persian_malayer_carpet.glb" position="0 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 215649.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb3" id4="#tree3" id3="tv_stand_low_poly.glb" position="1 1 -1.5" scale="1 1 1" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 220357.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb9" id4="#tree9" id3="resimler/sofa_parma.glb" position="0 1 -1.5" scale="0.005 0.005 0.005" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-21 164631.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb10" id4="#tree10" id3="resimler/sofa_with_puma_mech.glb" position="-1 1 -1.5" scale="0.5 0.5 0.5" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-21 164702.png" alt="Resim 2">
+      <img id="model-img" id2="model-glb8" id4="#tree8" id3="resimler/sofa_cama_hamburgo.glb" position="0 1 -1.5" scale="0.5 0.5 0.5" rotation="0 270 0" src="resimler/Ekran görüntüsü 2023-09-21 164745.png" alt="Resim 2">
 
       <details>
   <summary>Textures</summary>
@@ -2146,8 +2147,8 @@ animate();
     </section>
     <section class="gallery-section">
       <h2>Artworks</h2>
-      <img id="model-img" id2="model-glb2" id3="beyonce_mona_lisa.glb" position="0 1 -1.5" scale="0.09 0.09 0.09" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 220455.png" alt="Resim 3">
-      <img id="model-img" id2="model-glb5" id3="statue.glb" position="0 2 -1.5" scale="0.05 0.05 0.05" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 215716.png" alt="Resim 4">
+      <img id="model-img" id2="model-glb2" id4="#tree2" id3="beyonce_mona_lisa.glb" position="0 1 -1.5" scale="0.09 0.09 0.09" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 220455.png" alt="Resim 3">
+      <img id="model-img" id2="model-glb5" id4="#tree5" id3="statue.glb" position="0 2 -1.5" scale="0.05 0.05 0.05" rotation="0 0 0" src="resimler/Ekran görüntüsü 2023-09-20 215716.png" alt="Resim 4">
       <details>
         <summary>Textures</summary>
         <img id="texture-art" src="tablo (1).jpg" alt="Resim 1">
