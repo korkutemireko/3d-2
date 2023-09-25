@@ -134,7 +134,6 @@ AFRAME.registerComponent('toggle', {
 
  document.ontouchstart=function(event) {
          if (event.touches.length >= 2) {
-                      document.getElementById("baslik").innerHTML="İkiden fazla parmak";
         initialTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
         initialTouch2 = { x: event.touches[1].clientX, y: event.touches[1].clientY };
     }
@@ -154,6 +153,7 @@ AFRAME.registerComponent('toggle', {
             x: finalTouch2.x - initialTouch2.x,
             y: finalTouch2.y - initialTouch2.y
         };
+        document.getElementById("baslik").innerHTML=direction1.x * direction2.x+", "+direction1.y * direction2.y;
 
         if (direction1.x * direction2.x < 0 || direction1.y * direction2.y < 0) {
             document.getElementById("baslik").innerHTML="İki parmak zıt yöndedir";
