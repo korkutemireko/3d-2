@@ -132,6 +132,36 @@ AFRAME.registerComponent('toggle', {
   touch_event(event);
  }
 
+ document.ontouchstart=function(event) {
+         if (event.touches.length >= 2) {
+        initialTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+        initialTouch2 = { x: event.touches[1].clientX, y: event.touches[1].clientY };
+    }
+ }
+
+  document.ontouchend=function(event) {
+            if (initialTouch1 && initialTouch2) {
+        const finalTouch1 = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
+        const finalTouch2 = { x: event.changedTouches[1].clientX, y: event.changedTouches[1].clientY };
+
+        const direction1 = {
+            x: finalTouch1.x - initialTouch1.x,
+            y: finalTouch1.y - initialTouch1.y
+        };
+
+        const direction2 = {
+            x: finalTouch2.x - initialTouch2.x,
+            y: finalTouch2.y - initialTouch2.y
+        };
+
+        if (direction1.x * direction2.x < 0 || direction1.y * direction2.y < 0) {
+            document.getElementById("baslik").innerHTML="İki parmak zıt yöndedir";
+        } else {
+            document.getElementById("baslik").innerHTML="İki parmak aynı yöndedir veya bir hareket yok";
+        }
+    }
+ }
+
             AFRAME.registerComponent('touch-listener', {
   init: function () {
     this.el.addEventListener('raycaster-intersected', () => {
@@ -155,11 +185,6 @@ AFRAME.registerComponent('toggle', {
         // model_name=event.target.id;
           //console.log(model_name);
          // console.log(event.target.id);
-
-          if (event.touches.length >= 2) {
-        initialTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
-        initialTouch2 = { x: event.touches[1].clientX, y: event.touches[1].clientY };
-    }
   },
   handleTouch2: function(event) {
     console.log("touchend");
@@ -167,27 +192,6 @@ AFRAME.registerComponent('toggle', {
     // İlgili işlemler burada yapılabilir
     check_model=false;    
          // console.log(event.target.id);
-
-             if (initialTouch1 && initialTouch2) {
-        const finalTouch1 = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
-        const finalTouch2 = { x: event.changedTouches[1].clientX, y: event.changedTouches[1].clientY };
-
-        const direction1 = {
-            x: finalTouch1.x - initialTouch1.x,
-            y: finalTouch1.y - initialTouch1.y
-        };
-
-        const direction2 = {
-            x: finalTouch2.x - initialTouch2.x,
-            y: finalTouch2.y - initialTouch2.y
-        };
-
-        if (direction1.x * direction2.x < 0 || direction1.y * direction2.y < 0) {
-            document.getElementById("baslik").innerHTML="İki parmak zıt yöndedir";
-        } else {
-            document.getElementById("baslik").innerHTML="İki parmak aynı yöndedir veya bir hareket yok";
-        }
-    }
   },
  /* handleTouch3: function(event) {
     console.log("touchmove");
