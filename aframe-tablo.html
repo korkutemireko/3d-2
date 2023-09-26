@@ -198,6 +198,7 @@ document.ontouchstart=function(event) {
   // Ölçek faktörünü güncelle
   scaleFactor *= delta;
 
+
   let movingFinger = null;
   let stationaryFinger = null;
 
@@ -221,6 +222,11 @@ document.ontouchstart=function(event) {
     // İlgili işlemleri yapabilirsiniz.
     document.getElementById("baslik").innerHTML="bir parmak sabit";
   }
+    else {
+        if(model_name) {
+      document.getElementById(model_name).setAttribute("scale",scaleFactor+" "+scaleFactor+" "+scaleFactor);
+    }
+    }
 
   // Diğer kodlar
   // ...
