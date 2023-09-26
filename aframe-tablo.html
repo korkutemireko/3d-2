@@ -141,7 +141,7 @@ function calculateDistance(touch1, touch2) {
 }
 
 document.ontouchstart=function(event) {
-         if (event.touches.length >= 2) {
+         if (event.touches.length == 2) {
       /*  initialTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
         initialTouch2 = { x: event.touches[1].clientX, y: event.touches[1].clientY };*/
         initialDistance = calculateDistance(event.touches[0], event.touches[1]);
@@ -172,7 +172,7 @@ document.ontouchstart=function(event) {
     }*/
 
 
-    if (event.touches.length >= 2) {
+    if (event.touches.length == 2) {
     currentDistance = calculateDistance(event.touches[0], event.touches[1]);
    delta = currentDistance / initialDistance;
 
@@ -182,7 +182,8 @@ document.ontouchstart=function(event) {
     // A-Frame modelinin ölçeğini güncelle
     //box.setAttribute('scale', `${scaleFactor} ${scaleFactor} ${scaleFactor}`);
     document.getElementById("baslik").innerHTML=scaleFactor;
-        if(model_name) {
+
+    if(model_name) {
       document.getElementById(model_name).setAttribute("scale",scaleFactor+" "+scaleFactor+" "+scaleFactor);
     }
     // İlk mesafeyi güncelle
@@ -199,6 +200,11 @@ document.ontouchstart=function(event) {
  /* document.ontouchend=function(event) {
        
  }*/
+
+
+ var model1_x=0,model1_y=1,model1_c=-1.5;
+ var model1_x1=0,model1_y1=0,model1_c1=0;
+ var model1_scale_x=1, model1_scale_y=1, model1_scale_z=1;
 
             AFRAME.registerComponent('touch-listener', {
   init: function () {
@@ -239,6 +245,7 @@ document.ontouchstart=function(event) {
     console.log("click");
     check_model=true;
  model_name=event.target.id;
+ document.getElementById(model_name).setAttribute("position",model1_x+" "+model1_y+" "+model1_c);
  console.log(model_name);
   }
 });
@@ -251,9 +258,7 @@ document.ontouchstart=function(event) {
             var group_model = document.getElementById("group");
 
       
- var model1_x=0,model1_y=1,model1_c=-1.5;
- var model1_x1=0,model1_y1=0,model1_c1=0;
- var model1_scale_x=1, model1_scale_y=1, model1_scale_z=1;
+
 
  var model2_x=0,model2_y=1,model2_c=-1.5;
  var model2_x1=0,model2_y1=0,model2_c1=0;
