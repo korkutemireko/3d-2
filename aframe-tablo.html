@@ -220,8 +220,10 @@ document.ontouchstart=function(event) {
   if (movingFinger && stationaryFinger) {
     // Burada bir parmağın hareket ettiğini, diğerinin ise sabit kaldığını biliyoruz.
     // İlgili işlemleri yapabilirsiniz.
+    scaleFactor +=parseInt(scaleFactor)+5;
     document.getElementById("baslik").innerHTML="bir parmak sabit";
-  }
+    document.getElementById(model_name).setAttribute("rotation",scaleFactor+" "+scaleFactor+" "+scaleFactor);
+   }
     else {
         if(model_name) {
       document.getElementById(model_name).setAttribute("scale",scaleFactor+" "+scaleFactor+" "+scaleFactor);
