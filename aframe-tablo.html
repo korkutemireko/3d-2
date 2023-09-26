@@ -134,6 +134,7 @@ var dx, dy;
 var initialDistance = 0;
 var scaleFactor = 1.0;
 var currentDistance, delta;
+let previousTouches = [];
 function calculateDistance(touch1, touch2) {
    dx = touch1.clientX - touch2.clientX;
    dy = touch1.clientY - touch2.clientY;
@@ -172,7 +173,7 @@ document.ontouchstart=function(event) {
     }*/
 
 
-    if (event.touches.length == 2) {
+   /* if (event.touches.length == 2) {
     currentDistance = calculateDistance(event.touches[0], event.touches[1]);
    delta = currentDistance / initialDistance;
 
@@ -188,7 +189,46 @@ document.ontouchstart=function(event) {
     }
     // İlk mesafeyi güncelle
     initialDistance = currentDistance;
+  }*/
+
+  if (event.touches.length == 2) {
+  currentDistance = calculateDistance(event.touches[0], event.touches[1]);
+  delta = currentDistance / initialDistance;
+
+  // Ölçek faktörünü güncelle
+  scaleFactor *= delta;
+
+  let movingFinger = null;
+  let stationaryFinger = null;
+
+  for (let i = 0; i < 2; i++) {
+    var touch = event.touches[i];
+    var previousTouch = previousTouches[i];
+    
+    if (previousTouch) {
+      var moved = (touch.clientX !== previousTouch.clientX) || (touch.clientY !== previousTouch.clientY);
+      
+      if (moved) {
+        movingFinger = touch;
+      } else {
+        stationaryFinger = touch;
+      }
+    }
   }
+
+  if (movingFinger && stationaryFinger) {
+    // Burada bir parmağın hareket ettiğini, diğerinin ise sabit kaldığını biliyoruz.
+    // İlgili işlemleri yapabilirsiniz.
+    document.getElementById("baslik").innerHTML="bir parmak sabit";
+  }
+
+  // Diğer kodlar
+  // ...
+
+  // İlk mesafeyi ve önceki dokunmaları güncelle
+  initialDistance = currentDistance;
+  previousTouches = [event.touches[0], event.touches[1]];
+}
 
     touch_event(event);
 
