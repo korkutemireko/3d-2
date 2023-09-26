@@ -139,11 +139,8 @@ var direction1, direction2;
          if (event.touches.length >= 2) {
         initialTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
         initialTouch2 = { x: event.touches[1].clientX, y: event.touches[1].clientY };
-    }
- }
 
-  document.ontouchend=function(event) {
-            if (initialTouch1 && initialTouch2) {
+        if (initialTouch1 && initialTouch2) {
          finalTouch1 = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
         finalTouch2 = { x: event.changedTouches[1].clientX, y: event.changedTouches[1].clientY };
 
@@ -163,7 +160,12 @@ var direction1, direction2;
             document.getElementById("baslik").innerHTML="İki parmak aynı yöndedir veya bir hareket yok";
         }
     }
+    }
  }
+
+ /* document.ontouchend=function(event) {
+       
+ }*/
 
             AFRAME.registerComponent('touch-listener', {
   init: function () {
