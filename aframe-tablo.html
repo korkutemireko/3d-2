@@ -182,6 +182,9 @@ document.ontouchstart=function(event) {
     // A-Frame modelinin ölçeğini güncelle
     //box.setAttribute('scale', `${scaleFactor} ${scaleFactor} ${scaleFactor}`);
     document.getElementById("baslik").innerHTML=scaleFactor;
+        if(model_name) {
+      document.getElementById(model_name).setAttribute("scale",scaleFactor+" "+scaleFactor+" "+scaleFactor);
+    }
     // İlk mesafeyi güncelle
     initialDistance = currentDistance;
   }
