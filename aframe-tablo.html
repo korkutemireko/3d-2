@@ -141,7 +141,7 @@ function calculateDistance(touch1, touch2) {
 }
 
 document.ontouchstart=function(event) {
-         if (event.touches.length == 2) {
+         if (event.touches.length >= 2) {
       /*  initialTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
         initialTouch2 = { x: event.touches[1].clientX, y: event.touches[1].clientY };*/
         initialDistance = calculateDistance(event.touches[0], event.touches[1]);
@@ -172,7 +172,7 @@ document.ontouchstart=function(event) {
     }*/
 
 
-    if (event.touches.length == 2) {
+    if (event.touches.length >= 2) {
     currentDistance = calculateDistance(event.touches[0], event.touches[1]);
    delta = currentDistance / initialDistance;
 
