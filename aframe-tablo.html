@@ -128,6 +128,8 @@ CSS3DObject
  var ctrl_key=false;
  var model_name;
  var initialTouch1, initialTouch2;
+ var finalTouch1, finalTouch2;
+var direction1, direction2;
 
  document.ontouchmove=function(event) {
   touch_event(event);
@@ -142,20 +144,19 @@ CSS3DObject
 
   document.ontouchend=function(event) {
             if (initialTouch1 && initialTouch2) {
-              document.getElementById("baslik").innerHTML="iki parmak";
-        const finalTouch1 = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
-        const finalTouch2 = { x: event.changedTouches[1].clientX, y: event.changedTouches[1].clientY };
+         finalTouch1 = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
+        finalTouch2 = { x: event.changedTouches[1].clientX, y: event.changedTouches[1].clientY };
 
-        const direction1 = {
+         direction1 = {
             x: finalTouch1.x - initialTouch1.x,
             y: finalTouch1.y - initialTouch1.y
         };
 
-        const direction2 = {
+         direction2 = {
             x: finalTouch2.x - initialTouch2.x,
             y: finalTouch2.y - initialTouch2.y
         };
-        document.getElementById("baslik").innerHTML=direction1.x * direction2.x+", "+direction1.y * direction2.y;
+       // document.getElementById("baslik").innerHTML=direction1.x * direction2.x+", "+direction1.y * direction2.y;
         if (direction1.x * direction2.x < 0 || direction1.y * direction2.y < 0) {
             document.getElementById("baslik").innerHTML="İki parmak zıt yöndedir";
         } else {
