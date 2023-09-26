@@ -130,17 +130,27 @@ CSS3DObject
  var initialTouch1, initialTouch2;
  var finalTouch1, finalTouch2;
 var direction1, direction2;
+var dx, dy;
+var initialDistance = 0;
+var scaleFactor = 1.0;
+var currentDistance, delta;
+function calculateDistance(touch1, touch2) {
+   dx = touch1.clientX - touch2.clientX;
+   dy = touch1.clientY - touch2.clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
 
 document.ontouchstart=function(event) {
-         if (event.touches.length >= 2) {
-        initialTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
-        initialTouch2 = { x: event.touches[1].clientX, y: event.touches[1].clientY };
+         if (event.touches.length == 2) {
+      /*  initialTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+        initialTouch2 = { x: event.touches[1].clientX, y: event.touches[1].clientY };*/
+        initialDistance = calculateDistance(event.touches[0], event.touches[1]);
     }
  }
 
  document.ontouchmove=function(event) {
 
-  if (initialTouch1 && initialTouch2) {
+  /*if (initialTouch1 && initialTouch2) {
          finalTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
         finalTouch2 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
 
@@ -159,7 +169,22 @@ document.ontouchstart=function(event) {
         } else {
             document.getElementById("baslik").innerHTML=direction1.x * direction2.x+", "+direction1.y * direction2.y;;
         }
-    }
+    }*/
+
+
+    if (event.touches.length == 2) {
+    currentDistance = calculateDistance(event.touches[0], event.touches[1]);
+   delta = currentDistance / initialDistance;
+
+    // Ölçek faktörünü güncelle
+    scaleFactor *= delta;
+
+    // A-Frame modelinin ölçeğini güncelle
+    //box.setAttribute('scale', `${scaleFactor} ${scaleFactor} ${scaleFactor}`);
+    ocument.getElementById("baslik").innerHTML=scaleFactor;
+    // İlk mesafeyi güncelle
+    initialDistance = currentDistance;
+  }
 
     touch_event(event);
 
