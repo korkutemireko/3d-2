@@ -189,6 +189,36 @@ document.ontouchstart=function(event) {
     }
     // İlk mesafeyi güncelle
     initialDistance = currentDistance;
+
+
+var [touch1, touch2] = event.touches;
+
+    if (previousTouches.length === 2) {
+      var [prevTouch1, prevTouch2] = previousTouches;
+
+      var deltaX1 = touch1.clientX - prevTouch1.clientX;
+      var deltaY1 = touch1.clientY - prevTouch1.clientY;
+
+      var deltaX2 = touch2.clientX - prevTouch2.clientX;
+      var deltaY2 = touch2.clientY - prevTouch2.clientY;
+
+      if (Math.abs(deltaX1) > Math.abs(deltaY1) && Math.abs(deltaX2) > Math.abs(deltaY2)) {
+        if (deltaX1 > 0 && deltaX2 > 0) {
+          console.log("İki parmak sağa kaydı.");
+        } else if (deltaX1 < 0 && deltaX2 < 0) {
+          console.log("İki parmak sola kaydı.");
+        }
+      } else if (Math.abs(deltaY1) > Math.abs(deltaX1) && Math.abs(deltaY2) > Math.abs(deltaX2)) {
+        if (deltaY1 > 0 && deltaY2 > 0) {
+          console.log("İki parmak aşağıya kaydı.");
+        } else if (deltaY1 < 0 && deltaY2 < 0) {
+          console.log("İki parmak yukarıya kaydı.");
+        }
+      }
+    }
+
+    previousTouches = [touch1, touch2];
+
   }
 
 else if(event.touches.length == 1){
