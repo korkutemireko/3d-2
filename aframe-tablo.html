@@ -254,22 +254,22 @@ var [touch1, touch2] = event.touches;
         if (deltaX1 > 0 && deltaX2 > 0) {
           model_sayac_rotation_Y +=5;
           document.getElementById("baslik").innerHTML="İki parmak sağa kaydı.";
-            document.getElementById(model_name).setAttribute("rotation",model_sayac_rotation_Y+" "+model_sayac_rotation_Y+" "+model_sayac_rotation_Y);
+            document.getElementById(model_name).setAttribute("rotation",model_sayac_rotation_X+" "+model_sayac_rotation_Y+" 0");
         } else if (deltaX1 < 0 && deltaX2 < 0) {
                     model_sayac_rotation_Y -=5;
           document.getElementById("baslik").innerHTML="İki parmak sola kaydı.";
-                      document.getElementById(model_name).setAttribute("rotation",model_sayac_rotation_Y+" "+model_sayac_rotation_Y+" "+model_sayac_rotation_Y);
+                      document.getElementById(model_name).setAttribute("rotation",model_sayac_rotation_X+" "+model_sayac_rotation_Y+" 0");
         }
       } else if (Math.abs(deltaY1) > Math.abs(deltaX1) && Math.abs(deltaY2) > Math.abs(deltaX2)) {
         if (deltaY1 > 0 && deltaY2 > 0) {
            model_sayac_rotation_X +=5;
          document.getElementById("baslik").innerHTML="İki parmak aşağıya kaydı.";
-                     document.getElementById(model_name).setAttribute("rotation",model_sayac_rotation_X+" "+model_sayac_rotation_X+" "+model_sayac_rotation_X);
+                     document.getElementById(model_name).setAttribute("rotation",model_sayac_rotation_X+" "+model_sayac_rotation_Y+" 0");
 
         } else if (deltaY1 < 0 && deltaY2 < 0) {
                      model_sayac_rotation_X -=5;
           document.getElementById("baslik").innerHTML="İki parmak yukarıya kaydı.";
-          document.getElementById(model_name).setAttribute("rotation",model_sayac_rotation_X+" "+model_sayac_rotation_X+" "+model_sayac_rotation_X);
+          document.getElementById(model_name).setAttribute("rotation",model_sayac_rotation_X+" "+model_sayac_rotation_Y+" 0");
         }
       }
     }
