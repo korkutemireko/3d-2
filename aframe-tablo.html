@@ -142,6 +142,7 @@ CSS3DObject
 
   document.ontouchend=function(event) {
             if (initialTouch1 && initialTouch2) {
+              document.getElementById("baslik").innerHTML="iki parmak";
         const finalTouch1 = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
         const finalTouch2 = { x: event.changedTouches[1].clientX, y: event.changedTouches[1].clientY };
 
@@ -2099,7 +2100,7 @@ animate();
       <a-entity id="group">
 
       </a-entity>
-   <a-plane id="bground" src="#background" visible="true" position="0 1.65 -5.3" rotation="0 0 0" width="16" height="9"  material="sampling: linear"></a-plane>
+   <a-plane id="bground" src="#background" visible="true" position="0 1.65 -5.3" rotation="0 0 0" width="19.2" height="9"  material="sampling: linear"></a-plane>
     <a-camera look-controls-enabled="false" wasd-controls-enabled="false"  id="camera">
       <a-entity cursor="rayOrigin:mouse" raycaster="objects: .clickable;"></a-entity>
     </a-camera>
