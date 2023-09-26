@@ -135,6 +135,51 @@ var initialDistance = 0;
 var scaleFactor = 1.0;
 var currentDistance, delta;
 let previousTouches = [];
+
+ var model1_x=0,model1_y=1,model1_c=-1.5;
+ var model1_x1=0,model1_y1=0,model1_c1=0;
+ var model1_scale_x=1, model1_scale_y=1, model1_scale_z=1;
+
+ var model2_x=0,model2_y=1,model2_c=-1.5;
+ var model2_x1=0,model2_y1=0,model2_c1=0;
+ var model2_scale_x=0.09, model2_scale_y=0.09, model2_scale_z=0.09;
+
+ var model3_x=0,model3_y=1,model3_c=-1.5;
+ var model3_x1=0,model3_y1=0,model3_c1=0;
+ var model3_scale_x=1, model3_scale_y=1, model3_scale_z=1;
+
+ var model4_x=0,model4_y=1,model4_c=-1.5;
+ var model4_x1=0,model4_y1=0,model4_c1=0;
+ var model4_scale_x=1, model4_scale_y=1, model4_scale_z=1;
+
+ var model5_x=0,model5_y=2,model5_c=-1.5;
+ var model5_x1=0,model5_y1=0,model5_c1=0;
+ var model5_scale_x=0.05, model5_scale_y=0.05, model5_scale_z=0.05;
+
+  var model6_x=0,model6_y=2,model6_c=-1.5;
+ var model6_x1=0,model6_y1=0,model6_c1=0;
+ var model6_scale_x=0.002, model6_scale_y=0.002, model6_scale_z=0.002;
+
+  var model7_x=0,model7_y=2,model7_c=-1.5;
+ var model7_x1=0,model7_y1=0,model7_c1=0;
+ var model7_scale_x=0.5, model7_scale_y=0.5, model7_scale_z=0.5;
+
+ 
+ var model8_x=0,model8_y=2,model8_c=-1.5;
+ var model8_x1=0,model8_y1=0,model8_c1=0;
+ var model8_scale_x=0.5, model8_scale_y=0.5, model8_scale_z=0.5;
+
+ 
+ var model9_x=0,model9_y=2,model9_c=-1.5;
+ var model9_x1=0,model9_y1=0,model9_c1=0;
+ var model9_scale_x=0.005, model9_scale_y=0.005, model9_scale_z=0.005;
+
+ 
+ var model10_x=0,model10_y=2,model10_c=-1.5;
+ var model10_x1=0,model10_y1=0,model10_c1=0;
+ var model10_scale_x=0.5, model10_scale_y=0.5, model10_scale_z=0.5;
+
+
 function calculateDistance(touch1, touch2) {
    dx = touch1.clientX - touch2.clientX;
    dy = touch1.clientY - touch2.clientY;
@@ -148,6 +193,9 @@ document.ontouchstart=function(event) {
         initialDistance = calculateDistance(event.touches[0], event.touches[1]);
     }
  }
+
+ var model_sayac_rotation_X=0;
+ var model_sayac_rotation_Y=0;
 
  document.ontouchmove=function(event) {
 
@@ -204,15 +252,24 @@ var [touch1, touch2] = event.touches;
 
       if (Math.abs(deltaX1) > Math.abs(deltaY1) && Math.abs(deltaX2) > Math.abs(deltaY2)) {
         if (deltaX1 > 0 && deltaX2 > 0) {
+          model_sayac_rotation_Y +=5;
           document.getElementById("baslik").innerHTML="İki parmak sağa kaydı.";
+            document.getElementById(model_name).setAttribute("position",model_sayac_rotation_Y+" "+model_sayac_rotation_Y+" "+model_sayac_rotation_Y);
         } else if (deltaX1 < 0 && deltaX2 < 0) {
+                    model_sayac_rotation_Y -=5;
           document.getElementById("baslik").innerHTML="İki parmak sola kaydı.";
+                      document.getElementById(model_name).setAttribute("position",model_sayac_rotation_Y+" "+model_sayac_rotation_Y+" "+model_sayac_rotation_Y);
         }
       } else if (Math.abs(deltaY1) > Math.abs(deltaX1) && Math.abs(deltaY2) > Math.abs(deltaX2)) {
         if (deltaY1 > 0 && deltaY2 > 0) {
+           model_sayac_rotation_X +=5;
          document.getElementById("baslik").innerHTML="İki parmak aşağıya kaydı.";
+                     document.getElementById(model_name).setAttribute("position",model_sayac_rotation_X+" "+model_sayac_rotation_X+" "+model_sayac_rotation_X);
+
         } else if (deltaY1 < 0 && deltaY2 < 0) {
+                     model_sayac_rotation_X -=5;
           document.getElementById("baslik").innerHTML="İki parmak yukarıya kaydı.";
+          document.getElementById(model_name).setAttribute("position",model_sayac_rotation_X+" "+model_sayac_rotation_X+" "+model_sayac_rotation_X);
         }
       }
     }
@@ -235,9 +292,7 @@ else if(event.touches.length == 1){
  }*/
 
 
- var model1_x=0,model1_y=1,model1_c=-1.5;
- var model1_x1=0,model1_y1=0,model1_c1=0;
- var model1_scale_x=1, model1_scale_y=1, model1_scale_z=1;
+
 
             AFRAME.registerComponent('touch-listener', {
   init: function () {
@@ -278,7 +333,7 @@ else if(event.touches.length == 1){
     console.log("click");
     check_model=true;
  model_name=event.target.id;
- //document.getElementById(model_name).setAttribute("position",model1_x+" "+model1_y+" "+model1_c);
+ document.getElementById(model_name).setAttribute("position",model1_x+" "+model1_y+" "+model1_c);
  console.log(model_name);
   }
 });
@@ -291,46 +346,6 @@ else if(event.touches.length == 1){
             var group_model = document.getElementById("group");
 
       
-
-
- var model2_x=0,model2_y=1,model2_c=-1.5;
- var model2_x1=0,model2_y1=0,model2_c1=0;
- var model2_scale_x=0.09, model2_scale_y=0.09, model2_scale_z=0.09;
-
- var model3_x=0,model3_y=1,model3_c=-1.5;
- var model3_x1=0,model3_y1=0,model3_c1=0;
- var model3_scale_x=1, model3_scale_y=1, model3_scale_z=1;
-
- var model4_x=0,model4_y=1,model4_c=-1.5;
- var model4_x1=0,model4_y1=0,model4_c1=0;
- var model4_scale_x=1, model4_scale_y=1, model4_scale_z=1;
-
- var model5_x=0,model5_y=2,model5_c=-1.5;
- var model5_x1=0,model5_y1=0,model5_c1=0;
- var model5_scale_x=0.05, model5_scale_y=0.05, model5_scale_z=0.05;
-
-  var model6_x=0,model6_y=2,model6_c=-1.5;
- var model6_x1=0,model6_y1=0,model6_c1=0;
- var model6_scale_x=0.002, model6_scale_y=0.002, model6_scale_z=0.002;
-
-  var model7_x=0,model7_y=2,model7_c=-1.5;
- var model7_x1=0,model7_y1=0,model7_c1=0;
- var model7_scale_x=0.5, model7_scale_y=0.5, model7_scale_z=0.5;
-
- 
- var model8_x=0,model8_y=2,model8_c=-1.5;
- var model8_x1=0,model8_y1=0,model8_c1=0;
- var model8_scale_x=0.5, model8_scale_y=0.5, model8_scale_z=0.5;
-
- 
- var model9_x=0,model9_y=2,model9_c=-1.5;
- var model9_x1=0,model9_y1=0,model9_c1=0;
- var model9_scale_x=0.005, model9_scale_y=0.005, model9_scale_z=0.005;
-
- 
- var model10_x=0,model10_y=2,model10_c=-1.5;
- var model10_x1=0,model10_y1=0,model10_c1=0;
- var model10_scale_x=0.5, model10_scale_y=0.5, model10_scale_z=0.5;
 
 
 
