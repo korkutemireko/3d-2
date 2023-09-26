@@ -155,9 +155,9 @@ document.ontouchstart=function(event) {
         };
        // document.getElementById("baslik").innerHTML=direction1.x * direction2.x+", "+direction1.y * direction2.y;
         if (direction1.x * direction2.x < 0 || direction1.y * direction2.y < 0) {
-            document.getElementById("baslik").innerHTML="İki parmak zıt yöndedir";
+            document.getElementById("baslik").innerHTML=direction1.x * direction2.x+", "+direction1.y * direction2.y;
         } else {
-            document.getElementById("baslik").innerHTML="İki parmak aynı yöndedir veya bir hareket yok";
+            document.getElementById("baslik").innerHTML=direction1.x * direction2.x+", "+direction1.y * direction2.y;;
         }
     }
 
