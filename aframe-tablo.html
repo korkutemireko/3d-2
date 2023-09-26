@@ -131,18 +131,18 @@ CSS3DObject
  var finalTouch1, finalTouch2;
 var direction1, direction2;
 
- document.ontouchmove=function(event) {
-  touch_event(event);
- }
-
- document.ontouchstart=function(event) {
+document.ontouchstart=function(event) {
          if (event.touches.length >= 2) {
         initialTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
         initialTouch2 = { x: event.touches[1].clientX, y: event.touches[1].clientY };
+    }
+ }
 
-        if (initialTouch1 && initialTouch2) {
-         finalTouch1 = { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
-        finalTouch2 = { x: event.changedTouches[1].clientX, y: event.changedTouches[1].clientY };
+ document.ontouchmove=function(event) {
+
+  if (initialTouch1 && initialTouch2) {
+         finalTouch1 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+        finalTouch2 = { x: event.touches[0].clientX, y: event.touches[0].clientY };
 
          direction1 = {
             x: finalTouch1.x - initialTouch1.x,
@@ -160,8 +160,13 @@ var direction1, direction2;
             document.getElementById("baslik").innerHTML="İki parmak aynı yöndedir veya bir hareket yok";
         }
     }
-    }
+
+    touch_event(event);
+
+
  }
+
+
 
  /* document.ontouchend=function(event) {
        
