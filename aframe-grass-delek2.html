@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script> <!--GUI Library-->
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script> <!--Environment extension-->
+    <script src="https://rawgit.com/takahirox/aframe-rain/master/build/aframe-rain.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <title>Courtyard and Entrance Scene</title>
+<script src="JoyStick-master/joy.min.js"></script>
+</head>
+<body>
+    <script>
+        window.onload=function() {
+
+        /*  var Joy = new JoyStick('joyDiv', {}, function(stickData) {
+            rotation_check=true;
+    var angle = Math.atan2(stickData.y, stickData.x);
+    var angleDegrees = angle * (180 / Math.PI);
+    rotet3=parseFloat(rotetete)+angleDegrees;
+    //document.getElementById("player2").setAttribute("rotation", "0 " + angleDegrees + " 0");
+    document.getElementById("player2").setAttribute("position", "0 " + angleDegrees + " 0");
+
+});*/
+
+/*var Joy = new JoyStick('joyDiv', {}, function(stickData) {
+    rotation_check = true;
+    var angle = Math.atan2(stickData.y, stickData.x);
+    var radius = Math.sqrt(stickData.x * stickData.x + stickData.y * stickData.y);
+    var x = radius * Math.cos(angle);
+    var z = radius * Math.sin(angle);
+    var playerPosition = x*0.1 + " 0 " + z*0.1;
+    document.getElementById("player").setAttribute("position", playerPosition);
+});*/
+
+       /* AFRAME.registerComponent("rotate-with-camera", {
+            tick: (function () {
+                // create once
+                const tmpq = new THREE.Quaternion();
+                const tmpe = new THREE.Euler();
+    
+                return function (t, dt) {
+                    if (!this.el.sceneEl.camera) return; // ignore when there is no camera
+                    const cam = this.el.sceneEl.camera.el; // get the camera entity
+                    cam.object3D.getWorldQuaternion(tmpq); // get the world rotation
+                    tmpe.setFromQuaternion(tmpq, "YXZ");
+                    // set attribute is necesarry for wasd-controls
+                    this.el.setAttribute("rotation", {
+                        x: 0,
+                        y: (tmpe.y * 180) / Math.PI,
+                        z: 0,
+                    });
+                };
+            })(),
+        }); */
+
+      /*  AFRAME.registerComponent('rotate-with-camera', {
+  tick: (function () {
+    const tmpq = new THREE.Quaternion();
+    const tmpe = new THREE.Euler();
+    const offset = new THREE.Vector3(0, 0, -5); // Sabit mesafeyi belirle
+
+    return function (t, dt) {
+      if (!this.el.sceneEl.camera) return; // ignore when there is no camera
+      const cam = this.el.sceneEl.camera.el.object3D; // get the camera object3D
+
+      cam.getWorldQuaternion(tmpq); // get the world rotation
+      tmpe.setFromQuaternion(tmpq, "YXZ");
+
+      // Rotation syncing
+      this.el.setAttribute('rotation', {
+        x: 0,
+        y: (tmpe.y * 180) / Math.PI,
+        z: 0,
+      });
+
+      // Position syncing for fixed distance
+      const playerPosition = offset.clone();
+      playerPosition.applyQuaternion(tmpq); // Offseti kamera rotasyonuna uygula
+      playerPosition.add(cam.position); // Kamera pozisyonuna ekle
+
+      this.el.object3D.position.copy(playerPosition);
+    };
+  })(),
+});*/
+
+        var model4 = document.getElementById("player2");
+          var model5 = document.getElementById("model-glb5");
+          var model8 = document.getElementById("model-glb8");
+          var model9 = document.getElementById("model-glb9");
+            var model10 = document.getElementById("player5");
+
+
+
+     let mixer;
+     var mixer2;
+     var mixer3;
+     var mixer4;
+     var mixer5;
+ var model3D;
+ // Animasyonların id'leri veya isimleri (örneğin 'walk' ve 'run')
+var animationNames = ['walk', 'run'];
+var actions = {};
+
+/*model4.addEventListener('model-loaded', () => {
+  window.setTimeout(function() {
+    model3D = model4.getObject3D('mesh');
+    if (model3D) {
+      mixer = new THREE.AnimationMixer(model3D);
+      var clips = model3D.animations || [];
+      clips.forEach((clip) => {
+        console.log(clip);
+        actions[clip.name] = mixer.clipAction(clip);
+        actions[0].play();
+      });
+    }
+  }, 1000);
+});*/
+model4.addEventListener('model-loaded', () => {
+  window.setTimeout(function() {
+    model3D = model4.getObject3D('mesh');
+  if (model3D) {
+   // //console.log(model3D);
+    mixer = new THREE.AnimationMixer(model3D);
+    var clips = model3D.animations || [];
+    clips.forEach((clip) => {
+      var action = mixer.clipAction(clip);
+      action.play();
+      console.log(clip);
+    });
+  }
+  },1000); 
+});
+
+model5.addEventListener('model-loaded', () => {
+  window.setTimeout(function() {
+    model3D = model5.getObject3D('mesh');
+  if (model3D) {
+   // //console.log(model3D);
+    mixer2 = new THREE.AnimationMixer(model3D);
+    var clips = model3D.animations || [];
+    clips.forEach((clip) => {
+      var action = mixer2.clipAction(clip);
+      action.play();
+      console.log(clip);
+    });
+  }
+  },1000); 
+});
+
+model8.addEventListener('model-loaded', () => {
+  window.setTimeout(function() {
+    model3D = model8.getObject3D('mesh');
+  if (model3D) {
+   // //console.log(model3D);
+    mixer3 = new THREE.AnimationMixer(model3D);
+    var clips = model3D.animations || [];
+    clips.forEach((clip) => {
+      var action = mixer3.clipAction(clip);
+      action.play();
+      console.log(clip);
+    });
+  }
+  },1000); 
+});
+
+model9.addEventListener('model-loaded', () => {
+  window.setTimeout(function() {
+    model3D = model9.getObject3D('mesh');
+  if (model3D) {
+   // //console.log(model3D);
+    mixer4 = new THREE.AnimationMixer(model3D);
+    var clips = model3D.animations || [];
+    clips.forEach((clip) => {
+      var action = mixer4.clipAction(clip);
+      action.play();
+      console.log(clip);
+    });
+  }
+  },1000); 
+});
+
+model10.addEventListener('model-loaded', () => {
+  window.setTimeout(function() {
+    model3D = model10.getObject3D('mesh');
+  if (model3D) {
+   // //console.log(model3D);
+    mixer5 = new THREE.AnimationMixer(model3D);
+    var clips = model3D.animations || [];
+    clips.forEach((clip) => {
+      var action = mixer5.clipAction(clip);
+      action.play();
+      console.log(clip);
+    });
+  }
+  },1000); 
+});
+
+var rotation_y = 0;
+var rotation_check=false;
+var rotetete2;
+
+document.onkeydown = function(event) {
+  rotation_check=true;
+    if (event.key === "l") {
+     document.getElementById("player").removeAttribute('static-body');
+     document.getElementById("player").setAttribute('kinematic-body', '');
+    }
+
+    else if(event.key=="w") {
+      rotetete2=parseFloat(rotetete);
+      document.getElementById("player2").setAttribute("rotation", "0 "+ rotetete2 +" 0");
+    }
+    else if(event.key=="s") {
+      rotetete2=parseFloat(rotetete)+180;
+      document.getElementById("player2").setAttribute("rotation", "0 "+ rotetete2 +" 0");
+    }
+    else if(event.key=="d") {
+     rotetete2=parseFloat(rotetete)-90;
+      document.getElementById("player2").setAttribute("rotation", "0 "+ rotetete2 +" 0");
+    }
+    else if(event.key=="a") {
+     rotetete2=parseFloat(rotetete)+90;
+      document.getElementById("player2").setAttribute("rotation", "0 "+ rotetete2 +" 0");
+    }
+}
+
+document.onkeyup=function() {
+  rotation_check=false;
+}
+
+const cameraEntity = document.querySelector("#camera");
+
+let cumulativeRotation = 0;  // Kümülatif rotasyon değeri
+
+/*function getWorldRotation() {
+  let worldQuaternion = new THREE.Quaternion();
+
+  // Dünya (world) koordinat sistemindeki rotasyonu al
+  cameraEntity.object3D.getWorldQuaternion(worldQuaternion);
+
+  // Quaternion'u Euler açılarına çevir
+  let worldRotation = new THREE.Euler().setFromQuaternion(worldQuaternion);
+
+  // Euler açılarını dereceye çevir
+  worldRotation = worldRotation.toVector3().multiplyScalar(THREE.MathUtils.RAD2DEG);
+
+  // Kümülatif açıyı güncelle
+  let deltaRotation = worldRotation.y - cumulativeRotation;
+  if (Math.abs(deltaRotation) > 180) {
+    deltaRotation = (deltaRotation > 0 ? -1 : 1) * (360 - Math.abs(deltaRotation));
+  }
+  cumulativeRotation += deltaRotation;
+  cumulativeRotation = (cumulativeRotation + 360) % 360;
+
+  console.log(`World rotation: ${worldRotation.y}, Cumulative rotation: ${cumulativeRotation}`);
+  document.getElementById("font").innerHTML = `World rotation: ${cumulativeRotation}`;
+  document.getElementById("player2").setAttribute("rotation", `0 ${cumulativeRotation} 0`);
+}*/
+
+// Rotasyon verisini almak için bir işlem tanımla
+/*function getWorldRotation() {
+  let worldQuaternion = new THREE.Quaternion();
+  
+  // Dünya (world) koordinat sistemindeki rotasyonu al
+  cameraEntity.object3D.getWorldQuaternion(worldQuaternion);
+  
+  // Quaternion'u Euler açılarına çevir
+  let worldRotation = new THREE.Euler().setFromQuaternion(worldQuaternion);
+
+  // Euler açılarını dereceye çevir
+  worldRotation = worldRotation.toVector3().multiplyScalar(THREE.MathUtils.RAD2DEG);
+  
+  console.log(`World rotation: ${worldRotation.x}, ${worldRotation.y}, ${worldRotation.z}`);
+document.getElementById("font").innerHTML=`World rotation:  ${worldRotation.y}`;
+
+  document.getElementById("player2").setAttribute("rotation", `0 ${worldRotation.y+180} 0`);
+}*/
+
+/*function getWorldRotation() {
+  let worldQuaternion = new THREE.Quaternion();
+  cameraEntity.object3D.getWorldQuaternion(worldQuaternion);
+  let worldRotation = new THREE.Euler().setFromQuaternion(worldQuaternion);
+  worldRotation = worldRotation.toVector3().multiplyScalar(THREE.MathUtils.RAD2DEG);
+
+  // Rotasyon değerini normalize et
+  const normalizedY = (worldRotation.y + 180) % 360;
+
+  console.log(`World rotation: ${worldRotation.x}, ${worldRotation.y}, ${worldRotation.z}`);
+
+  // player2'nin kameraya arkası dönük olması için düzeltilmiş rotasyonu kullanıyoruz
+  document.getElementById("player2").setAttribute("rotation", `0 ${normalizedY} 0`);
+}*/
+
+// Belirli bir olayda ya da durumda bu işlemi çağır
+
+/*AFRAME.registerComponent('look-away', {
+  schema: {
+    target: {type: 'selector'},
+  },
+  tick: function() {
+    var targetPosition = this.data.target.object3D.position;
+    var myPosition = this.el.object3D.position;
+    
+    this.el.object3D.lookAt(targetPosition);
+    
+    // 180 derece döndürme işlemi
+    var rotation = this.el.getAttribute('rotation');
+    this.el.setAttribute('rotation', {x: rotation.x, y: rotation.y + 180, z: rotation.z});
+  }
+});*/
+
+
+
+/*function eko() {
+    var cameraEl = document.querySelector('#camera');
+    var player2El = document.querySelector('#player2');
+
+    if (!cameraEl || !player2El) {
+      return;
+    }
+
+    var cameraRotation = cameraEl.getAttribute('rotation');
+    document.getElementById("font").innerHTML=`World rotation:  ${cameraRotation}`;
+    console.log(cameraRotation);
+    player2El.setAttribute('rotation', {
+      x: 0,
+      y: cameraRotation.y + 180,
+      z: 0
+    });
+  
+}*/
+
+var rotetete;
+
+
+const avatar = document.querySelector('#player5');
+
+// Avatarın hızı
+const avatarHizi = 0.02; // İstediğiniz hıza ayarlayabilirsiniz
+
+// Mevcut hedef konum
+let hedefKonum = { x: 5, y: 0, z: 5 }; // Örnek bir hedef konumu
+
+// Rota takip işlevi
+function takipEt() {
+  // Avatarın mevcut konumunu alın
+  const mevcutKonum = avatar.getAttribute('position');
+
+  // Hedefe doğru bir vektör hesaplayın
+  const vektorX = hedefKonum.x - mevcutKonum.x;
+  const vektorZ = hedefKonum.z - mevcutKonum.z;
+
+  // Hedefe doğru dönme açısını hesaplayın
+  const dönmeAçısı = Math.atan2(vektorX, vektorZ) * (180 / Math.PI);
+
+  // Avatarın rotasyonunu yavaşça güncelleyin
+  const mevcutRotasyon = avatar.getAttribute('rotation');
+  const yeniRotasyon = `0 ${dönmeAçısı} 0`;
+  avatar.setAttribute('rotation', yeniRotasyon);
+
+  // Hedefe doğru yavaşça ilerleyin
+  const yeniKonumX = mevcutKonum.x + vektorX * avatarHizi;
+  const yeniKonumZ = mevcutKonum.z + vektorZ * avatarHizi;
+  avatar.setAttribute('position', `${yeniKonumX} ${mevcutKonum.y} ${yeniKonumZ}`);
+
+  // Hedefe ulaşıldığını kontrol edin
+  if (Math.abs(vektorX) < 0.1 && Math.abs(vektorZ) < 0.1) {
+    // Hedefe ulaşıldıysa yeni rastgele bir hedef oluşturun
+    hedefKonum = yeniRastgeleHedef();
+  }
+
+  // Belirli bir aralıkla takip işlemini tekrarlayın
+  //requestAnimationFrame(takipEt);
+
+}
+
+// Rastgele bir hedef konumu oluşturan işlev
+function yeniRastgeleHedef() {
+  const maxX = 10; // X koordinatının maksimum değeri
+  const maxZ = 10; // Z koordinatının maksimum değeri
+  const randomX = Math.random() * (maxX * 2) - maxX; // -maxX ile maxX arasında rastgele bir X koordinatı seçin
+  const randomZ = Math.random() * (maxZ * 2) - maxZ; // -maxZ ile maxZ arasında rastgele bir Z koordinatı seçin
+  return { x: randomX, y: 0, z: randomZ };
+}
+
+// Rota takip işlemini başlatın
+  window.setInterval(function() {
+    takipEt();
+  },80);
+
+  AFRAME.registerComponent('collision-listener', {
+      tick: function () {
+        let avatar = this.el.object3D;
+        let torus = document.querySelector("#torus").object3D;
+        let radius = document.querySelector("#torus").getAttribute("radius");
+
+        let distance = avatar.position.distanceTo(torus.position);
+
+        //console.log(distance);
+
+        if (distance < radius) {
+          console.log("Torus'un içindesiniz!");
+        }
+      }
+    });
+      
+      // İlk çağrı
+     
+
+        // Fonksiyonu her karede çağır
+   
+        const socket = io.connect('http://localhost:3000');
+
+const playerElement = document.getElementById('player');
+const playerElement2 = document.getElementById('player2');
+
+
+// Listen for current players from the server
+socket.on('currentPlayers', function (players) {
+  // Handle existing players
+  console.log('Current players:', players);
+});
+
+// Listen for new player events
+socket.on('newPlayer', function (playerData) {
+  // Handle new players
+  console.log('New player joined:', playerData);
+});
+
+// Listen for player update events
+socket.on('playerUpdates', function (players) {
+  // Update players
+  console.log('Players updated:', players);
+  console.log(players.a2.position.z);
+
+});
+
+// Listen for disconnect events
+socket.on('disconnect', function (playerId) {
+  // Remove player
+  console.log('Player disconnected:', playerId);
+});
+
+// Send player updates
+function sendPlayerData() {
+  const position = playerElement.getAttribute('position');
+  const rotation = playerElement2.getAttribute('rotation');
+  socket.emit('playerUpdates', { position, rotation });
+}
+
+// Send player updates at a regular interval
+setInterval(sendPlayerData, 100);
+
+    function animate() {
+  requestAnimationFrame(animate);
+  //var cameraRotation = document.getElementById("camera").getAttribute("rotation");
+  document.getElementById("player").setAttribute("rotation", "0 0 0");
+  rotetete=parseFloat(document.getElementById("camera2").getAttribute("rotation").y)+180;
+
+  if(rotation_check==false) {
+   // document.getElementById("player2").setAttribute("rotation", "0 "+rotetete +" 0");
+  }
+  
+  //console.log(document.getElementById("camera2").getAttribute("rotation").y);
+
+  //document.getElementById("player2").setAttribute("rotation","0 "+ cameraRotation.y+180 +" 0");
+  //document.getElementById("player2").setAttribute("rotation", "0 " + + " 0");
+  //getWorldRotation();
+      /*let playerPosition = playerContainer.getAttribute('position');
+
+// Set the camera's position based on the player's position.
+camera.setAttribute('position',playerPosition.x+" 1 "+playerPosition.z + 1);*/
+     // eko();
+        if (mixer) {
+    mixer.update(0.025);
+  }
+      if (mixer2) {
+    mixer2.update(0.025);
+  }
+       if (mixer3) {
+    mixer3.update(0.025);
+  }
+  if (mixer4) {
+    mixer4.update(0.025);
+  }
+  if (mixer5) {
+    mixer5.update(0.025);
+  }
+    }
+animate();
+        
+        
+       /* AFRAME.registerComponent("follow-player", {
+  schema: {
+    target: { type: "selector" },
+    distance: { type: "vec3", default: { x: 0, y: 3, z: 4 } }
+  },
+  tick: function() {
+    let targetPosition = this.data.target.object3D.position;
+    let newPosition = targetPosition.clone().add(this.data.distance);
+    this.el.setAttribute("position", newPosition);
+  }
+});*/
+    var audio=new Audio();
+    audio.src="Turkish March Mozart.mp3";
+    //audio.play();
+        }
+    </script>
+      <div id="joyDiv" style="width:200px;height:200px;z-index: 100000 !important;position: absolute;bottom:10px;left:10px;"></div>
+    <a-scene style="z-index: 1 !important;" physics="debug: true" vr-mode-ui="enabled: false" >
+   
+        <a-assets>
+           <!-- <a-asset-item id="tree" src="resimler/art_gallery.glb"></a-asset-item> -->
+           <video id="video" autoplay muted loop="true" src="resimler/ibrahimbey (online-video-cutter.com).mp4"></video>
+            <a-asset-item id="tree" src="vr_art_gallery_2020_l_baked__max_scene/scene.gltf"></a-asset-item>
+            <a-asset-item id="tree2" src="resimler/statue_of_horatio_nelson_greenwich_london_uk.glb"></a-asset-item>
+            <a-asset-item id="tree3" src="resimler/hans_christian_andersen.glb"></a-asset-item>
+            <a-asset-item id="tree5" src="resimler/electronic_kiosk.glb"></a-asset-item>
+            <a-asset-item id="tree7" src="tv_screen.glb"></a-asset-item>
+            <a-asset-item id="tree8" src="grand_piano (1).glb"></a-asset-item>
+            <a-asset-item id="tree9" src="katy-perry-avatar_3.glb"></a-asset-item>
+            <a-asset-item id="tree10" src="podium_large.glb"></a-asset-item>
+            <a-asset-item id="tree11" src="debate_podium.glb"></a-asset-item>
+            <a-asset-item id="tree12" src="eric-rigged-001-rigged-3d-business-man.glb"></a-asset-item>
+            <a-asset-item id="tree13" src="emir.glb"></a-asset-item>
+            <a-asset-item id="tree14" src="surveillance_cam.glb"></a-asset-item>
+
+
+
+    
+            <img id="background1" src="resimler/artwork/artwork-0.jpg">
+            <img id="background2" src="resimler/artwork/artwork-2.jpg">
+            <img id="background3" src="resimler/artwork/artwork-3.jpg">
+            <img id="background4" src="resimler/artwork/artwork-5.jpg">
+            <img id="background5" src="resimler/artwork/artwork-6.jpg">
+            <img id="background6" src="resimler/artwork/gallery-0.jpg">
+            <a-asset-item id="avatar" src="man-in-coat-character-human-riged-model.glb"></a-asset-item>
+    
+          </a-assets>
+        <a-plane static-body visible="false" position="0 -1 -4" scale="60 60 1" repeat=" 5 5 1" rotation="-90 0 0"></a-plane>
+        <a-sky src="360/a-cyberpunk-city-skyline-at-night-gxxewnru.jpeg"></a-sky>
+       <!-- <a-box static-body position="0 -1 -4" scale="50 20 50" rotation="0 0 0"></a-box> -->
+       <a-plane static-body visible="false" position="-24.5 -1 -4" scale="60 10 1" repeat=" 5 5 1" rotation="0 90 0"></a-plane>
+       <a-light type="ambient" color="#ffffff" intensity="1"></a-light> 
+
+       <a-plane static-body visible="false" position="0 6 2" scale="60 60 1" repeat=" 5 5 1" rotation="90 0 0"></a-plane>
+
+       <a-entity rain="dropHeight:20.0" position="0 -1 35"></a-entity> 
+        <!-- the "player" -->
+        
+      <!--  <a-entity id="playerContainer" kinematic-body wasd-controls rotate-with-camera>
+            <a-entity id="player" gltf-model="#avatar" rotation="0 0 0" scale="1 1 1"></a-entity>
+            <a-entity look-at="#player" look-controls  >
+                <a-entity id="camera" camera position="0 3 4"></a-entity>
+            </a-entity>
+          </a-entity> -->
+
+
+      <!--  </a-entity id="player" kinematic-body look-controls wasd-controls rotate-with-camera>
+        <a-entity id="player2" gltf-model="#avatar" rotation="0 0 0" scale="1 1 1" > </a-entity>
+        </a-entity> -->
+      
+  
+        <a-entity id="player" position="0 0 0" kinematic-body="shape: cylinder; radius: 0.5; height: 1.8;" look-controls="pointerLockEnabled: true" wasd-controls="acceleration: 40;" collision-listener>
+          <a-entity id="player2" position="0 -0.1 0" gltf-model="#avatar"  rotation="0 0 0" scale="0.8 0.8 0.8"  > 
+          </a-entity>
+          <a-entity  id="camera2" look-controls="pointerLockEnabled: true" >
+            <a-entity id="camera" camera position="0 2.2 2.7"></a-entity>
+        </a-entity>  
+        </a-entity> 
+
+       <a-entity id="model-glb" gltf-model="#tree" position="0 -1 -5.5" scale="1 1 1" rotation="0 0 0">
+       </a-entity> 
+
+       <a-entity id="model-glb2" gltf-model="#tree7" position="-0.1 1.4 13.2" scale="0.18 0.13 0.05" rotation="0 -90 0">
+      </a-entity> 
+
+      <a-entity id="model-glb3" gltf-model="#tree8" position="3 -1 0" scale="0.6 0.6 0.6" rotation="0 -90 0">
+      </a-entity> 
+
+        <a-entity id="model-glb5" gltf-model="#tree9" position="2.0 -0.9 0.1" scale="0.6 0.6 0.6" rotation="0 90 0">
+      </a-entity> 
+
+         <a-entity id="model-glb6" gltf-model="#tree10" position="-4 -0.7 0" scale="0.008 0.008 0.008" rotation="0 -90 0">
+      </a-entity> 
+
+             <a-entity id="model-glb7" gltf-model="#tree11" position="-4.3 -1 2.3" scale="1.7 1.7 1.7" rotation="0 60 0">
+      </a-entity> 
+
+           <a-entity id="model-glb8" gltf-model="#tree13" position="-4.7 -0.7 0.5" scale="1.5 1.5 1.5" rotation="0 100 0">
+      </a-entity> 
+
+          <a-entity id="model-glb9" gltf-model="#tree14" position="-11.3 3.25 -5.3" scale="0.6 0.6 0.6" rotation="0 -90 0">
+      </a-entity> 
+
+      <a-box static-body width="4" height="5" depth="3" position="3.5 -1 0" color="#4CC3D9" opacity="0"></a-box>
+
+      <a-torus id="torus" position="-11 -1 -12" rotation="90 0 0" radius="1.3" radius-tubular="0.03" material="color: blue;"></a-torus>
+
+    <!--  <a-box static-body width="2" height="2" depth="2" position="0 -1 1.5" color="#4CC3D9" opacity="0"></a-box>
+      <a-box static-body width="1.6" height="1.6" depth="1.6" position="0 -1 1" color="#4CC3D9" opacity="0"></a-box>
+            <a-box static-body width="0.5" height="0.5" depth="0.5" position="0 -1 -1" color="#4CC3D9" opacity="0"></a-box>
+      <a-box static-body width="0.8" height="0.8" depth="0.8" position="0 -1 -0.5" color="#4CC3D9" opacity="0"></a-box>
+      <a-box static-body width="1.2" height="1.2" depth="1.2" position="0 -1 0" color="#4CC3D9" opacity="0"></a-box>
+    -->
+
+      <a-video  src="#video" visible="true" position="-0.15 1.4 13.2" rotation="0 -90 0" width="10.5" height="4" ></a-video>
+    <!--   <a-entity static-body id="model-glb2" class="clickable" gltf-model="#tree2" position="1.5 -1 -7.5" scale="0.3 0.3 0.3" rotation="0 0 0" touch-listener></a-entity> 
+       <a-entity static-body id="model-glb3" class="clickable" gltf-model="#tree3" position="-3.5 0 -3.5" scale="0.05 0.05 0.05" rotation="0 90 0" touch-listener></a-entity> 
+       <a-entity static-body id="model-glb5"  gltf-model="#tree5" position="1.5 -0.95 -6.7" scale="0.8 0.8 0.8" rotation="0 0 0" ></a-entity> 
+
+       <a-plane id="bground" model-url="resimler/artwork/artwork-0.jpg" src="#background1" class="clickable" position="0.46 0.74 -0.37" rotation="0 5 0" width="1.65" height="1.1"  material="sampling: linear" touch-listener></a-plane>
+       <a-plane id="bground" model-url="resimler/artwork/artwork-2.jpg" src="#background2" class="clickable" position="0.46 0.74 -0.85" rotation="0 185 0" width="1.65" height="1.1"  material="sampling: linear" touch-listener></a-plane>
+       <a-plane id="bground" model-url="resimler/artwork/artwork-3.jpg"  class="clickable" position="-0.46 0.74 -10.15" rotation="0 5 0" width="1.65" height="1.1"  material="shader:gif;src:url(https://media0.giphy.com/media/l41lWyVnFdVsS13Ta/giphy.gif)" touch-listener></a-plane>
+       <a-plane id="bground" model-url="resimler/artwork/artwork-5.jpg" src="#background4" class="clickable" position="-0.46 0.74 -10.64" rotation="0 185 0" width="1.65" height="1.1" material="sampling: linear"  touch-listener></a-plane>
+       <a-plane id="bground" model-url="resimler/artwork/artwork-6.jpg"  class="clickable" position="4.63 0.74 -5.97" rotation="0 275 0" width="1.65" height="1.1"  material="shader:gif;src:url(https://media0.giphy.com/media/3o85xEit0ixypnt4Dm/giphy.gif)" touch-listener></a-plane>
+       <a-plane id="bground" model-url="resimler/artwork/gallery-0.jpg"  class="clickable" position="-4.63 0.74 -5.05" rotation="0 95 0" width="1.65" height="1.1"  material="shader:gif;src:url(https://media0.giphy.com/media/l41YeHIAtnC6iTYPe/giphy.gif)" touch-listener></a-plane>
+      <!-- <a-plane id="bground" model-url="resimler/artwork/gallery-0.jpg"  position="1.5 0 -6.7" rotation="-50 0 0" width="1.40" height="0.8"  material="shader:gif;src:url(https://media0.giphy.com/media/l41YeHIAtnC6iTYPe/giphy.gif)" ></a-plane> -->
+      --> <!-- <a-video static-body src="#video" visible="true" position="1.5 -0.129 -6.680" rotation="-57.5 0 0" width="1.04" height="0.66" ></a-video>
+      -->
+          <a-entity id="player5" kinematic-body="shape: cylinder; radius: 0.5; height: 1.8;" position="-4 -0.1 -4" gltf-model="#avatar"  rotation="0 0 0" scale="0.8 0.8 0.8"  > 
+
+
+      <!--  <a-entity follow-player="target: #player; distance: 0 3 4" look-controls wasd-controls>
+            <a-entity camera></a-entity>
+        </a-entity> -->
+
+        <!-- camera "rig" -->
+       <!-- <a-entity look-at="#player" look-controls wasd-controls >
+            <a-entity id="camera" camera position="0 3 4"></a-entity>
+        </a-entity> -->
+    </a-scene>
+  
+</body>
+</html>

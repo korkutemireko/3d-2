@@ -111,6 +111,35 @@ app.get('/vr',function(req,res) {
      res.sendFile( __dirname + "/aframe-tablo.html");
 });
 
+app.post('/megagenContact',function(req,res) {
+
+  console.log(req.body);
+
+  const MongoClient = require('mongodb').MongoClient;
+  //const URL = 'mongodb://localhost:27017';
+  const URL = 'mongodb+srv://megagen:megagen07@cluster0.p6cbt1r.mongodb.net/?authSource=admin';
+  
+  
+  
+  MongoClient.connect(URL, (err, client) => {
+    if (err) throw err;
+  
+    const db = client.db('megagen');
+  
+   
+     var veriler_3=[req.body];
+  
+  
+    db.collection('contact').insertMany(veriler_3, (err, result) => {
+      if (err) throw err;
+      console.log(result.insertedCount + ' kayıt eklendi.');
+     // client.close();
+    });
+  
+  });
+
+});
+
  var port=process.env.PORT || 8080;
 
 

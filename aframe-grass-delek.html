@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script> <!--GUI Library-->
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script> <!--Environment extension-->
+    <title>Courtyard and Entrance Scene</title>
+
+</head>
+<body>
+    <script>
+        window.onload=function() {
+
+
+
+       /* AFRAME.registerComponent("rotate-with-camera", {
+            tick: (function () {
+                // create once
+                const tmpq = new THREE.Quaternion();
+                const tmpe = new THREE.Euler();
+    
+                return function (t, dt) {
+                    if (!this.el.sceneEl.camera) return; // ignore when there is no camera
+                    const cam = this.el.sceneEl.camera.el; // get the camera entity
+                    cam.object3D.getWorldQuaternion(tmpq); // get the world rotation
+                    tmpe.setFromQuaternion(tmpq, "YXZ");
+                    // set attribute is necesarry for wasd-controls
+                    this.el.setAttribute("rotation", {
+                        x: 0,
+                        y: (tmpe.y * 180) / Math.PI,
+                        z: 0,
+                    });
+                };
+            })(),
+        }); */
+
+      /*  AFRAME.registerComponent('rotate-with-camera', {
+  tick: (function () {
+    const tmpq = new THREE.Quaternion();
+    const tmpe = new THREE.Euler();
+    const offset = new THREE.Vector3(0, 0, -5); // Sabit mesafeyi belirle
+
+    return function (t, dt) {
+      if (!this.el.sceneEl.camera) return; // ignore when there is no camera
+      const cam = this.el.sceneEl.camera.el.object3D; // get the camera object3D
+
+      cam.getWorldQuaternion(tmpq); // get the world rotation
+      tmpe.setFromQuaternion(tmpq, "YXZ");
+
+      // Rotation syncing
+      this.el.setAttribute('rotation', {
+        x: 0,
+        y: (tmpe.y * 180) / Math.PI,
+        z: 0,
+      });
+
+      // Position syncing for fixed distance
+      const playerPosition = offset.clone();
+      playerPosition.applyQuaternion(tmpq); // Offseti kamera rotasyonuna uygula
+      playerPosition.add(cam.position); // Kamera pozisyonuna ekle
+
+      this.el.object3D.position.copy(playerPosition);
+    };
+  })(),
+});*/
+
+        var model4 = document.getElementById("player2");
+     let mixer;
+ var model3D;
+model4.addEventListener('model-loaded', () => {
+  window.setTimeout(function() {
+    model3D = model4.getObject3D('mesh');
+  if (model3D) {
+   // //console.log(model3D);
+    mixer = new THREE.AnimationMixer(model3D);
+    var clips = model3D.animations || [];
+    clips.forEach((clip) => {
+      var action = mixer.clipAction(clip);
+      action.play();
+    });
+  }
+  },1000);
+});
+
+var rotation_y = 0;
+var rotation_check=false;
+var rotetete2;
+
+document.onkeydown = function(event) {
+  rotation_check=true;
+    if (event.key === "l") {
+     document.getElementById("player").removeAttribute('static-body');
+     document.getElementById("player").setAttribute('kinematic-body', '');
+    }
+
+    else if(event.key=="w") {
+      rotetete2=parseInt(rotetete);
+      document.getElementById("player2").setAttribute("rotation", "0 "+ rotetete2 +" 0");
+    }
+    else if(event.key=="s") {
+      rotetete2=parseInt(rotetete)+180;
+      document.getElementById("player2").setAttribute("rotation", "0 "+ rotetete2 +" 0");
+    }
+    else if(event.key=="d") {
+     rotetete2=parseInt(rotetete)-90;
+      document.getElementById("player2").setAttribute("rotation", "0 "+ rotetete2 +" 0");
+    }
+    else if(event.key=="a") {
+     rotetete2=parseInt(rotetete)+90;
+      document.getElementById("player2").setAttribute("rotation", "0 "+ rotetete2 +" 0");
+    }
+}
+
+document.onkeyup=function() {
+  rotation_check=false;
+}
+
+const cameraEntity = document.querySelector("#camera");
+
+let cumulativeRotation = 0;  // Kümülatif rotasyon değeri
+
+function getWorldRotation() {
+  let worldQuaternion = new THREE.Quaternion();
+
+  // Dünya (world) koordinat sistemindeki rotasyonu al
+  cameraEntity.object3D.getWorldQuaternion(worldQuaternion);
+
+  // Quaternion'u Euler açılarına çevir
+  let worldRotation = new THREE.Euler().setFromQuaternion(worldQuaternion);
+
+  // Euler açılarını dereceye çevir
+  worldRotation = worldRotation.toVector3().multiplyScalar(THREE.MathUtils.RAD2DEG);
+
+  // Kümülatif açıyı güncelle
+  let deltaRotation = worldRotation.y - cumulativeRotation;
+  if (Math.abs(deltaRotation) > 180) {
+    deltaRotation = (deltaRotation > 0 ? -1 : 1) * (360 - Math.abs(deltaRotation));
+  }
+  cumulativeRotation += deltaRotation;
+  cumulativeRotation = (cumulativeRotation + 360) % 360;
+
+  console.log(`World rotation: ${worldRotation.y}, Cumulative rotation: ${cumulativeRotation}`);
+  document.getElementById("font").innerHTML = `World rotation: ${cumulativeRotation}`;
+  document.getElementById("player2").setAttribute("rotation", `0 ${cumulativeRotation} 0`);
+}
+
+// Rotasyon verisini almak için bir işlem tanımla
+/*function getWorldRotation() {
+  let worldQuaternion = new THREE.Quaternion();
+  
+  // Dünya (world) koordinat sistemindeki rotasyonu al
+  cameraEntity.object3D.getWorldQuaternion(worldQuaternion);
+  
+  // Quaternion'u Euler açılarına çevir
+  let worldRotation = new THREE.Euler().setFromQuaternion(worldQuaternion);
+
+  // Euler açılarını dereceye çevir
+  worldRotation = worldRotation.toVector3().multiplyScalar(THREE.MathUtils.RAD2DEG);
+  
+  console.log(`World rotation: ${worldRotation.x}, ${worldRotation.y}, ${worldRotation.z}`);
+document.getElementById("font").innerHTML=`World rotation:  ${worldRotation.y}`;
+
+  document.getElementById("player2").setAttribute("rotation", `0 ${worldRotation.y+180} 0`);
+}*/
+
+/*function getWorldRotation() {
+  let worldQuaternion = new THREE.Quaternion();
+  cameraEntity.object3D.getWorldQuaternion(worldQuaternion);
+  let worldRotation = new THREE.Euler().setFromQuaternion(worldQuaternion);
+  worldRotation = worldRotation.toVector3().multiplyScalar(THREE.MathUtils.RAD2DEG);
+
+  // Rotasyon değerini normalize et
+  const normalizedY = (worldRotation.y + 180) % 360;
+
+  console.log(`World rotation: ${worldRotation.x}, ${worldRotation.y}, ${worldRotation.z}`);
+
+  // player2'nin kameraya arkası dönük olması için düzeltilmiş rotasyonu kullanıyoruz
+  document.getElementById("player2").setAttribute("rotation", `0 ${normalizedY} 0`);
+}*/
+
+// Belirli bir olayda ya da durumda bu işlemi çağır
+
+/*AFRAME.registerComponent('look-away', {
+  schema: {
+    target: {type: 'selector'},
+  },
+  tick: function() {
+    var targetPosition = this.data.target.object3D.position;
+    var myPosition = this.el.object3D.position;
+    
+    this.el.object3D.lookAt(targetPosition);
+    
+    // 180 derece döndürme işlemi
+    var rotation = this.el.getAttribute('rotation');
+    this.el.setAttribute('rotation', {x: rotation.x, y: rotation.y + 180, z: rotation.z});
+  }
+});*/
+
+
+
+function eko() {
+    var cameraEl = document.querySelector('#camera');
+    var player2El = document.querySelector('#player2');
+
+    if (!cameraEl || !player2El) {
+      return;
+    }
+
+    var cameraRotation = cameraEl.getAttribute('rotation');
+    document.getElementById("font").innerHTML=`World rotation:  ${cameraRotation}`;
+    console.log(cameraRotation);
+    player2El.setAttribute('rotation', {
+      x: 0,
+      y: cameraRotation.y + 180,
+      z: 0
+    });
+  
+}
+
+var rotetete;
+
+
+    function animate() {
+  requestAnimationFrame(animate);
+  //rotation_y += 0.5;
+  //var cameraRotation = document.getElementById("camera").getAttribute("rotation");
+  document.getElementById("player").setAttribute("rotation", "0 0 0");
+  rotetete=parseInt(document.getElementById("camera2").getAttribute("rotation").y)+180;
+
+  if(rotation_check==false) {
+    document.getElementById("player2").setAttribute("rotation", "0 "+rotetete +" 0");
+  }
+  
+  //console.log(document.getElementById("camera2").getAttribute("rotation").y);
+
+  //document.getElementById("player2").setAttribute("rotation","0 "+ cameraRotation.y+180 +" 0");
+  //document.getElementById("player2").setAttribute("rotation", "0 " + + " 0");
+  //getWorldRotation();
+      /*let playerPosition = playerContainer.getAttribute('position');
+
+// Set the camera's position based on the player's position.
+camera.setAttribute('position',playerPosition.x+" 1 "+playerPosition.z + 1);*/
+     // eko();
+        if (mixer) {
+    mixer.update(0.02);
+  }
+    }
+animate();
+        
+        
+       /* AFRAME.registerComponent("follow-player", {
+  schema: {
+    target: { type: "selector" },
+    distance: { type: "vec3", default: { x: 0, y: 3, z: 4 } }
+  },
+  tick: function() {
+    let targetPosition = this.data.target.object3D.position;
+    let newPosition = targetPosition.clone().add(this.data.distance);
+    this.el.setAttribute("position", newPosition);
+  }
+});*/
+        }
+    </script>
+    <a-scene physics="debug: true" vr-mode-ui="enabled: false" >
+   
+        <a-assets>
+           <!-- <a-asset-item id="tree" src="resimler/art_gallery.glb"></a-asset-item> -->
+            <a-asset-item id="tree" src="vr_art_gallery_2020_l_baked__max_scene/scene.gltf"></a-asset-item>
+            <a-asset-item id="tree2" src="resimler/statue_of_horatio_nelson_greenwich_london_uk.glb"></a-asset-item>
+            <a-asset-item id="tree3" src="resimler/hans_christian_andersen.glb"></a-asset-item>
+            <a-asset-item id="tree5" src="resimler/electronic_kiosk.glb"></a-asset-item>
+    
+            <img id="background1" src="resimler/artwork/artwork-0.jpg">
+            <img id="background2" src="resimler/artwork/artwork-2.jpg">
+            <img id="background3" src="resimler/artwork/artwork-3.jpg">
+            <img id="background4" src="resimler/artwork/artwork-5.jpg">
+            <img id="background5" src="resimler/artwork/artwork-6.jpg">
+            <img id="background6" src="resimler/artwork/gallery-0.jpg">
+            <a-asset-item id="avatar" src="resimler/walking_1.glb"></a-asset-item>
+    
+          </a-assets>
+        <a-plane static-body visible="false" position="0 -1 -4" scale="50 50 1" repeat=" 5 5 1" rotation="-90 0 0"></a-plane>
+        <a-sky color="#ECECEC"></a-sky>
+
+     
+        <!-- the "player" -->
+        
+      <!--  <a-entity id="playerContainer" kinematic-body wasd-controls rotate-with-camera>
+            <a-entity id="player" gltf-model="#avatar" rotation="0 0 0" scale="1 1 1"></a-entity>
+            <a-entity look-at="#player" look-controls  >
+                <a-entity id="camera" camera position="0 3 4"></a-entity>
+            </a-entity>
+          </a-entity> -->
+
+
+      <!--  </a-entity id="player" kinematic-body look-controls wasd-controls rotate-with-camera>
+        <a-entity id="player2" gltf-model="#avatar" rotation="0 0 0" scale="1 1 1" > </a-entity>
+        </a-entity> -->
+      
+  
+        <a-entity id="player" position="0 0 0" kinematic-body look-controls="pointerLockEnabled: true" wasd-controls="acceleration: 40;" >
+          <a-entity id="player2" position="0 -0.1 0" gltf-model="#avatar"  rotation="0 0 0" scale="1 1 1"  > 
+          </a-entity>
+          <a-entity  id="camera2" look-controls="pointerLockEnabled: true" >
+            <a-entity id="camera" camera position="0 2.2 2.7"></a-entity>
+        </a-entity>  
+        </a-entity> 
+
+       <a-entity id="model-glb" gltf-model="#tree" position="0 -1 -5.5" scale="1 1 1" rotation="0 0 0">
+       </a-entity> 
+    <!--   <a-entity static-body id="model-glb2" class="clickable" gltf-model="#tree2" position="1.5 -1 -7.5" scale="0.3 0.3 0.3" rotation="0 0 0" touch-listener></a-entity> 
+       <a-entity static-body id="model-glb3" class="clickable" gltf-model="#tree3" position="-3.5 0 -3.5" scale="0.05 0.05 0.05" rotation="0 90 0" touch-listener></a-entity> 
+       <a-entity static-body id="model-glb5"  gltf-model="#tree5" position="1.5 -0.95 -6.7" scale="0.8 0.8 0.8" rotation="0 0 0" ></a-entity> 
+
+       <a-plane id="bground" model-url="resimler/artwork/artwork-0.jpg" src="#background1" class="clickable" position="0.46 0.74 -0.37" rotation="0 5 0" width="1.65" height="1.1"  material="sampling: linear" touch-listener></a-plane>
+       <a-plane id="bground" model-url="resimler/artwork/artwork-2.jpg" src="#background2" class="clickable" position="0.46 0.74 -0.85" rotation="0 185 0" width="1.65" height="1.1"  material="sampling: linear" touch-listener></a-plane>
+       <a-plane id="bground" model-url="resimler/artwork/artwork-3.jpg"  class="clickable" position="-0.46 0.74 -10.15" rotation="0 5 0" width="1.65" height="1.1"  material="shader:gif;src:url(https://media0.giphy.com/media/l41lWyVnFdVsS13Ta/giphy.gif)" touch-listener></a-plane>
+       <a-plane id="bground" model-url="resimler/artwork/artwork-5.jpg" src="#background4" class="clickable" position="-0.46 0.74 -10.64" rotation="0 185 0" width="1.65" height="1.1" material="sampling: linear"  touch-listener></a-plane>
+       <a-plane id="bground" model-url="resimler/artwork/artwork-6.jpg"  class="clickable" position="4.63 0.74 -5.97" rotation="0 275 0" width="1.65" height="1.1"  material="shader:gif;src:url(https://media0.giphy.com/media/3o85xEit0ixypnt4Dm/giphy.gif)" touch-listener></a-plane>
+       <a-plane id="bground" model-url="resimler/artwork/gallery-0.jpg"  class="clickable" position="-4.63 0.74 -5.05" rotation="0 95 0" width="1.65" height="1.1"  material="shader:gif;src:url(https://media0.giphy.com/media/l41YeHIAtnC6iTYPe/giphy.gif)" touch-listener></a-plane>
+      <!-- <a-plane id="bground" model-url="resimler/artwork/gallery-0.jpg"  position="1.5 0 -6.7" rotation="-50 0 0" width="1.40" height="0.8"  material="shader:gif;src:url(https://media0.giphy.com/media/l41YeHIAtnC6iTYPe/giphy.gif)" ></a-plane> -->
+      --> <!-- <a-video static-body src="#video" visible="true" position="1.5 -0.129 -6.680" rotation="-57.5 0 0" width="1.04" height="0.66" ></a-video>
+      -->
+
+
+      <!--  <a-entity follow-player="target: #player; distance: 0 3 4" look-controls wasd-controls>
+            <a-entity camera></a-entity>
+        </a-entity> -->
+
+        <!-- camera "rig" -->
+       <!-- <a-entity look-at="#player" look-controls wasd-controls >
+            <a-entity id="camera" camera position="0 3 4"></a-entity>
+        </a-entity> -->
+    </a-scene>
+</body>
+</html>
