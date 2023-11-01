@@ -108,7 +108,7 @@ app.get('/vr',function(req,res) {
 });
  app.get('/tablo',function(req,res) {
   // res.send({"name":process.pid});
-     res.sendFile( __dirname + "/aframe-tablo.html");
+     res.sendFile( __dirname + "/aframe-grass-delek-model2.html");
 });
 
 app.post('/megagenContact',function(req,res) {
